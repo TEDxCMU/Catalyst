@@ -40,8 +40,7 @@ export default function TalkCard({ talk }) {
   return (
     <div key={talk.title} className={styles.talk}>
       {<p className={styles.time}>{startAndEndTime || <>&nbsp;</>}</p>}
-      {/* TODO: Give Correct Link */}
-      <Link href='/speakers'>
+      <Link href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
         <a className={cn(styles.card, { [styles["is-live"]]: isTalkLive })}>
           <div className={styles["card-body"]}>
             <h4 title={talk.title} className={styles.title}>
