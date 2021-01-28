@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import cn from 'classnames';
-// import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { parseISO, format, isBefore, isAfter } from 'date-fns';
+import cn from "classnames";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { parseISO, format, isBefore, isAfter } from "date-fns";
 
-import styles from './talk-card.module.css';
+import styles from "./talk-card.module.css";
 
 const formatDate = (date) => {
   // https://github.com/date-fns/date-fns/issues/946
@@ -29,42 +29,44 @@ const formatDate = (date) => {
 
 export default function TalkCard({ talk }) {
   const [isTalkLive, setIsTalkLive] = useState(false);
+  const [startAndEndTime, setStartAndEndTime] = useState("");
 
   useEffect(() => {
     const now = Date.now();
     setIsTalkLive(isAfter(now, parseISO(talk.startTime)) && isBefore(now, parseISO(talk.endTime)));
+    setStartAndEndTime(`${formatDate(talk.startTime)} – ${formatDate(talk.endTime)}`);
   }, []);
 
   return (
     <div key={talk.title} className={styles.talk}>
-      {/* TODO: Give Correct Link */}
-      <Link href="/speakers">
-        <a className={cn(styles.card, { [styles['is-live']]: isTalkLive })}>
-          <div className={styles['card-body']}>
+      {<p className={styles.time}>{startAndEndTime || <>&nbsp;</>}</p>}
+      <Link href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
+        <a className={cn(styles.card, { [styles["is-live"]]: isTalkLive })}>
+          <div className={styles["card-body"]}>
             <h4 title={talk.title} className={styles.title}>
               {talk.title}
             </h4>
-            {/* TODO: Account For Speakers (Will Break ATM) */}
-            {/* <div className={styles.speaker}>
-              <div className={styles['avatar-group']}>
-                {speaker.map(s => (
-                  <div key={s.name} className={styles['avatar-wrapper']}>
+            {talk.speaker != null && (
+              <div className={styles.speaker}>
+                <div className={styles["avatar-group"]}>
+                  <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
                     <Image
-                      loading="lazy"
-                      alt={s.name}
+                      loading='lazy'
+                      alt={talk.speaker.name}
                       className={styles.avatar}
-                      src={s.image.url}
-                      title={s.name}
+                      src={talk.speaker.image.url}
+                      title={talk.speaker.name}
                       width={24}
                       height={24}
                     />
                   </div>
-                ))}
+                </div>
+                <h5 className={styles.name}>
+                  {/* {talk.speaker.length === 1 ? talk.speaker[0].name : `${talk.speaker.length} speakers`} */}
+                  {talk.speaker.name}
+                </h5>
               </div>
-              <h5 className={styles.name}>
-                {speaker.length === 1 ? speaker[0].name : `${speaker.length} speakers`}
-              </h5>
-            </div> */}
+            )}
           </div>
         </a>
       </Link>
