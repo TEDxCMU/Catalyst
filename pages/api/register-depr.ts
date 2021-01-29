@@ -15,13 +15,13 @@
  */
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import { nanoid } from 'nanoid';
 import { ConfUser } from '@lib/types';
 import validator from 'validator';
-import { COOKIE } from '@lib/constants';
+import { SAMPLE_TICKET_NUMBER, COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { emailToId } from '@lib/hash';
-import { incrementTicketCounter, checkUser, registerUser } from '@lib/firestore-api';
+import redis, { emailToId } from '@lib/redis';
 
 type ErrorResponse = {
   error: {
@@ -43,8 +43,6 @@ export default async function register(
     });
   }
 
-  console.log("register - is post");
-
   const email: string = ((req.body.email as string) || '').trim().toLowerCase();
   if (!validator.isEmail(email)) {
     return res.status(400).json({
@@ -55,51 +53,43 @@ export default async function register(
     });
   }
 
-  console.log("register - email is valid");
-
-  const password: string = ((req.body.password as string) || '');
-  const firstName: string = ((req.body.firstName as string) || '');
-  const lastName: string = ((req.body.lastName as string) || '');
-
   let id;
   let ticketNumber: number;
   let createdAt: number;
   let statusCode: number;
-  let name: string;
-
-  
+  let name: string | undefined = undefined;
+  let username: string | undefined = undefined;
+  if (redis) {
     id = emailToId(email);
-    const existingTicketNumberString = await checkUser(id);
+    const existingTicketNumberString = await redis.hget(`id:${id}`, 'ticketNumber');
 
     if (existingTicketNumberString) {
-        console.log("register - id already exists");
-        return res.status(400).json({
-            error: {
-              code: 'email_exists',
-              message: 'Email already exists'
-            }
-          });
-          
+      const item = await redis.hmget(`id:${id}`, 'name', 'username', 'createdAt');
+      name = item[0]!;
+      username = item[1]!;
+      ticketNumber = parseInt(existingTicketNumberString, 10);
+      createdAt = parseInt(item[2]!, 10);
+      statusCode = 200;
     } else {
-        ticketNumber = await incrementTicketCounter();
-        console.log("register - ticket number is " + ticketNumber);
-        createdAt = Date.now();
-        name = `${firstName} ${lastName}`
-        try{
-            await registerUser(id, email, password, firstName, lastName, ticketNumber )
-        } catch (e) {
-            return res.status(400).json({
-                error: {
-                  code: 'auth_err',
-                  message: e.message
-                }
-              });
-        }
-    
-        console.log("register - registered user");
-        statusCode = 201;
+      ticketNumber = await redis.incr('count');
+      createdAt = Date.now();
+      await redis.hmset(
+        `id:${id}`,
+        'email',
+        email,
+        'ticketNumber',
+        ticketNumber,
+        'createdAt',
+        createdAt
+      );
+      statusCode = 201;
     }
-  
+  } else {
+    id = nanoid();
+    ticketNumber = SAMPLE_TICKET_NUMBER;
+    createdAt = Date.now();
+    statusCode = 200;
+  }
 
   // Save `key` in a httpOnly cookie
   res.setHeader(
@@ -113,13 +103,12 @@ export default async function register(
     })
   );
 
-  console.log("register - cookie saved");
-
   return res.status(statusCode).json({
     id,
     email,
     ticketNumber,
     createdAt,
-    name
+    name,
+    username
   });
 }
