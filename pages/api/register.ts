@@ -69,9 +69,20 @@ export default async function register(
 
   
     id = emailToId(email);
-    const existingTicketNumberString = await checkUser(id);
+    let existingUserId;
+    try {
+        existingUserId = await checkUser(id);
+    } catch (e) {
+        return res.status(400).json({
+            error: {
+              code: 'user_err',
+              message: e.message
+            }
+        });
+    }
+    
 
-    if (existingTicketNumberString) {
+    if (existingUserId) {
         console.log("register - id already exists");
         return res.status(400).json({
             error: {
