@@ -95,6 +95,7 @@ export default async function register(
         try{
             ticketNumber = await incrementTicketCounter();
         } catch (e) {
+            console.log("THIS SHOULD POP UP HERE");
             return res.status(400).json({
                 error: {
                   code: 'ticket_err',
