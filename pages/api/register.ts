@@ -81,7 +81,17 @@ export default async function register(
           });
           
     } else {
-        ticketNumber = await incrementTicketCounter();
+        try{
+            ticketNumber = await incrementTicketCounter();
+        } catch (e) {
+            return res.status(400).json({
+                error: {
+                  code: 'ticket_err',
+                  message: e.message
+                }
+            });
+        }
+        
         console.log("register - ticket number is " + ticketNumber);
         createdAt = Date.now();
         name = `${firstName} ${lastName}`
