@@ -33,6 +33,7 @@ type Props = {
 
 export default function Form({ sharePage }: Props) {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -77,7 +78,7 @@ export default function Form({ sharePage }: Props) {
       onSubmit={e => {
         if (formState === 'default') {
           setFormState('loading');
-          register(email, password, firstName, lastName)
+          register(email, password, firstName, lastName, username)
             .then(async res => {
               if (!res.ok) {
                 throw new FormError(res);
@@ -88,6 +89,7 @@ export default function Form({ sharePage }: Props) {
               const params = {
                 id: data.id,
                 email: data.email,
+                username: data.username,
                 ticketNumber: data.ticketNumber,
                 name: data.name
               };
@@ -180,7 +182,26 @@ export default function Form({ sharePage }: Props) {
             required
           />
         </label>
-        
+        <label
+          htmlFor="username-input-field"
+          className={cn(styles['input-label'], {
+            [styles.focused]: focused
+          })}
+        >
+          <input
+            className={styles.input}
+            autoComplete="off"
+            type="text"
+            id="username-input-field"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="Username"
+            aria-label="Your Username"
+            required
+          />
+        </label>
         <label
           htmlFor="email-input-field"
           className={cn(styles['input-label'], {

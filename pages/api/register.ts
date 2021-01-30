@@ -20,7 +20,7 @@ import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { emailToId } from '@lib/hash';
+import { emailToUserId } from '@lib/hash';
 import { incrementTicketCounter, checkUser, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -57,6 +57,7 @@ export default async function register(
 
   console.log("register - email is valid");
 
+  const username: string = ((req.body.username as string) || '');
   const password: string = ((req.body.password as string) || '');
   const firstName: string = ((req.body.firstName as string) || '');
   const lastName: string = ((req.body.lastName as string) || '');
@@ -68,7 +69,7 @@ export default async function register(
   let name: string;
 
   
-    id = emailToId(email);
+    id = emailToUserId(email);
     let existingUserId;
     try {
         existingUserId = await checkUser(id);
@@ -109,7 +110,7 @@ export default async function register(
         createdAt = Date.now();
         name = `${firstName} ${lastName}`
         try{
-            await registerUser(id, email, password, firstName, lastName, ticketNumber )
+            await registerUser(id, email, password, firstName, lastName, username, ticketNumber )
         } catch (e) {
             console.log(e);
             if (e.code?.slice(0, 5) === "auth/"){
@@ -154,6 +155,7 @@ export default async function register(
   return res.status(statusCode).json({
     id,
     email,
+    username,
     ticketNumber,
     createdAt,
     name

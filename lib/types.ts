@@ -86,6 +86,7 @@ export type ConfUser = {
   email: string;
   ticketNumber: number;
   name?: string;
+  username: string;
   createdAt: number;
 };
 
