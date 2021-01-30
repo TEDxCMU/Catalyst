@@ -53,6 +53,7 @@
 .input-label {
   background-color: var(--gray);
   border-radius: var(--space-2x);
+  margin-top: var(--space-4x);
   border: 1px solid transparent;
   transition: border-color 0.2s ease, background-color 0.2s ease;
   display: block;
@@ -114,7 +115,7 @@
   position: relative;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .submit.register {
     width: 120px;
     height: 40px;
@@ -124,7 +125,7 @@
     right: var(--space-2x);
     top: var(--space-2x);
   }
-}
+} */
 
 .submit.loading {
   cursor: default;

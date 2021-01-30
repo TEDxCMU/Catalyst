@@ -237,7 +237,7 @@ export default function Form({ sharePage }: Props) {
             onChange={e => setPassword(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Enter a Password"
+            placeholder="Password (must be at least 6 chars.)"
             aria-label="Your password"
             required
           />
