@@ -17,32 +17,29 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import screenshot from '@lib/screenshot';
 import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
-import redis from '@lib/redis';
+import { usernameToId } from '@lib/hash';
+import { checkUser, getUser } from '@lib/firestore-api';
 
 export default async function ticketImages(req: NextApiRequest, res: NextApiResponse) {
   let url: string;
   const { username } = req.query || {};
   if (username) {
-    if (redis) {
-      const usernameString = username.toString();
-      const [name, ticketNumber] = await redis.hmget(
-        `user:${usernameString}`,
-        'name',
-        'ticketNumber'
-      );
-      if (!ticketNumber) {
-        res.statusCode = 404;
-        return res.end('Not Found');
-      }
+    const usernameString = username.toString();
+    let id = usernameToId(username);
+    let existingUsernameId = await checkUser(id);
+    if (existingUsernameId) {
+      let data = await getUser(id);
       url = `${SITE_URL}/ticket-image?username=${encodeURIComponent(
         usernameString
-      )}&ticketNumber=${encodeURIComponent(ticketNumber)}`;
-      if (name) {
-        url = `${url}&name=${encodeURIComponent(name)}`;
+      )}&ticketNumber=${encodeURIComponent(data.ticketNumber)}`;
+      if (data.name) {
+        url = `${url}&name=${encodeURIComponent(data.name)}`;
       }
     } else {
       url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(SAMPLE_TICKET_NUMBER)}`;
     }
+
+    // TODO: Code fails here at screenshot, still need to fix
     const file = await screenshot(url);
     res.setHeader('Content-Type', `image/png`);
     res.setHeader(
@@ -51,6 +48,7 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
     );
     res.statusCode = 200;
     res.end(file);
+
   } else {
     res.status(404).send('Not Found');
   }

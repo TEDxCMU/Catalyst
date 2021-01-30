@@ -18,7 +18,6 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import { SkipNavContent } from '@reach/skip-nav';
-import redis from '@lib/redis';
 import { usernameToId } from '@lib/hash';
 import { checkUser, getUser } from '@lib/firestore-api';
 import Page from '@components/page';
