@@ -19,7 +19,7 @@ export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_U
 export const TWITTER_USER_NAME = 'vercel';
 export const BRAND_NAME = 'TEDxCMU';
 export const CONF_TITLE = 'Catalyst';
-export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Conf'];
+export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
 export const SITE_NAME = 'TEDxCMU Virtual Conference';
 export const META_DESCRIPTION =
   'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
