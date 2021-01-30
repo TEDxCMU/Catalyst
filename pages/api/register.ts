@@ -73,6 +73,7 @@ export default async function register(
     try {
         existingUserId = await checkUser(id);
     } catch (e) {
+        console.log(e);
         return res.status(400).json({
             error: {
               code: 'user_err',
@@ -95,7 +96,7 @@ export default async function register(
         try{
             ticketNumber = await incrementTicketCounter();
         } catch (e) {
-            console.log("THIS SHOULD POP UP HERE");
+            console.log(e);
             return res.status(400).json({
                 error: {
                   code: 'ticket_err',
@@ -110,12 +111,25 @@ export default async function register(
         try{
             await registerUser(id, email, password, firstName, lastName, ticketNumber )
         } catch (e) {
+            console.log(e);
+            if (e.code?.slice(0, 5) === "auth/"){
+                console.log("AUTH ERROR");
+                return res.status(400).json({
+                    error: {
+                    code: 'auth_err',
+                    message: e.message
+                    }
+                });
+            }
+            
+            console.log("FROM ADD USER");
             return res.status(400).json({
                 error: {
-                  code: 'auth_err',
-                  message: e.message
+                    code: 'user_err',
+                    message: e.message
                 }
-              });
+            });
+            
         }
     
         console.log("register - registered user");
