@@ -20,7 +20,7 @@ import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { emailToUserId } from '@lib/hash';
+import { usernameToId } from '@lib/hash';
 import { incrementTicketCounter, checkUser, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -69,10 +69,10 @@ export default async function register(
   let name: string;
 
   
-    id = emailToUserId(email);
-    let existingUserId;
+    id = usernameToId(username);
+    let existingUsernameId;
     try {
-        existingUserId = await checkUser(id);
+        existingUsernameId = await checkUser(id);
     } catch (e) {
         console.log(e);
         return res.status(400).json({
@@ -84,12 +84,12 @@ export default async function register(
     }
     
 
-    if (existingUserId) {
+    if (existingUsernameId) {
         console.log("register - id already exists");
         return res.status(400).json({
             error: {
-              code: 'email_exists',
-              message: 'Email already exists'
+              code: 'username_exists',
+              message: 'Username already taken'
             }
           });
           

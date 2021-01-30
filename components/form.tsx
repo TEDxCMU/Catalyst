@@ -122,8 +122,8 @@ export default function Form({ sharePage }: Props) {
 
                 if (data?.error?.code === 'bad_email') {
                   message = 'Please enter a valid email';
-                } else if (data?.error?.code === 'email_exists') {
-                  message = 'Email is already in use';
+                } else if (data?.error?.code === 'username_exists') {
+                  message = 'Username already taken';
                 } else if (data?.error?.code === 'auth_err') {
                   message = data.error.message
                 } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
