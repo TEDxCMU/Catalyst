@@ -19,7 +19,8 @@ import Error from 'next/error';
 import Head from 'next/head';
 import { SkipNavContent } from '@reach/skip-nav';
 import redis from '@lib/redis';
-
+import { usernameToId } from '@lib/hash';
+import { checkUser, getUser } from '@lib/firestore-api';
 import Page from '@components/page';
 import ConfContent from '@components/index';
 import { SITE_URL, SITE_NAME, META_DESCRIPTION, SAMPLE_TICKET_NUMBER } from '@lib/constants';
@@ -71,42 +72,55 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const username = params?.username?.toString() || null;
 
-  if (redis) {
+  
     if (username) {
-      const [name, ticketNumber] = await redis.hmget(`user:${username}`, 'name', 'ticketNumber');
-
-      if (ticketNumber) {
+      let id = usernameToId(username);
+      let existingUsernameId = await checkUser(id);
+      if (existingUsernameId) {
+        let data = await getUser(id);
         return {
           props: {
             username: username || null,
             usernameFromParams: username || null,
-            name: name || username || null,
-            ticketNumber: parseInt(ticketNumber, 10) || null
+            name: data.name || username || null,
+            ticketNumber: data.ticketNumber || null
+          },
+          revalidate: 5
+        };
+      } else {
+        return {
+          props: {
+            username: null,
+            usernameFromParams: username || null,
+            name: null,
+            ticketNumber: null
           },
           revalidate: 5
         };
       }
+      
+    } else {
+      return {
+        props: {
+          username: null,
+          usernameFromParams: username || null,
+          name: null,
+          ticketNumber: null
+        },
+        revalidate: 5
+      };
     }
-    return {
-      props: {
-        username: null,
-        usernameFromParams: username || null,
-        name: null,
-        ticketNumber: null
-      },
-      revalidate: 5
-    };
-  } else {
-    return {
-      props: {
-        username: null,
-        usernameFromParams: username || null,
-        name: null,
-        ticketNumber: SAMPLE_TICKET_NUMBER
-      },
-      revalidate: 5
-    };
-  }
+
+    // return {
+    //   props: {
+    //     username: null,
+    //     usernameFromParams: username || null,
+    //     name: null,
+    //     ticketNumber: SAMPLE_TICKET_NUMBER
+    //   },
+    //   revalidate: 5
+    // };
+
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
