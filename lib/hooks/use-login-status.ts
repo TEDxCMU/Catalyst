@@ -32,12 +32,15 @@ export default function useLoginStatus(opts?: ConfigInterface) {
     }
   );
 
+
   return {
     loginStatus: error
       ? ('loggedOut' as const)
       : !data
       ? ('loading' as const)
-      : ('loggedIn' as const),
+      : data.loggedIn
+      ? ('loggedIn' as const)
+      : ('loggedOut' as const),
     mutate
   };
 }

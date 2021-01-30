@@ -21,6 +21,8 @@ import Layout from './layout';
 import ConfContainer from './conf-container';
 import Hero from './hero';
 import Form from './form';
+import useLoginStatus from '@lib/hooks/use-login-status';
+import SignOutButton from './sign-out-button';
 import LearnMore from './learn-more';
 
 type Props = {
@@ -37,6 +39,8 @@ export default function Conf({
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
 
+  const { loginStatus } = useLoginStatus();
+
   return (
     <ConfDataContext.Provider
       value={{
@@ -50,7 +54,12 @@ export default function Conf({
           {pageState === 'registration' && !sharePage ? (
             <>
               <Hero />
+              {loginStatus !== 'loggedIn' ? (
               <Form />
+              ) : (
+                <SignOutButton />
+              )
+              }
             </>
           ) : (
             <Ticket

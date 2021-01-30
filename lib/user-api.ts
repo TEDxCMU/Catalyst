@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export async function register(email: string, password: string, firstName: string, lastName: string, username: string ) {
+  export async function register(email: string, password: string, firstName: string, lastName: string, username: string ) {
     return await fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -35,4 +35,15 @@ export async function register(email: string, password: string, firstName: strin
         token
       })
     });
+  }
+
+  export async function signOut(){
+    return await fetch('/api/signOut', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    });
+
   }
