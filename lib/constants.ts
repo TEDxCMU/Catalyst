@@ -16,7 +16,7 @@
 
 export const SITE_URL = 'http://localhost:3000';
 export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
-export const TWITTER_USER_NAME = 'vercel';
+export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
 export const CONF_TITLE = 'Catalyst';
 export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
