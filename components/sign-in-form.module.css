@@ -146,10 +146,10 @@
 }
 
 .regText {
-  width: 250px; /* Can be in percentage also. */
+  width: 235px; /* Can be in percentage also. */
   height: auto;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px 0;
   position: relative;
 }
 

@@ -146,7 +146,7 @@ export default function SignInForm({ sharePage }: Props) {
         [styleUtils.appear]: !errorTryAgain,
         [styleUtils['appear-second']]: !errorTryAgain
       })}>
-        Or, <a className={cn(styles.regLink)} href="/">register</a> for the conference
+        Or, <a className={cn(styles.regLink)} href="/">register</a> for the conference.
         </p>
       </div>
     </form>
