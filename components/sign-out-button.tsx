@@ -44,7 +44,7 @@ export default function SignOutButton() {
                                 setSignOutState('error');
                             }
                             
-                            router.push("/expo");
+                            router.push("/sign-in");
                         });
                 } else {
                     setSignOutState('default');

@@ -45,5 +45,14 @@
       },
       body: JSON.stringify({})
     });
+  }
 
+  export async function signIn(email:string, password: string){
+    return await fetch('/api/signIn', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email, password})
+    });
   }
