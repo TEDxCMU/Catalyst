@@ -16,24 +16,62 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
-import { checkUser } from '@lib/firestore-api';
+import { signOutUser, getCurrentUser, getEmailInfo } from '@lib/firestore-api';
+import cookie from 'cookie';
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  const id = req.cookies[COOKIE];
+  // 2 modes of auth, the username cookie and the user looged into Firebase auth.
+  // Need to check both, and make sure they correspond 
 
-  if (!id) {
+  console.log("IN AUTH")
+  const id = req.cookies[COOKIE];
+  const authUser = await getCurrentUser();
+
+  if (!id && !authUser) {
+      console.log("!id && !authUser");
+      return res.status(200).json({ loggedIn: false });
+  } else if (!id && authUser) {
+      console.log("!id && authUser");
+      // Sign out of Firebase auth and return false
+      await signOutUser();
+      return res.status(200).json({ loggedIn: false });
+  } else if (id && !authUser){
+      console.log("id && !authUser");
+      // Delete cookie and return false
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize(COOKIE, id, {
+          httpOnly: true,
+          maxAge: -1,
+          path: '/api'
+        })
+      );
+      return res.status(200).json({ loggedIn: false });
+  } else if (id && authUser){
+    console.log("id && authUser");
+    // Check whether they actually correspond with eachother
+    let idFromEmail =  await getEmailInfo(authUser.email);
+    
+    if (idFromEmail != id){
+      // If they don't correspond clear BOTH and return false
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize(COOKIE, id, {
+          httpOnly: true,
+          maxAge: -1,
+          path: '/api'
+        })
+      );
+
+      await signOutUser();
+
+      return res.status(200).json({ loggedIn: false });
+    }
+
+    return res.status(200).json({ loggedIn: true });
+  } else {
+    // Should never reach here
     return res.status(200).json({ loggedIn: false });
   }
-
-  let existingUsernameId = await checkUser(id);
-  if (!existingUsernameId) {
-    return res.status(401).json({
-      error: {
-        code: 'not_registered',
-        message: 'This user is not registered'
-      }
-    });
-  }
-
-  return res.status(200).json({ loggedIn: true });
+  
 }
