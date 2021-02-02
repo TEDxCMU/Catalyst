@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-  export async function register(email: string, password: string, firstName: string, lastName: string, username: string ) {
+  export async function register(email: string, password: string, firstName: string, lastName: string) {
+    console.log("In user api - register")
     return await fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password, firstName, lastName, username })
+      body: JSON.stringify({ email, password, firstName, lastName})
     });
   }
   

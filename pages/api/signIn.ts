@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { getCurrentUser, signInUser } from '@lib/firestore-api';
+import { checkUser, getCurrentUser, signInUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
   error: {
@@ -40,10 +40,6 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
         // console.log("Got id from emails collection")
         // console.log(id);
         await signInUser(email, password);
-        user = await getCurrentUser();
-        if (!user){
-          throw new Error();
-        }
     } catch (e) {
         console.log("Error from sign-in api")
         console.log(e);
@@ -64,9 +60,34 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
         });
         
     }
-
-  id = user.uid;
   
+  user = await getCurrentUser();
+  if (!user){
+    return res.status(400).json({
+      error: {
+          code: 'other_err',
+          message: "Could not get Current User"
+      }
+    });
+  }
+
+  console.log("Checking if userid exists in firestore");
+
+  // If no information is saved to this user in firestore, return error
+  id = user.uid;
+  let infoExists = await checkUser(id);
+  console.log(`InfoExists: ${infoExists}`);
+  if(!infoExists) {
+    console.log("Id from sign-in doesn't exist in firestore");
+    return res.status(400).json({
+      error: {
+          code: 'no_data_err',
+          message: "Data could not be found for this account."
+      }
+    });
+
+  }
+
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',

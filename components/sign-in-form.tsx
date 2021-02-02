@@ -82,10 +82,8 @@ export default function SignInForm({ sharePage }: Props) {
 
                 if (data?.error?.code === 'bad_email') {
                   message = 'Please enter a valid email';
-                } else if (data?.error?.code === 'auth_err') {
-                  message = data.error.message
-                } else if (data?.error.code === 'email_err') {
-                  message = "Could not find that email."
+                } else if (data?.error?.code === 'auth_err' || data?.error.code === 'no_data_err') {
+                  message = data.error.message;
                 }
               }
 

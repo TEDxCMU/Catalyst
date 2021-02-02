@@ -33,7 +33,6 @@ type Props = {
 
 export default function Form({ sharePage }: Props) {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -78,7 +77,7 @@ export default function Form({ sharePage }: Props) {
       onSubmit={e => {
         if (formState === 'default') {
           setFormState('loading');
-          register(email, password, firstName, lastName, username)
+          register(email, password, firstName, lastName)
             .then(async res => {
               if (!res.ok) {
                 throw new FormError(res);
@@ -113,7 +112,7 @@ export default function Form({ sharePage }: Props) {
             })
             .catch(async err => {
               let message = 'Error! Please try again.';
-
+              console.log(err);
               if (err instanceof FormError) {
                 const { res } = err;
                 const data = res.headers.get('Content-Type')?.includes('application/json')
@@ -122,8 +121,6 @@ export default function Form({ sharePage }: Props) {
 
                 if (data?.error?.code === 'bad_email') {
                   message = 'Please enter a valid email';
-                } else if (data?.error?.code === 'username_exists') {
-                  message = 'Username already taken';
                 } else if (data?.error?.code === 'auth_err') {
                   message = data.error.message
                 } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
@@ -179,26 +176,6 @@ export default function Form({ sharePage }: Props) {
             onBlur={() => setFocused(false)}
             placeholder="Last Name"
             aria-label="Your Last Name"
-            required
-          />
-        </label>
-        <label
-          htmlFor="username-input-field"
-          className={cn(styles['input-label'], {
-            [styles.focused]: focused
-          })}
-        >
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="text"
-            id="username-input-field"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="Username"
-            aria-label="Your Username"
             required
           />
         </label>
