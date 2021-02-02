@@ -25,7 +25,7 @@ import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import SignInButton from './sign-in-button';
 
 
-export default function ConfEntry({ onRegister }: { onRegister: () => void }) {
+export default function ConfEntry() {
   
   return (
     <div className={cn(styles.container, styleUtils.appear, styleUtils['appear-first'])}>
