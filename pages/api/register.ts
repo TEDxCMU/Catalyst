@@ -20,8 +20,7 @@ import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { usernameToId } from '@lib/hash';
-import { incrementTicketCounter, checkUser, registerUser } from '@lib/firestore-api';
+import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
   error: {
@@ -57,7 +56,7 @@ export default async function register(
 
   console.log("register - email is valid");
 
-  const username: string = ((req.body.username as string) || '');
+  
   const password: string = ((req.body.password as string) || '');
   const firstName: string = ((req.body.firstName as string) || '');
   const lastName: string = ((req.body.lastName as string) || '');
@@ -67,33 +66,34 @@ export default async function register(
   let createdAt: number;
   let statusCode: number;
   let name: string;
+  let username: string;
 
   
-    id = usernameToId(username);
-    let existingUsernameId;
-    try {
-        existingUsernameId = await checkUser(id);
-    } catch (e) {
-        console.log(e);
-        return res.status(400).json({
-            error: {
-              code: 'user_err',
-              message: e.message
-            }
-        });
-    }
+    // id = usernameToId(username);
+    // let existingUsernameId;
+    // try {
+    //     existingUsernameId = await checkUser(id);
+    // } catch (e) {
+    //     console.log(e);
+    //     return res.status(400).json({
+    //         error: {
+    //           code: 'user_err',
+    //           message: e.message
+    //         }
+    //     });
+    // }
     
 
-    if (existingUsernameId) {
-        console.log("register - id already exists");
-        return res.status(400).json({
-            error: {
-              code: 'username_exists',
-              message: 'Username already taken'
-            }
-          });
+    // if (existingUsernameId) {
+    //     console.log("register - id already exists");
+    //     return res.status(400).json({
+    //         error: {
+    //           code: 'username_exists',
+    //           message: 'Username already taken'
+    //         }
+    //       });
           
-    } else {
+    // } else {
         try{
             ticketNumber = await incrementTicketCounter();
         } catch (e) {
@@ -109,8 +109,13 @@ export default async function register(
         console.log("register - ticket number is " + ticketNumber);
         createdAt = Date.now();
         name = `${firstName} ${lastName}`
+        // Assume username is the part just before the @ in the email
+        // Username is NOT used for auth purposes thus it doesn't have to
+        // be unique, it will just be used to display on the ticket
+        username = email.split('@')[0];
+
         try{
-            await registerUser(id, email, password, firstName, lastName, username, ticketNumber )
+            id = await registerUser(email, password, firstName, lastName, username, ticketNumber)
         } catch (e) {
             console.log(e);
             if (e.code?.slice(0, 5) === "auth/"){
@@ -135,7 +140,7 @@ export default async function register(
     
         console.log("register - registered user");
         statusCode = 201;
-    }
+    //}
   
 
   // Save `key` in a httpOnly cookie

@@ -16,7 +16,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
-import { signOutUser, getCurrentUser, getEmailInfo } from '@lib/firestore-api';
+import { signOutUser, getCurrentUser } from '@lib/firestore-api';
 import cookie from 'cookie';
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
@@ -50,9 +50,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   } else if (id && authUser){
     console.log("id && authUser");
     // Check whether they actually correspond with eachother
-    let idFromEmail =  await getEmailInfo(authUser.email);
+    let idFromUser = authUser.uid;
+    console.log(`${idFromUser} and ${idFromUser}`);
     
-    if (idFromEmail != id){
+    if (idFromUser != id){
+      console.log("DO NOT CORRESPOND!");
       // If they don't correspond clear BOTH and return false
       res.setHeader(
         'Set-Cookie',
@@ -68,7 +70,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       return res.status(200).json({ loggedIn: false });
     }
 
-    return res.status(200).json({ loggedIn: true });
+    // id and authUser exist and correspond with eachother, return true
+    // and the authUser's info
+    return res.status(200).json({ loggedIn: true, user: authUser });
   } else {
     // Should never reach here
     return res.status(200).json({ loggedIn: false });

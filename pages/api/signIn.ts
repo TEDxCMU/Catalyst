@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { getEmailInfo, signInUser } from '@lib/firestore-api';
+import { getCurrentUser, signInUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
   error: {
@@ -24,22 +24,26 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
 
   const email: string = ((req.body.email as string) || '');
   const password: string = ((req.body.password as string) || '');
+  let user;
+  let id;
 
-  let id; 
-    
     try{
-        id = await getEmailInfo(email);
-        if (!id){
-            return res.status(400).json({
-                error: {
-                    code: 'email_err',
-                    message: "Email is not in emails collection"
-                }
-            });
-        }
-        console.log("Got id from emails collection")
-        console.log(id);
+        // id = await getEmailInfo(email);
+        // if (!id){
+        //     return res.status(400).json({
+        //         error: {
+        //             code: 'email_err',
+        //             message: "Email is not in emails collection"
+        //         }
+        //     });
+        // }
+        // console.log("Got id from emails collection")
+        // console.log(id);
         await signInUser(email, password);
+        user = await getCurrentUser();
+        if (!user){
+          throw new Error();
+        }
     } catch (e) {
         console.log("Error from sign-in api")
         console.log(e);
@@ -61,6 +65,8 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
         
     }
 
+  id = user.uid;
+  
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
