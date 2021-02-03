@@ -82,7 +82,6 @@ export default function Form({ sharePage }: Props) {
               if (!res.ok) {
                 throw new FormError(res);
               }
-              console.log("form - res ok");
 
               const data = await res.json();
               const params = {
@@ -104,15 +103,12 @@ export default function Form({ sharePage }: Props) {
                   .join('&');
                 router.replace(`/?${queryString}`, '/');
               } else {
-                console.log("form - not share page");
                 setUserData(params);
                 setPageState('ticket');
-                console.log("form - updated userData and pageStage");
               }
             })
             .catch(async err => {
               let message = 'Error! Please try again.';
-              console.log(err);
               if (err instanceof FormError) {
                 const { res } = err;
                 const data = res.headers.get('Content-Type')?.includes('application/json')
@@ -133,7 +129,6 @@ export default function Form({ sharePage }: Props) {
             });
         } else {
           setFormState('default');
-          console.log("form - set form state to default");
         }
         e.preventDefault();
       }}

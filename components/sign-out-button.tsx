@@ -38,8 +38,6 @@ export default function SignOutButton() {
                             }
 
                             const data = await res.json();
-                            console.log("In button");
-                            console.log(data)
                             if (!data?.signOutSuccess){
                                 setSignOutState('error');
                             }
@@ -48,7 +46,6 @@ export default function SignOutButton() {
                         });
                 } else {
                     setSignOutState('default');
-                    console.log("form - set form state to default");
                 }
                 e.preventDefault();
             }}

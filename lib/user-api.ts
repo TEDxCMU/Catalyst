@@ -15,7 +15,6 @@
  */
 
   export async function register(email: string, password: string, firstName: string, lastName: string) {
-    console.log("In user api - register")
     return await fetch('/api/register', {
       method: 'POST',
       headers: {

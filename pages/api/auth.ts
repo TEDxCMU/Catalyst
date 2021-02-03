@@ -23,20 +23,20 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   // 2 modes of auth, the username cookie and the user looged into Firebase auth.
   // Need to check both, and make sure they correspond 
 
-  console.log("IN AUTH")
   const id = req.cookies[COOKIE];
   const authUser = await getCurrentUser();
 
   if (!id && !authUser) {
-      console.log("!id && !authUser");
+      //console.log("!id && !authUser");
       return res.status(200).json({ loggedIn: false });
   } else if (!id && authUser) {
-      console.log("!id && authUser");
+      //console.log("!id && authUser");
       // Sign out of Firebase auth and return false
       await signOutUser();
       return res.status(200).json({ loggedIn: false });
   } else if (id && !authUser){
-      console.log("id && !authUser");
+      //console.log("id && !authUser");
+      // TODO: update so that it actually auto-logs you in and return true
       // Delete cookie and return false
       res.setHeader(
         'Set-Cookie',
@@ -48,13 +48,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       );
       return res.status(200).json({ loggedIn: false });
   } else if (id && authUser){
-    console.log("id && authUser");
+    //console.log("id && authUser");
     // Check whether they actually correspond with eachother
     let idFromUser = authUser.uid;
-    console.log(`${idFromUser} and ${idFromUser}`);
+    //console.log(`${idFromUser} and ${idFromUser}`);
     
     if (idFromUser != id){
-      console.log("DO NOT CORRESPOND!");
+      //console.log("DO NOT CORRESPOND!");
       // If they don't correspond clear BOTH and return false
       res.setHeader(
         'Set-Cookie',

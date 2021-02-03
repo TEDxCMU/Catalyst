@@ -28,20 +28,8 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
   let id;
 
     try{
-        // id = await getEmailInfo(email);
-        // if (!id){
-        //     return res.status(400).json({
-        //         error: {
-        //             code: 'email_err',
-        //             message: "Email is not in emails collection"
-        //         }
-        //     });
-        // }
-        // console.log("Got id from emails collection")
-        // console.log(id);
         await signInUser(email, password);
     } catch (e) {
-        console.log("Error from sign-in api")
         console.log(e);
         if (e.code?.slice(0, 5) === "auth/"){
             return res.status(400).json({
@@ -71,14 +59,10 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
     });
   }
 
-  console.log("Checking if userid exists in firestore");
-
   // If no information is saved to this user in firestore, return error
   id = user.uid;
   let infoExists = await checkUser(id);
-  console.log(`InfoExists: ${infoExists}`);
   if(!infoExists) {
-    console.log("Id from sign-in doesn't exist in firestore");
     return res.status(400).json({
       error: {
           code: 'no_data_err',
@@ -99,8 +83,6 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
       expires: new Date(Date.now() + ms('1 day'))
     })
   );
-
-  console.log("Saved cookie")
 
   return res.status(200).json({ signInSuccess: true });
 }
