@@ -25,7 +25,7 @@ import { getInnovators } from 'lib/cms-api';
 
 export default function InnovatorPage({ innovator }) {
   const meta = {
-    title: 'Innovator - TEDxCMU Catalyst',
+    title: `${innovator.company} - TEDxCMU Catalyst`,
     description: META_DESCRIPTION
   };
 

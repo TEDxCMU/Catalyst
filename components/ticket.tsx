@@ -78,7 +78,7 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
               )
             ) : (
               <>
-                You're in. <br /> Make it unique.
+                Here's your ticket to the the experience.
               </>
             )}
           </h2>
@@ -89,21 +89,16 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
               </>
             ) : (
               <>
-                Generate a unique ticket image with <br className={styleUtils['hide-on-mobile']} />
-                your GitHub profile.
+                Download or share your ticket and <br className={styleUtils['hide-on-mobile']} />
+                spread the word.
               </>
             )}
           </p>
         </div>
         <div className={cn(styleUtils.appear, styleUtils['appear-third'])}>
-          {!sharePage ? (
-            <TicketForm
-              defaultUsername={username}
-              setTicketGenerationState={setTicketGenerationState}
-            />
-          ) : (
+          {sharePage &&
             <Form sharePage />
-          )}
+          }
         </div>
       </div>
       <div className={styles['ticket-visual-wrapper']}>

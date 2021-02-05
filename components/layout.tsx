@@ -18,7 +18,7 @@ import Link from 'next/link';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import { SkipNavContent } from '@reach/skip-nav';
-import { NAVIGATION } from '@lib/constants';
+import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
 import Logo from './icons/icon-logo';
 import MobileMenu from './mobile-menu';
@@ -45,9 +45,13 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
               <MobileMenu key={router.asPath} />
               <Link href="/">
                 {/* eslint-disable-next-line */}
-                <a className={styles.logo}>
+                {/* <a className={styles.logo}>
                   <Logo />
+                </a> */}
+                <a className={styles.home}>
+                  {CONF_TITLE.toUpperCase()}
                 </a>
+                
               </Link>
             </div>
             <div className={styles.tabs}>

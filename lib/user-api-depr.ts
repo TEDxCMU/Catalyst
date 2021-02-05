@@ -14,33 +14,25 @@
  * limitations under the License.
  */
 
-import useSWR, { ConfigInterface } from 'swr';
-
-export default function useLoginStatus(opts?: ConfigInterface) {
-  const { data, error, mutate } = useSWR(
-    `/api/auth`,
-    async url => {
-      const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error();
-      }
-      return res.json();
+export async function register(email: string) {
+  return await fetch('/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-    {
-      ...opts,
-      revalidateOnFocus: false
-    }
-  );
+    body: JSON.stringify({ email })
+  });
+}
 
-
-  return {
-    loginStatus: error
-      ? ('loggedOut' as const)
-      : !data
-      ? ('loading' as const)
-      : data.loggedIn
-      ? ('loggedIn' as const)
-      : ('loggedOut' as const),
-    mutate
-  };
+export async function saveGithubToken({ id, token }: { id?: string; token: string }) {
+  return await fetch('/api/save-github-token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id,
+      token
+    })
+  });
 }
