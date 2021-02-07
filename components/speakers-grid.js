@@ -15,7 +15,6 @@
  */
 
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './speakers-grid.module.css';
 
 export default function SpeakersGrid({ speakers }) {
@@ -25,13 +24,11 @@ export default function SpeakersGrid({ speakers }) {
         <Link key={speaker.name} href={`/speakers/${speaker.slug}`}>
           <a role="button" tabIndex={0} className={styles.card}>
             <div className={styles.imageWrapper}>
-              <Image
-                alt={speaker.name}
-                src={speaker.image.url}
+              <img
                 className={styles.image}
+                src={speaker.image.url}
+                alt={speaker.name}
                 loading="lazy"
-                quality="50"
-                title={speaker.name}
                 width={300}
                 height={300}
               />

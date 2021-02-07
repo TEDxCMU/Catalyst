@@ -15,7 +15,6 @@
  */
 
 import Link from 'next/link';
-import Image from 'next/image';
 import cn from 'classnames';
 import styles from './innovator-section.module.css';
 import styleUtils from './utils.module.css';
@@ -54,12 +53,11 @@ export default function InnovatorSection({ innovator }) {
         />
         <div className={styles.container}>
           <div className={styles['name-and-logo']}>
-            <Image
-              alt={innovator.company}
-              src={innovator.image.url}
+            <img
               className={styles.image}
+              src={innovator.image.url}
+              alt={innovator.company}
               loading="lazy"
-              title={innovator.company}
               height={64}
               width={64}
             />

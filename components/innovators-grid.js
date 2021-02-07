@@ -15,7 +15,6 @@
  */
 
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './innovators-grid.module.css';
 
 function InnovatorCard({ innovator }) {
@@ -23,12 +22,11 @@ function InnovatorCard({ innovator }) {
     <Link key={innovator.company} href={`/expo/${innovator.slug}`}>
       <a role="button" tabIndex={0} className={styles.card}>
         <div className={styles.imageWrapper}>
-          <Image
-            alt={innovator.company}
-            src={innovator.image.url}
+          <img
             className={styles.image}
+            src={innovator.image.url}
+            alt={innovator.company}
             loading="lazy"
-            title={innovator.company}
             width={900}
             height={500}
           />

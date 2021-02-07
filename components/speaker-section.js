@@ -15,7 +15,6 @@
  */
 
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './speaker-section.module.css';
 
 export default function SpeakerSection({ speaker }) {
@@ -41,11 +40,10 @@ export default function SpeakerSection({ speaker }) {
       </Link>
       <div key={speaker.name} className={styles.container}>
         <div style={{ minWidth: '300px' }}>
-          <Image
-            alt={speaker.name}
-            title={speaker.name}
-            src={speaker.image.url}
+          <img
             className={styles.image}
+            src={speaker.image.url}
+            alt={speaker.name}
             loading="lazy"
             height={300}
             width={400}
