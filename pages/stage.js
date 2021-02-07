@@ -14,34 +14,36 @@
  * limitations under the License.
  */
 
-import { useRouter } from 'next/router';
-import { SkipNavContent } from '@reach/skip-nav';
-
 import Page from '@components/page';
-import ConfContent from '@components/index';
+import StageContainer from '@components/stage-container';
+import Layout from '@components/layout';
+import { getStage } from 'lib/cms-api';
+
 import { META_DESCRIPTION } from '@lib/constants';
 
-export default function Conf() {
-  const { query } = useRouter();
+export default function StagePage({ stage }) {
   const meta = {
-    title: 'TEDxCMU Catalyst',
+    title: 'Stage - TEDxCMU Catalyst',
     description: META_DESCRIPTION
-  };
-  const ticketNumber = query.ticketNumber?.toString();
-  const defaultUserData = {
-    id: query.id?.toString(),
-    ticketNumber: ticketNumber ? parseInt(ticketNumber, 10) : undefined,
-    name: query.name?.toString(),
-    username: query.username?.toString()
   };
 
   return (
     <Page meta={meta} fullViewport>
-      <SkipNavContent />
-      <ConfContent
-        defaultUserData={defaultUserData}
-        defaultPageState={query.ticketNumber ? 'ticket' : 'registration'}
-      />
+      <Layout>
+        <StageContainer stage={stage} />
+      </Layout>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const stages = await getStage();
+  const stage = stages[0];
+
+  return {
+    props: {
+      stage
+    },
+    revalidate: 1
+  };
 }

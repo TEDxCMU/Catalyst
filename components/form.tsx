@@ -33,6 +33,9 @@ type Props = {
 
 export default function Form({ sharePage }: Props) {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorTryAgain, setErrorTryAgain] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -74,7 +77,7 @@ export default function Form({ sharePage }: Props) {
       onSubmit={e => {
         if (formState === 'default') {
           setFormState('loading');
-          register(email)
+          register(email, password, firstName, lastName)
             .then(async res => {
               if (!res.ok) {
                 throw new FormError(res);
@@ -83,9 +86,10 @@ export default function Form({ sharePage }: Props) {
               const data = await res.json();
               const params = {
                 id: data.id,
+                email: data.email,
+                username: data.username,
                 ticketNumber: data.ticketNumber,
-                name: data.name,
-                username: data.username
+                name: data.name
               };
 
               if (sharePage) {
@@ -105,7 +109,6 @@ export default function Form({ sharePage }: Props) {
             })
             .catch(async err => {
               let message = 'Error! Please try again.';
-
               if (err instanceof FormError) {
                 const { res } = err;
                 const data = res.headers.get('Content-Type')?.includes('application/json')
@@ -114,6 +117,10 @@ export default function Form({ sharePage }: Props) {
 
                 if (data?.error?.code === 'bad_email') {
                   message = 'Please enter a valid email';
+                } else if (data?.error?.code === 'auth_err') {
+                  message = data.error.message
+                } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
+                  message = 'Our services are down. Please try again later.';
                 }
               }
 
@@ -127,6 +134,46 @@ export default function Form({ sharePage }: Props) {
       }}
     >
       <div className={styles['form-row']}>
+        <label
+          htmlFor="fname-input-field"
+          className={cn(styles['input-label'], {
+            [styles.focused]: focused
+          })}
+        >
+          <input
+            className={styles.input}
+            autoComplete="off"
+            type="text"
+            id="fname-input-field"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="First Name"
+            aria-label="Your First Name"
+            required
+          />
+        </label>
+        <label
+          htmlFor="lname-input-field"
+          className={cn(styles['input-label'], {
+            [styles.focused]: focused
+          })}
+        >
+          <input
+            className={styles.input}
+            autoComplete="off"
+            type="text"
+            id="lname-input-field"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="Last Name"
+            aria-label="Your Last Name"
+            required
+          />
+        </label>
         <label
           htmlFor="email-input-field"
           className={cn(styles['input-label'], {
@@ -142,8 +189,28 @@ export default function Form({ sharePage }: Props) {
             onChange={e => setEmail(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Enter email to register free"
+            placeholder="Email"
             aria-label="Your email address"
+            required
+          />
+        </label>
+        <label
+          htmlFor="pass-input-field"
+          className={cn(styles['input-label'], {
+            [styles.focused]: focused
+          })}
+        >
+          <input
+            className={styles.input}
+            autoComplete="off"
+            type="password"
+            id="pass-input-field"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="Password (must be at least 6 chars.)"
+            aria-label="Your password"
             required
           />
         </label>

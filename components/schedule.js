@@ -14,33 +14,23 @@
  * limitations under the License.
  */
 
-import useSWR, { ConfigInterface } from 'swr';
+import styles from './schedule.module.css';
+import TalkCard from './talk-card';
 
-export default function useLoginStatus(opts?: ConfigInterface) {
-  const { data, error, mutate } = useSWR(
-    `/api/auth`,
-    async url => {
-      const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error();
-      }
-      return res.json();
-    },
-    {
-      ...opts,
-      revalidateOnFocus: false
-    }
+export default function Schedule({ events }) {
+  return (
+    <div className={styles.container}>
+      <div className={styles['row-wrapper']}>
+        <div className={styles.row}>
+          <div className={styles.talks}>
+            {events.map((event) => (
+              <div key={event.startTime}>
+                <TalkCard key={event.title} talk={event} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
-
-
-  return {
-    loginStatus: error
-      ? ('loggedOut' as const)
-      : !data
-      ? ('loading' as const)
-      : data.loggedIn
-      ? ('loggedIn' as const)
-      : ('loggedOut' as const),
-    mutate
-  };
 }

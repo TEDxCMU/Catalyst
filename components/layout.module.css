@@ -107,11 +107,18 @@
 
 .tab-active {
   color: #fff;
-  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom transparent no-repeat;
+  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom
+    transparent no-repeat;
   background-size: 100% 1px;
 }
 
 .logo {
   display: flex;
   width: 40px;
+}
+
+.home {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
 }

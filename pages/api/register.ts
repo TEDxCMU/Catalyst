@@ -15,13 +15,12 @@
  */
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { nanoid } from 'nanoid';
 import { ConfUser } from '@lib/types';
 import validator from 'validator';
-import { SAMPLE_TICKET_NUMBER, COOKIE } from '@lib/constants';
+import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import redis, { emailToId } from '@lib/redis';
+import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
   error: {
@@ -53,44 +52,61 @@ export default async function register(
     });
   }
 
+  const password: string = ((req.body.password as string) || '');
+  const firstName: string = ((req.body.firstName as string) || '');
+  const lastName: string = ((req.body.lastName as string) || '');
+
   let id;
   let ticketNumber: number;
   let createdAt: number;
   let statusCode: number;
-  let name: string | undefined = undefined;
-  let username: string | undefined = undefined;
-  if (redis) {
-    id = emailToId(email);
-    const existingTicketNumberString = await redis.hget(`id:${id}`, 'ticketNumber');
+  let name: string;
+  let username: string;
 
-    if (existingTicketNumberString) {
-      const item = await redis.hmget(`id:${id}`, 'name', 'username', 'createdAt');
-      name = item[0]!;
-      username = item[1]!;
-      ticketNumber = parseInt(existingTicketNumberString, 10);
-      createdAt = parseInt(item[2]!, 10);
-      statusCode = 200;
-    } else {
-      ticketNumber = await redis.incr('count');
-      createdAt = Date.now();
-      await redis.hmset(
-        `id:${id}`,
-        'email',
-        email,
-        'ticketNumber',
-        ticketNumber,
-        'createdAt',
-        createdAt
-      );
-      statusCode = 201;
-    }
-  } else {
-    id = nanoid();
-    ticketNumber = SAMPLE_TICKET_NUMBER;
-    createdAt = Date.now();
-    statusCode = 200;
+  
+  try{
+      ticketNumber = await incrementTicketCounter();
+  } catch (e) {
+      console.log(e);
+      return res.status(400).json({
+          error: {
+            code: 'ticket_err',
+            message: e.message
+          }
+      });
   }
+  
+  createdAt = Date.now();
+  name = `${firstName} ${lastName}`
+  // Assume username is the part just before the @ in the email
+  // Username is NOT used for auth purposes thus it doesn't have to
+  // be unique, it will just be used to display on the ticket
+  username = email.split('@')[0];
 
+  try{
+      id = await registerUser(email, password, firstName, lastName, username, ticketNumber)
+  } catch (e) {
+      console.log(e);
+      if (e.code?.slice(0, 5) === "auth/"){
+          return res.status(400).json({
+              error: {
+              code: 'auth_err',
+              message: e.message
+              }
+          });
+      }
+    
+      return res.status(400).json({
+          error: {
+              code: 'user_err',
+              message: e.message
+          }
+      });
+      
+  }
+  
+  statusCode = 201;
+ 
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
@@ -99,16 +115,16 @@ export default async function register(
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
       path: '/api',
-      expires: new Date(Date.now() + ms('7 days'))
+      expires: new Date(Date.now() + ms('1 day'))
     })
   );
 
   return res.status(statusCode).json({
     id,
     email,
+    username,
     ticketNumber,
     createdAt,
-    name,
-    username
+    name
   });
 }

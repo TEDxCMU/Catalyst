@@ -22,6 +22,7 @@ export type UserData = {
   id?: string;
   ticketNumber?: number;
   username?: string;
+  email?: string;
   name?: string;
 };
 
