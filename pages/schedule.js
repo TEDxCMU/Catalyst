@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { GetStaticProps } from 'next';
-
 import Page from '@components/page';
 import Schedule from 'components/schedule';
 import Layout from '@components/layout';

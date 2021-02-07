@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { GetStaticProps, GetStaticPaths } from 'next';
-
 import Page from '@components/page';
 import SpeakerSection from 'components/speaker-section';
 import Layout from '@components/layout';

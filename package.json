@@ -14,8 +14,6 @@
     "license": "addlicense -l apache -c 'Vercel Inc.' components/**/* lib/**/* pages/**/* styles/**/* *.ts *.js"
   },
   "dependencies": {
-    "@agility/content-fetch": "^1.0.1",
-    "@agility/content-sync": "0.1.23",
     "@reach/skip-nav": "0.12.1",
     "chrome-aws-lambda": "5.5.0",
     "classnames": "2.2.6",
@@ -23,7 +21,6 @@
     "date-fns": "2.16.1",
     "firebase": "^8.2.4",
     "htmlescape": "1.1.1",
-    "intersection-observer": "0.12.0",
     "ioredis": "4.19.4",
     "ms": "2.1.3",
     "next": "10.0.3",
