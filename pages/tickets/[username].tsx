@@ -124,6 +124,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.resolve({
     paths: [],
-    fallback: 'blocking'
+    fallback: false
   });
 };
