@@ -34,7 +34,6 @@ type Props = {
   username: UserData['username'];
   ticketNumber: UserData['ticketNumber'];
   name: UserData['name'];
-  id: UserData['id'];
   sharePage?: boolean;
 };
 
@@ -104,7 +103,6 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
       </div>
       <div className={styles['ticket-visual-wrapper']}>
         <div
-          id='ticketImg' 
           ref={ticketRef}
           className={cn(styles['ticket-visual'], styleUtils.appear, styleUtils['appear-fourth'])}
         >
