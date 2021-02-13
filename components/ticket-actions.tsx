@@ -23,14 +23,9 @@ import IconDownload from './icons/icon-download';
 import LoadingDots from './loading-dots';
 import styleUtils from './utils.module.css';
 import styles from './ticket-actions.module.css';
-import domtoimage from 'dom-to-image';
-import Tilt from 'vanilla-tilt';
-import screenshot from '@lib/screenshot';
 
 type Props = {
   username: string;
-  name: string;
-  ticketNumber: number;
 };
 
 // async function getTicketImage(url: string) {
@@ -38,7 +33,7 @@ type Props = {
 //     return file;
 //   }
 
-export default function TicketActions({ username, name, ticketNumber }: Props) {
+export default function TicketActions({ username }: Props) {
   const [imgReady, setImgReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const downloadLink = useRef<HTMLAnchorElement>();

@@ -29,7 +29,6 @@ import TicketActions from './ticket-actions';
 import TicketCopy from './ticket-copy';
 import { DATE, SITE_NAME } from '@lib/constants';
 import Form from './form';
-import domtoimage from 'dom-to-image';
 
 type Props = {
   username: UserData['username'];
@@ -39,7 +38,7 @@ type Props = {
   sharePage?: boolean;
 };
 
-export default function Ticket({ username, name, ticketNumber, id, sharePage }: Props) {
+export default function Ticket({ username, name, ticketNumber, sharePage }: Props) {
   const ticketRef = useRef<HTMLDivElement>(null);
   const [ticketGenerationState, setTicketGenerationState] = useState<TicketGenerationState>(
     'default'
@@ -121,7 +120,7 @@ export default function Ticket({ username, name, ticketNumber, id, sharePage }: 
             {username ? (
               <div>
                 <div className={styles['ticket-actions']}>
-                  <TicketActions username={username} name={name} ticketNumber={ticketNumber} />
+                  <TicketActions username={username} />
                 </div>
                 <div className={styles['ticket-copy']}>
                   <TicketCopy username={username} />

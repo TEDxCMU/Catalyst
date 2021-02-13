@@ -19,14 +19,14 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { parseISO, format, isBefore, isAfter } from "date-fns";
 
-import styles from "./talk-card.module.css";
+import styles from "./sidebar-talk-card.module.css";
 
 const formatDate = (date) => {
   // https://github.com/date-fns/date-fns/issues/946
   return format(parseISO(date), "h:mmaaaaa'm'");
 };
 
-export default function TalkCard({ talk }) {
+export default function SidebarTalkCard({ talk }) {
   const [isTalkLive, setIsTalkLive] = useState(false);
   const [startAndEndTime, setStartAndEndTime] = useState("");
 
@@ -39,19 +39,26 @@ export default function TalkCard({ talk }) {
   return (
     <div key={talk.title} className={styles.talk}>
       {<p className={styles.time}>{startAndEndTime || <>&nbsp;</>}</p>}
-      <Link className={styles["card-container"]} href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
+      <Link href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
         <a className={cn(styles.card, { [styles["is-live"]]: isTalkLive })}>
-          {talk.speaker != null && (
-            <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
-              <img className={styles.avatar} src={talk.speaker.image.url} alt={talk.speaker.name} loading='lazy' />
-            </div>
-          )}
           <div className={styles["card-body"]}>
             <h4 title={talk.title} className={styles.title}>
               {talk.title}
             </h4>
             {talk.speaker != null && (
               <div className={styles.speaker}>
+                <div className={styles["avatar-group"]}>
+                  <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
+                    <img
+                      className={styles.avatar}
+                      src={talk.speaker.image.url}
+                      alt={talk.speaker.name}
+                      loading='lazy'
+                      width={24}
+                      height={24}
+                    />
+                  </div>
+                </div>
                 <h5 className={styles.name}>
                   {/* {talk.speaker.length === 1 ? talk.speaker[0].name : `${talk.speaker.length} speakers`} */}
                   {talk.speaker.name}

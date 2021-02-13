@@ -16,7 +16,6 @@
 
 import chrome from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
-import domtoimage from 'dom-to-image';
 
 export default async function screenshot(url: string) {
   const options = process.env.AWS_REGION
