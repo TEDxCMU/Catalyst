@@ -5,8 +5,8 @@ import useLoginStatus from '@lib/hooks/use-login-status';
 import SignOutButton from '@components/sign-out-button';
 import Page from '@components/page';
 
-export default function SignInPage() {
-  const { loginStatus } = useLoginStatus();
+export default async function SignInPage() {
+  const { loginStatus } = await useLoginStatus();
   const meta = {
     title: 'Sign in - TEDxCMU Catalyst',
     description: 'Sign in to enter',

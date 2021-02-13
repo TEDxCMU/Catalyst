@@ -22,8 +22,8 @@ import styleUtils from './utils.module.css';
 // import ScheduleSidebar from './schedule-sidebar';
 import ConfEntry from './conf-entry';
 
-export default function StageContainer({ stage }) {
-  const { loginStatus, mutate } = useLoginStatus();
+export default async function StageContainer({ stage }) {
+  const { loginStatus, mutate } = await useLoginStatus();
 
   return (
     <div className={styles.container}>

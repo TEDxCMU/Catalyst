@@ -14,12 +14,12 @@ type Props = {
   name: UserData['name'];
 };
 
-export default function TicketContainer({
+export default async function TicketContainer({
   name,
   username,
   ticketNumber,
 }: Props) {
-  const { loginStatus } = useLoginStatus();
+  const { loginStatus } = await useLoginStatus();
 
   return (
     <>
