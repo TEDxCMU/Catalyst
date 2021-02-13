@@ -15,7 +15,6 @@
  */
 
 import cn from "classnames";
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { parseISO, format, isBefore, isAfter } from "date-fns";
@@ -50,12 +49,11 @@ export default function TalkCard({ talk }) {
               <div className={styles.speaker}>
                 <div className={styles["avatar-group"]}>
                   <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
-                    <Image
-                      loading='lazy'
-                      alt={talk.speaker.name}
+                    <img
                       className={styles.avatar}
                       src={talk.speaker.image.url}
-                      title={talk.speaker.name}
+                      alt={talk.speaker.name}
+                      loading="lazy"
                       width={24}
                       height={24}
                     />

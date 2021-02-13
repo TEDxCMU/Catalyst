@@ -15,10 +15,5 @@
  */
 
 module.exports = {
-  images: {
-    domains: [
-      'images.prismic.io',
-    ],
-    imageSizes: [24, 64, 300]
-  }
+  target: 'serverless',
 };

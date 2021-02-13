@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps } from 'next';
 import Page from '@components/page';
 import Layout from '@components/layout';
 import TicketContainer from '@components/ticket-container';
@@ -49,11 +49,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     revalidate: 5
   };
   
-};
-  
-export const getStaticPaths: GetStaticPaths = async () => {
-  return Promise.resolve({
-    paths: [],
-    fallback: 'blocking'
-  });
 };
