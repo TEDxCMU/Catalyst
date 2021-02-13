@@ -16,6 +16,7 @@
 
 import chrome from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
+import domtoimage from 'dom-to-image';
 
 export default async function screenshot(url: string) {
   const options = process.env.AWS_REGION
@@ -36,6 +37,8 @@ export default async function screenshot(url: string) {
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
   await page.setViewport({ width: 2000, height: 1000 });
-  await page.goto(url, { waitUntil: 'networkidle0' });
+  //console.log(url);
+  await page.goto(url);
+  // await page.goto(url, { waitUntil: 'networkidle0' });
   return await page.screenshot({ type: 'png' });
 }
