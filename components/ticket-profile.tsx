@@ -27,7 +27,12 @@ type Props = {
   ticketGenerationState: TicketGenerationState;
 };
 
-export default function TicketProfile({ name, username, size = 1, ticketGenerationState }: Props) {
+export default function TicketProfile({
+  name,
+  username,
+  size = 1,
+  ticketGenerationState,
+}: Props) {
   return (
     <div className={styles.profile}>
       {/* <span
@@ -46,12 +51,12 @@ export default function TicketProfile({ name, username, size = 1, ticketGenerati
       <div className={styles.text}>
         <p
           className={cn(styles.name, {
-            [styles['name-blank']]: !username
+            [styles['name-blank']]: !username,
           })}
         >
           <span
             className={cn(styles.skeleton, styles.wrapper, {
-              [styles.show]: ticketGenerationState === 'loading'
+              [styles.show]: ticketGenerationState === 'loading',
             })}
           >
             {name || username || 'Your Name'}
@@ -60,7 +65,7 @@ export default function TicketProfile({ name, username, size = 1, ticketGenerati
         <p className={styles.username}>
           <span
             className={cn(styles.skeleton, styles.wrapper, {
-              [styles.show]: ticketGenerationState === 'loading'
+              [styles.show]: ticketGenerationState === 'loading',
             })}
           >
             {/* <span className={styles.githubIcon}>

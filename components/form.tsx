@@ -44,15 +44,80 @@ export default function Form({ sharePage }: Props) {
   const router = useRouter();
   useEmailQueryParam('email', setEmail);
 
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    if (formState === 'default') {
+      setFormState('loading');
+      try {
+        const res = await register(email, password, firstName, lastName);
+        if (!res.ok) {
+          throw new FormError(res);
+        }
+
+        const data = await res.json();
+        const params = {
+          id: data.id,
+          email: data.email,
+          username: data.username,
+          ticketNumber: data.ticketNumber,
+          name: data.name,
+        };
+
+        if (sharePage) {
+          const queryString = Object.keys(params)
+            .map(
+              (key) =>
+                `${encodeURIComponent(key)}=${encodeURIComponent(
+                  params[key as keyof typeof params] || ''
+                )}`
+            )
+            .join('&');
+          router.replace(`/?${queryString}`, '/');
+        } else {
+          setUserData(params);
+          setPageState('ticket');
+        }
+      } catch (err) {
+        let message = 'Error! Please try again.';
+        if (err instanceof FormError) {
+          const { res } = err;
+          const data = res.headers
+            .get('Content-Type')
+            ?.includes('application/json')
+            ? await res.json()
+            : null;
+
+          if (data?.error?.code === 'bad_email') {
+            message = 'Please enter a valid email';
+          } else if (data?.error?.code === 'auth_err') {
+            message = data.error.message;
+          } else if (
+            data?.error?.code === 'ticket_err' ||
+            data?.error?.code === 'user_err'
+          ) {
+            message = 'Our services are down. Please try again later.';
+          }
+        }
+
+        setErrorMsg(message);
+        setFormState('error');
+      }
+    } else {
+      setFormState('default');
+    }
+  };
+
   return formState === 'error' ? (
     <div
       className={cn(styles.form, {
-        [styles['share-page']]: sharePage
+        [styles['share-page']]: sharePage,
       })}
     >
       <div className={styles['form-row']}>
         <div className={cn(styles['input-label'], styles.error)}>
-          <div className={cn(styles.input, styles['input-text'])}>{errorMsg}</div>
+          <div className={cn(styles.input, styles['input-text'])}>
+            {errorMsg}
+          </div>
           <button
             type="button"
             className={cn(styles.submit, styles.register, styles.error)}
@@ -72,72 +137,15 @@ export default function Form({ sharePage }: Props) {
         [styles['share-page']]: sharePage,
         [styleUtils.appear]: !errorTryAgain,
         [styleUtils['appear-fifth']]: !errorTryAgain && !sharePage,
-        [styleUtils['appear-third']]: !errorTryAgain && sharePage
+        [styleUtils['appear-third']]: !errorTryAgain && sharePage,
       })}
-      onSubmit={e => {
-        if (formState === 'default') {
-          setFormState('loading');
-          register(email, password, firstName, lastName)
-            .then(async res => {
-              if (!res.ok) {
-                throw new FormError(res);
-              }
-
-              const data = await res.json();
-              const params = {
-                id: data.id,
-                email: data.email,
-                username: data.username,
-                ticketNumber: data.ticketNumber,
-                name: data.name
-              };
-
-              if (sharePage) {
-                const queryString = Object.keys(params)
-                  .map(
-                    key =>
-                      `${encodeURIComponent(key)}=${encodeURIComponent(
-                        params[key as keyof typeof params] || ''
-                      )}`
-                  )
-                  .join('&');
-                router.replace(`/?${queryString}`, '/');
-              } else {
-                setUserData(params);
-                setPageState('ticket');
-              }
-            })
-            .catch(async err => {
-              let message = 'Error! Please try again.';
-              if (err instanceof FormError) {
-                const { res } = err;
-                const data = res.headers.get('Content-Type')?.includes('application/json')
-                  ? await res.json()
-                  : null;
-
-                if (data?.error?.code === 'bad_email') {
-                  message = 'Please enter a valid email';
-                } else if (data?.error?.code === 'auth_err') {
-                  message = data.error.message
-                } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
-                  message = 'Our services are down. Please try again later.';
-                }
-              }
-
-              setErrorMsg(message);
-              setFormState('error');
-            });
-        } else {
-          setFormState('default');
-        }
-        e.preventDefault();
-      }}
+      onSubmit={onSubmit}
     >
       <div className={styles['form-row']}>
         <label
           htmlFor="fname-input-field"
           className={cn(styles['input-label'], {
-            [styles.focused]: focused
+            [styles.focused]: focused,
           })}
         >
           <input
@@ -146,7 +154,7 @@ export default function Form({ sharePage }: Props) {
             type="text"
             id="fname-input-field"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="First Name"
@@ -157,7 +165,7 @@ export default function Form({ sharePage }: Props) {
         <label
           htmlFor="lname-input-field"
           className={cn(styles['input-label'], {
-            [styles.focused]: focused
+            [styles.focused]: focused,
           })}
         >
           <input
@@ -166,7 +174,7 @@ export default function Form({ sharePage }: Props) {
             type="text"
             id="lname-input-field"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="Last Name"
@@ -177,7 +185,7 @@ export default function Form({ sharePage }: Props) {
         <label
           htmlFor="email-input-field"
           className={cn(styles['input-label'], {
-            [styles.focused]: focused
+            [styles.focused]: focused,
           })}
         >
           <input
@@ -186,7 +194,7 @@ export default function Form({ sharePage }: Props) {
             type="email"
             id="email-input-field"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="Email"
@@ -197,7 +205,7 @@ export default function Form({ sharePage }: Props) {
         <label
           htmlFor="pass-input-field"
           className={cn(styles['input-label'], {
-            [styles.focused]: focused
+            [styles.focused]: focused,
           })}
         >
           <input
@@ -206,7 +214,7 @@ export default function Form({ sharePage }: Props) {
             type="password"
             id="pass-input-field"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="Password (must be at least 6 chars.)"

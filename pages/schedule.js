@@ -25,7 +25,7 @@ import { SCHEDULE_DESCRIPTION } from '@lib/constants';
 export default function SchedulePage({ events }) {
   const meta = {
     title: 'Schedule - TEDxCMU Catalyst',
-    description: SCHEDULE_DESCRIPTION
+    description: SCHEDULE_DESCRIPTION,
   };
 
   return (
@@ -43,8 +43,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      events
+      events,
     },
-    revalidate: 60
+    revalidate: 60,
   };
 }

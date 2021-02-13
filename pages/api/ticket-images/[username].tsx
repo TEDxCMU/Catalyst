@@ -19,7 +19,10 @@ import screenshot from '@lib/screenshot';
 import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
 import { getUser } from '@lib/firestore-api';
 
-export default async function ticketImages(req: NextApiRequest, res: NextApiResponse) {
+export default async function ticketImages(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   let url: string;
   const { username } = req.query || {};
   if (username) {
@@ -36,7 +39,9 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
     //     url = `${url}&name=${encodeURIComponent(data.name)}`;
     //   }
     // } else {
-      url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(SAMPLE_TICKET_NUMBER)}`;
+    url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(
+      SAMPLE_TICKET_NUMBER
+    )}`;
     // }
 
     // TODO: Code fails here at screenshot, still need to fix
@@ -48,7 +53,6 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
     );
     res.statusCode = 200;
     res.end(file);
-
   } else {
     res.status(404).send('Not Found');
   }

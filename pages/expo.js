@@ -25,7 +25,7 @@ import { getInnovators } from 'lib/cms-api';
 export default function ExpoPage({ innovators }) {
   const meta = {
     title: 'Expo - TEDxCMU Catalyst',
-    description: EXPO_DESCRIPTION
+    description: EXPO_DESCRIPTION,
   };
 
   return (
@@ -44,8 +44,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      innovators
+      innovators,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }

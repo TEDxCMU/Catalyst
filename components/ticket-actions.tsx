@@ -57,7 +57,12 @@ export default function TicketActions({ username }: Props) {
   return (
     <>
       <a
-        className={cn(styles.button, styleUtils.appear, styles.first, 'icon-button')}
+        className={cn(
+          styles.button,
+          styleUtils.appear,
+          styles.first,
+          'icon-button'
+        )}
         href={tweetUrl}
         rel="noopener noreferrer"
         target="_blank"
@@ -80,11 +85,17 @@ export default function TicketActions({ username }: Props) {
         <IconLinkedin width={20} /> Share on LinkedIn
       </a>
       <a
-        className={cn(styles.button, styleUtils.appear, styles.third, 'icon-button', {
-          [styles.loading]: loading
-        })}
+        className={cn(
+          styles.button,
+          styleUtils.appear,
+          styles.third,
+          'icon-button',
+          {
+            [styles.loading]: loading,
+          }
+        )}
         href={loading ? undefined : downloadUrl}
-        onClick={e => {
+        onClick={(e) => {
           if (imgReady) return;
 
           e.preventDefault();

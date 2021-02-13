@@ -29,7 +29,13 @@ export default function StageContainer({ stage }) {
     <div className={styles.container}>
       <div className={styles.streamContainer}>
         {loginStatus === 'loggedIn' ? (
-          <div className={cn(styles.stream, styleUtils.appear, styleUtils['appear-first'])}>
+          <div
+            className={cn(
+              styles.stream,
+              styleUtils.appear,
+              styleUtils['appear-first']
+            )}
+          >
             <iframe
               allow="autoplay; picture-in-picture"
               allowFullScreen
@@ -38,7 +44,13 @@ export default function StageContainer({ stage }) {
               title={stage.name}
               width="100%"
             />
-            <div className={cn(styles.bottom, styleUtils.appear, styleUtils['appear-second'])}>
+            <div
+              className={cn(
+                styles.bottom,
+                styleUtils.appear,
+                styleUtils['appear-second']
+              )}
+            >
               <div className={styles.messageContainer}>
                 <h2 className={styles.stageName}>{stage.name}</h2>
               </div>
@@ -54,27 +66,51 @@ export default function StageContainer({ stage }) {
                   width="40"
                   height="40"
                   viewBox="55 50 170 170"
-                >                
+                >
                   <g>
                     <g>
-                      <path fill="#E01E5A" d="M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z"/>
-                      <path fill="#E01E5A" d="M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9
-                        s-12.9-5.8-12.9-12.9V151.2z"/>
+                      <path
+                        fill="#E01E5A"
+                        d="M99.4,151.2c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h12.9V151.2z"
+                      />
+                      <path
+                        fill="#E01E5A"
+                        d="M105.9,151.2c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v32.3c0,7.1-5.8,12.9-12.9,12.9
+                        s-12.9-5.8-12.9-12.9V151.2z"
+                      />
                     </g>
                     <g>
-                      <path fill="#36C5F0" d="M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z"/>
-                      <path fill="#36C5F0" d="M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9
-                        s5.8-12.9,12.9-12.9H118.8z"/>
+                      <path
+                        fill="#36C5F0"
+                        d="M118.8,99.4c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9s12.9,5.8,12.9,12.9v12.9H118.8z"
+                      />
+                      <path
+                        fill="#36C5F0"
+                        d="M118.8,105.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9H86.5c-7.1,0-12.9-5.8-12.9-12.9
+                        s5.8-12.9,12.9-12.9H118.8z"
+                      />
                     </g>
                     <g>
-                      <path fill="#2EB67D" d="M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z"/>
-                      <path fill="#2EB67D" d="M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9
-                        c7.1,0,12.9,5.8,12.9,12.9V118.8z"/>
+                      <path
+                        fill="#2EB67D"
+                        d="M170.6,118.8c0-7.1,5.8-12.9,12.9-12.9c7.1,0,12.9,5.8,12.9,12.9s-5.8,12.9-12.9,12.9h-12.9V118.8z"
+                      />
+                      <path
+                        fill="#2EB67D"
+                        d="M164.1,118.8c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9V86.5c0-7.1,5.8-12.9,12.9-12.9
+                        c7.1,0,12.9,5.8,12.9,12.9V118.8z"
+                      />
                     </g>
                     <g>
-                      <path fill="#ECB22E" d="M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z"/>
-                      <path fill="#ECB22E" d="M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9
-                        c0,7.1-5.8,12.9-12.9,12.9H151.2z"/>
+                      <path
+                        fill="#ECB22E"
+                        d="M151.2,170.6c7.1,0,12.9,5.8,12.9,12.9c0,7.1-5.8,12.9-12.9,12.9c-7.1,0-12.9-5.8-12.9-12.9v-12.9H151.2z"
+                      />
+                      <path
+                        fill="#ECB22E"
+                        d="M151.2,164.1c-7.1,0-12.9-5.8-12.9-12.9c0-7.1,5.8-12.9,12.9-12.9h32.3c7.1,0,12.9,5.8,12.9,12.9
+                        c0,7.1-5.8,12.9-12.9,12.9H151.2z"
+                      />
                     </g>
                   </g>
                 </svg>

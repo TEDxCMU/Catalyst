@@ -24,7 +24,7 @@ import { META_DESCRIPTION } from '@lib/constants';
 export default function StagePage({ stage }) {
   const meta = {
     title: 'Stage - TEDxCMU Catalyst',
-    description: META_DESCRIPTION
+    description: META_DESCRIPTION,
   };
 
   return (
@@ -42,8 +42,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      stage
+      stage,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }

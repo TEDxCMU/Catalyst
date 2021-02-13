@@ -14,45 +14,56 @@
  * limitations under the License.
  */
 
-export async function register(email: string, password: string, firstName: string, lastName: string) {
-    return await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password, firstName, lastName })
-    });
+export async function register(
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string
+) {
+  return await fetch('/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password, firstName, lastName }),
+  });
 }
-  
-export async function saveGithubToken({ id, token }: { id?: string; token: string }) {
-    return await fetch('/api/save-github-token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id,
-            token
-        })
-    });
+
+export async function saveGithubToken({
+  id,
+  token,
+}: {
+  id?: string;
+  token: string;
+}) {
+  return await fetch('/api/save-github-token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      token,
+    }),
+  });
 }
 
 export async function signOut() {
-    return await fetch('/api/signOut', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    });
+  return await fetch('/api/signOut', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  });
 }
 
-export async function signIn(email:string, password: string) {
-    return await fetch('/api/signIn', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    });
+export async function signIn(email: string, password: string) {
+  return await fetch('/api/signIn', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
 }

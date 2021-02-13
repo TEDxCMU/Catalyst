@@ -34,7 +34,7 @@ type Props = {
 export default function Conf({
   defaultUserData,
   sharePage,
-  defaultPageState = 'registration'
+  defaultPageState = 'registration',
 }: Props) {
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
@@ -46,7 +46,7 @@ export default function Conf({
       value={{
         userData,
         setUserData,
-        setPageState
+        setPageState,
       }}
     >
       <Layout>
@@ -54,12 +54,7 @@ export default function Conf({
           {pageState === 'registration' && !sharePage ? (
             <>
               <Hero />
-              {loginStatus !== 'loggedIn' ? (
-              <Form />
-              ) : (
-                <SignOutButton />
-              )
-              }
+              {loginStatus !== 'loggedIn' ? <Form /> : <SignOutButton />}
             </>
           ) : (
             <Ticket

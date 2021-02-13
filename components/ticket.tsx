@@ -37,11 +37,17 @@ type Props = {
   sharePage?: boolean;
 };
 
-export default function Ticket({ username, name, ticketNumber, sharePage }: Props) {
+export default function Ticket({
+  username,
+  name,
+  ticketNumber,
+  sharePage,
+}: Props) {
   const ticketRef = useRef<HTMLDivElement>(null);
-  const [ticketGenerationState, setTicketGenerationState] = useState<TicketGenerationState>(
-    'default'
-  );
+  const [
+    ticketGenerationState,
+    setTicketGenerationState,
+  ] = useState<TicketGenerationState>('default');
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,7 +56,7 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
         glare: true,
         max: 5,
         'max-glare': 0.16,
-        'full-page-listening': true
+        'full-page-listening': true,
       });
     }
   }, [ticketRef]);
@@ -64,12 +70,18 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
   return (
     <div
       className={cn(styles['ticket-layout'], {
-        [styles['ticket-share-layout']]: sharePage
+        [styles['ticket-share-layout']]: sharePage,
       })}
     >
       <div ref={divRef}>
         <div className={styles['ticket-text']}>
-          <h2 className={cn(styles.hero, styleUtils.appear, styleUtils['appear-first'])}>
+          <h2
+            className={cn(
+              styles.hero,
+              styleUtils.appear,
+              styleUtils['appear-first']
+            )}
+          >
             {sharePage ? (
               name ? (
                 <>{name}’s Ticket</>
@@ -77,34 +89,41 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
                 <>{SITE_NAME}</>
               )
             ) : (
-              <>
-                Here's your ticket to the the experience.
-              </>
+              <>Here's your ticket to the the experience.</>
             )}
           </h2>
-          <p className={cn(styles.description, styleUtils.appear, styleUtils['appear-second'])}>
+          <p
+            className={cn(
+              styles.description,
+              styleUtils.appear,
+              styleUtils['appear-second']
+            )}
+          >
             {sharePage ? (
               <>
                 Join {name && 'them '} on {DATE}.
               </>
             ) : (
               <>
-                Download or share your ticket and <br className={styleUtils['hide-on-mobile']} />
+                Download or share your ticket and{' '}
+                <br className={styleUtils['hide-on-mobile']} />
                 spread the word.
               </>
             )}
           </p>
         </div>
         <div className={cn(styleUtils.appear, styleUtils['appear-third'])}>
-          {sharePage &&
-            <Form sharePage />
-          }
+          {sharePage && <Form sharePage />}
         </div>
       </div>
       <div className={styles['ticket-visual-wrapper']}>
         <div
           ref={ticketRef}
-          className={cn(styles['ticket-visual'], styleUtils.appear, styleUtils['appear-fourth'])}
+          className={cn(
+            styles['ticket-visual'],
+            styleUtils.appear,
+            styleUtils['appear-fourth']
+          )}
         >
           <TicketVisual
             username={username}

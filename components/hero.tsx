@@ -22,7 +22,13 @@ import { BRAND_NAME, CONF_TITLE, DATE, SITE_DESCRIPTION } from '@lib/constants';
 export default function Hero() {
   return (
     <div className={styles.wrapper}>
-      <h1 className={cn(styleUtils.appear, styleUtils['appear-third'], styles.hero)}>
+      <h1
+        className={cn(
+          styleUtils.appear,
+          styleUtils['appear-third'],
+          styles.hero
+        )}
+      >
         {BRAND_NAME} : {CONF_TITLE}
         <br className={styleUtils['show-on-desktop']} />
       </h1>
@@ -35,7 +41,13 @@ export default function Hero() {
       >
         {SITE_DESCRIPTION}
       </h2>
-      <div className={cn(styleUtils.appear, styleUtils['appear-fourth'], styles.info)}>
+      <div
+        className={cn(
+          styleUtils.appear,
+          styleUtils['appear-fourth'],
+          styles.info
+        )}
+      >
         <p>{DATE}</p>
         <div className={styles['description-separator']} />
         <p>

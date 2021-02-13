@@ -24,7 +24,7 @@ import { getInnovators } from 'lib/cms-api';
 export default function InnovatorPage({ innovator }) {
   const meta = {
     title: `${innovator.company} - TEDxCMU Catalyst`,
-    description: META_DESCRIPTION
+    description: META_DESCRIPTION,
   };
 
   return (
@@ -43,15 +43,15 @@ export async function getStaticProps({ params }) {
 
   if (!innovator) {
     return {
-      notFound: true
+      notFound: true,
     };
   }
 
   return {
     props: {
-      innovator
+      innovator,
     },
-    revalidate: 60
+    revalidate: 60,
   };
 }
 
@@ -61,6 +61,6 @@ export async function getStaticPaths() {
 
   return {
     paths: slugs,
-    fallback: false
+    fallback: false,
   };
 }

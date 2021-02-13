@@ -15,20 +15,20 @@
  */
 
 export const SITE_URL = 'http://localhost:3000';
-export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
+export const SITE_ORIGIN =
+  process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
 export const CONF_TITLE = 'Catalyst';
 export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
 export const SITE_NAME = 'TEDxCMU Virtual Conference';
 export const META_DESCRIPTION =
-  'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
+  "TEDxCMU's first ever virtual conference. Introducing, CATALYST.";
 export const SCHEDULE_DESCRIPTION =
   'This is the tagline for the schedule page.';
 export const SPEAKERS_DESCRIPTION =
   'This is the tagline for the speakers page.';
-export const EXPO_DESCRIPTION =
-  'This is the tagline for the expo page.';
+export const EXPO_DESCRIPTION = 'This is the tagline for the expo page.';
 export const SITE_DESCRIPTION =
   'An interactive online experience by the community, free for everyone.';
 export const DATE = 'April 3, 2021';
@@ -49,19 +49,19 @@ export const SAMPLE_TICKET_NUMBER = 1234;
 export const NAVIGATION = [
   {
     name: 'Stage',
-    route: '/stage'
+    route: '/stage',
   },
   {
     name: 'Schedule',
-    route: '/schedule'
+    route: '/schedule',
   },
   {
     name: 'Speakers',
-    route: '/speakers'
+    route: '/speakers',
   },
   {
     name: 'Expo',
-    route: '/expo'
+    route: '/expo',
   },
 ];
 

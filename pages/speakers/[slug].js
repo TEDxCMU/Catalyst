@@ -24,7 +24,7 @@ import { META_DESCRIPTION } from '@lib/constants';
 export default function SpeakerPage({ speaker }) {
   const meta = {
     title: `${speaker.name} - TEDxCMU Catalyst`,
-    description: META_DESCRIPTION
+    description: META_DESCRIPTION,
   };
 
   return (
@@ -43,15 +43,15 @@ export async function getStaticProps({ params }) {
 
   if (!currentSpeaker) {
     return {
-      notFound: true
+      notFound: true,
     };
   }
 
   return {
     props: {
-      speaker: currentSpeaker
+      speaker: currentSpeaker,
     },
-    revalidate: 60
+    revalidate: 60,
   };
 }
 
@@ -61,6 +61,6 @@ export async function getStaticPaths() {
 
   return {
     paths: slugs,
-    fallback: false
+    fallback: false,
   };
 }

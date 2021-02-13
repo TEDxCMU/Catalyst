@@ -25,13 +25,13 @@ export default function SignInForm({ sharePage }: Props) {
   useEmailQueryParam('email', setEmail);
 
   return formState === 'error' ? (
-    <div
-      className={cn(styles.form)}
-    >
+    <div className={cn(styles.form)}>
       <div className={styles['form-row']}>
         <h2>Sign in to enter the experience</h2>
         <div className={cn(styles['input-label'], styles.error)}>
-          <div className={cn(styles.input, styles['input-text'])}>{errorMsg}</div>
+          <div className={cn(styles.input, styles['input-text'])}>
+            {errorMsg}
+          </div>
           <button
             type="button"
             className={cn(styles.submit, styles.error)}
@@ -49,40 +49,45 @@ export default function SignInForm({ sharePage }: Props) {
     <form
       className={cn(styles.form, {
         [styleUtils.appear]: !errorTryAgain,
-        [styleUtils['appear-second']]: !errorTryAgain
+        [styleUtils['appear-second']]: !errorTryAgain,
       })}
-      onSubmit={e => {
+      onSubmit={(e) => {
         if (formState === 'default') {
           setFormState('loading');
           signIn(email, password)
-            .then(async res => {
+            .then(async (res) => {
               if (!res.ok) {
                 throw new FormError(res);
               }
 
               const data = await res.json();
 
-              if (!data?.signInSuccess){
+              if (!data?.signInSuccess) {
                 setFormState('error');
               }
 
-              router.push("/");
+              router.push('/');
             })
-            .catch(async err => {
+            .catch(async (err) => {
               let message = 'Error! Please try again.';
-              console.log("Error from sign in:");
+              console.log('Error from sign in:');
               //console.log(err)
-               
+
               if (err instanceof FormError) {
                 const { res } = err;
-                
-                const data = res.headers.get('Content-Type')?.includes('application/json')
+
+                const data = res.headers
+                  .get('Content-Type')
+                  ?.includes('application/json')
                   ? await res.json()
                   : null;
 
                 if (data?.error?.code === 'bad_email') {
                   message = 'Please enter a valid email';
-                } else if (data?.error?.code === 'auth_err' || data?.error.code === 'no_data_err') {
+                } else if (
+                  data?.error?.code === 'auth_err' ||
+                  data?.error.code === 'no_data_err'
+                ) {
                   message = data.error.message;
                 }
               }
@@ -92,15 +97,14 @@ export default function SignInForm({ sharePage }: Props) {
             });
         } else {
           setFormState('default');
-          console.log("form - set form state to default");
+          console.log('form - set form state to default');
         }
         e.preventDefault();
       }}
     >
-      
       <div className={styles['form-row']}>
         <h2>Sign in to enter the experience</h2>
-      <label
+        <label
           htmlFor="email-input-field"
           className={cn(styles['input-label'])}
         >
@@ -110,24 +114,21 @@ export default function SignInForm({ sharePage }: Props) {
             type="email"
             id="email-input-field"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             aria-label="Your email address"
             required
           />
         </label>
-        
-        <label
-          htmlFor="pass-input-field"
-          className={cn(styles['input-label'])}
-        >
+
+        <label htmlFor="pass-input-field" className={cn(styles['input-label'])}>
           <input
             className={styles.input}
             autoComplete="off"
             type="password"
             id="pass-input-field"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             aria-label="Your password"
             required
@@ -140,15 +141,19 @@ export default function SignInForm({ sharePage }: Props) {
         >
           {formState === 'loading' ? <LoadingDots size={4} /> : <>Sign In</>}
         </button>
-        <p className={cn(styles.regText, {
-        [styleUtils.appear]: !errorTryAgain,
-        [styleUtils['appear-second']]: !errorTryAgain
-      })}>
-        Or, <a className={cn(styles.regLink)} href="/">register</a> for the conference.
+        <p
+          className={cn(styles.regText, {
+            [styleUtils.appear]: !errorTryAgain,
+            [styleUtils['appear-second']]: !errorTryAgain,
+          })}
+        >
+          Or,{' '}
+          <a className={cn(styles.regLink)} href="/">
+            register
+          </a>{' '}
+          for the conference.
         </p>
       </div>
     </form>
-
-    
   );
 }

@@ -42,7 +42,11 @@ export default function InnovatorSection({ innovator }) {
       </Link>
       <div className={styles.layout}>
         <iframe
-          className={cn(styles.video, styleUtils.appear, styleUtils['appear-first'])}
+          className={cn(
+            styles.video,
+            styleUtils.appear,
+            styleUtils['appear-first']
+          )}
           allow="picture-in-picture"
           allowFullScreen
           frameBorder="0"
@@ -61,19 +65,18 @@ export default function InnovatorSection({ innovator }) {
               height={64}
               width={64}
             />
-            <h1 className={styles.name}>
-              {innovator.company}
-            </h1>
+            <h1 className={styles.name}>{innovator.company}</h1>
           </div>
-          <p className={styles.description}>
-            {innovator.bio}
-          </p>
+          <p className={styles.description}>{innovator.bio}</p>
           <div className={styles.resources}>
             <h2 className={styles.heading}>Innovators</h2>
             {innovator.people.map((person) => (
-              <div key={person.name} className={cn(styles.button, styles['button-resource'])}>
+              <div
+                key={person.name}
+                className={cn(styles.button, styles['button-resource'])}
+              >
                 <span className={styles.truncate}>
-                   {person.name} | {person.tagline}
+                  {person.name} | {person.tagline}
                 </span>
               </div>
             ))}

@@ -21,7 +21,12 @@ import { SkipNavContent } from '@reach/skip-nav';
 import { checkUser, getUser } from '@lib/firestore-api';
 import Page from '@components/page';
 import ConfContent from '@components/index';
-import { SITE_URL, SITE_NAME, META_DESCRIPTION, SAMPLE_TICKET_NUMBER } from '@lib/constants';
+import {
+  SITE_URL,
+  SITE_NAME,
+  META_DESCRIPTION,
+  SAMPLE_TICKET_NUMBER,
+} from '@lib/constants';
 
 type Props = {
   username: string | null;
@@ -30,7 +35,12 @@ type Props = {
   ticketNumber: number | null;
 };
 
-export default function TicketShare({ username, ticketNumber, name, usernameFromParams }: Props) {
+export default function TicketShare({
+  username,
+  ticketNumber,
+  name,
+  usernameFromParams,
+}: Props) {
   if (!ticketNumber) {
     return <Error statusCode={404} />;
   }
@@ -40,13 +50,13 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
         title: `${name}’s ${SITE_NAME} Ticket`,
         description: META_DESCRIPTION,
         image: `/api/ticket-images/${username}`,
-        url: `${SITE_URL}/tickets/${username}`
+        url: `${SITE_URL}/tickets/${username}`,
       }
     : {
         title: 'Ticket Demo - Virtual Event Starter Kit',
         description: META_DESCRIPTION,
         image: `/api/ticket-images/${usernameFromParams}`,
-        url: `${SITE_URL}/tickets/${usernameFromParams}`
+        url: `${SITE_URL}/tickets/${usernameFromParams}`,
       };
 
   return (
@@ -59,7 +69,7 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
         defaultUserData={{
           username: username || undefined,
           name: name || '',
-          ticketNumber
+          ticketNumber,
         }}
         sharePage
       />
@@ -70,60 +80,58 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const username = params?.username?.toString() || null;
 
-  
-    // if (username) {
-    //   let id = usernameToId(username);
-    //   let existingUsernameId = await checkUser(id);
-    //   if (existingUsernameId) {
-    //     let data = await getUser(id);
-    //     return {
-    //       props: {
-    //         username: username || null,
-    //         usernameFromParams: username || null,
-    //         name: data.name || username || null,
-    //         ticketNumber: data.ticketNumber || null
-    //       },
-    //       revalidate: 5
-    //     };
-    //   } else {
-    //     return {
-    //       props: {
-    //         username: null,
-    //         usernameFromParams: username || null,
-    //         name: null,
-    //         ticketNumber: null
-    //       },
-    //       revalidate: 5
-    //     };
-    //   }
-      
-    // } else {
-    //   return {
-    //     props: {
-    //       username: null,
-    //       usernameFromParams: username || null,
-    //       name: null,
-    //       ticketNumber: null
-    //     },
-    //     revalidate: 5
-    //   };
-    // }
+  // if (username) {
+  //   let id = usernameToId(username);
+  //   let existingUsernameId = await checkUser(id);
+  //   if (existingUsernameId) {
+  //     let data = await getUser(id);
+  //     return {
+  //       props: {
+  //         username: username || null,
+  //         usernameFromParams: username || null,
+  //         name: data.name || username || null,
+  //         ticketNumber: data.ticketNumber || null
+  //       },
+  //       revalidate: 5
+  //     };
+  //   } else {
+  //     return {
+  //       props: {
+  //         username: null,
+  //         usernameFromParams: username || null,
+  //         name: null,
+  //         ticketNumber: null
+  //       },
+  //       revalidate: 5
+  //     };
+  //   }
 
-    return {
-      props: {
-        username: null,
-        usernameFromParams: username || null,
-        name: null,
-        ticketNumber: SAMPLE_TICKET_NUMBER
-      },
-      revalidate: 5
-    };
+  // } else {
+  //   return {
+  //     props: {
+  //       username: null,
+  //       usernameFromParams: username || null,
+  //       name: null,
+  //       ticketNumber: null
+  //     },
+  //     revalidate: 5
+  //   };
+  // }
 
+  return {
+    props: {
+      username: null,
+      usernameFromParams: username || null,
+      name: null,
+      ticketNumber: SAMPLE_TICKET_NUMBER,
+    },
+    revalidate: 5,
+  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.resolve({
     paths: [],
-    fallback: false
+    fallback: false,
   });
 };

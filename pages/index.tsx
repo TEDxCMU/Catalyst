@@ -25,14 +25,14 @@ export default function Conf() {
   const { query } = useRouter();
   const meta = {
     title: 'TEDxCMU Catalyst',
-    description: META_DESCRIPTION
+    description: META_DESCRIPTION,
   };
   const ticketNumber = query.ticketNumber?.toString();
   const defaultUserData = {
     id: query.id?.toString(),
     ticketNumber: ticketNumber ? parseInt(ticketNumber, 10) : undefined,
     name: query.name?.toString(),
-    username: query.username?.toString()
+    username: query.username?.toString(),
   };
 
   return (

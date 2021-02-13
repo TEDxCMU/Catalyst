@@ -40,6 +40,6 @@ export default function scroll(opts: ScrollToOptions) {
 
 export const scrollTo = (el: HTMLElement, offset = 0) => {
   scroll({
-    top: el.offsetTop + offset
+    top: el.offsetTop + offset,
   });
 };

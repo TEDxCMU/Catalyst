@@ -1,9 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { signOutUser, getCurrentUser} from '@lib/firestore-api';
+import { signOutUser, getCurrentUser } from '@lib/firestore-api';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 
-export default async function signOut(req: NextApiRequest, res: NextApiResponse) {
+export default async function signOut(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const id = req.cookies[COOKIE];
   const authUser = await getCurrentUser();
 
@@ -14,16 +17,14 @@ export default async function signOut(req: NextApiRequest, res: NextApiResponse)
       cookie.serialize(COOKIE, id, {
         httpOnly: true,
         maxAge: -1,
-        path: '/api'
+        path: '/api',
       })
     );
   }
 
-  if(authUser) {
+  if (authUser) {
     await signOutUser();
   }
 
   return res.status(200).json({ signOutSuccess: true });
 }
-
-

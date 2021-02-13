@@ -32,12 +32,17 @@ type FormState = 'default' | 'loading' | 'error';
 
 type Props = {
   defaultUsername?: string;
-  setTicketGenerationState: React.Dispatch<React.SetStateAction<TicketGenerationState>>;
+  setTicketGenerationState: React.Dispatch<
+    React.SetStateAction<TicketGenerationState>
+  >;
 };
 
 const githubEnabled = Boolean(process.env.NEXT_PUBLIC_GITHUB_OAUTH_CLIENT_ID);
 
-export default function Form({ defaultUsername = '', setTicketGenerationState }: Props) {
+export default function Form({
+  defaultUsername = '',
+  setTicketGenerationState,
+}: Props) {
   const [username, setUsername] = useState(defaultUsername);
   const [formState, setFormState] = useState<FormState>('default');
   const [errorMsg, setErrorMsg] = useState('');
@@ -48,7 +53,9 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
     <div>
       <div className={cn(formStyles['form-row'], ticketFormStyles['form-row'])}>
         <div className={cn(formStyles['input-label'], formStyles.error)}>
-          <div className={cn(formStyles.input, formStyles['input-text'])}>{errorMsg}</div>
+          <div className={cn(formStyles.input, formStyles['input-text'])}>
+            {errorMsg}
+          </div>
           <button
             type="button"
             className={cn(formStyles.submit, formStyles.error)}
@@ -65,7 +72,7 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
   ) : (
     <form
       ref={formRef}
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
 
         if (formState !== 'default') {
@@ -86,8 +93,10 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
         const windowWidth = 600;
         const windowHeight = 700;
         // https://stackoverflow.com/a/32261263/114157
-        const windowTop = window.top.outerHeight / 2 + window.top.screenY - 700 / 2;
-        const windowLeft = window.top.outerWidth / 2 + window.top.screenX - 600 / 2;
+        const windowTop =
+          window.top.outerHeight / 2 + window.top.screenY - 700 / 2;
+        const windowLeft =
+          window.top.outerWidth / 2 + window.top.screenX - 600 / 2;
 
         const openedWindow = window.open(
           `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(
@@ -97,7 +106,7 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
           `resizable,scrollbars,status,width=${windowWidth},height=${windowHeight},top=${windowTop},left=${windowLeft}`
         );
 
-        new Promise<GitHubOAuthData | undefined>(resolve => {
+        new Promise<GitHubOAuthData | undefined>((resolve) => {
           const interval = setInterval(() => {
             if (!openedWindow || openedWindow.closed) {
               clearInterval(interval);
@@ -117,7 +126,7 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
             resolve(msgEvent.data);
           });
         })
-          .then(async data => {
+          .then(async (data) => {
             if (!data) {
               setFormState('default');
               setTicketGenerationState('default');
@@ -127,7 +136,10 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
             let usernameFromResponse: string;
             let name: string;
             if (data.type === 'token') {
-              const res = await saveGithubToken({ id: userData.id, token: data.token });
+              const res = await saveGithubToken({
+                id: userData.id,
+                token: data.token,
+              });
 
               if (!res.ok) {
                 throw new Error('Failed to store oauth result');
@@ -151,9 +163,9 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
             new Image().src = `https://github.com/${usernameFromResponse}.png`;
 
             // Prefetch the twitter share URL to eagerly generate the page
-            fetch(`/tickets/${usernameFromResponse}`).catch(_ => {});
+            fetch(`/tickets/${usernameFromResponse}`).catch((_) => {});
           })
-          .catch(err => {
+          .catch((err) => {
             // eslint-disable-next-line no-console
             console.error(err);
             setFormState('error');
@@ -170,7 +182,7 @@ export default function Form({ defaultUsername = '', setTicketGenerationState }:
             formStyles['generate-with-github'],
             formStyles[formState],
             {
-              [formStyles['not-allowed']]: !githubEnabled
+              [formStyles['not-allowed']]: !githubEnabled,
             }
           )}
           disabled={

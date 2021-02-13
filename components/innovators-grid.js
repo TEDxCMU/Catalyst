@@ -33,12 +33,8 @@ function InnovatorCard({ innovator }) {
         </div>
         <div className={styles.cardBody}>
           <div>
-            <h2 className={styles.name}>
-              {innovator.company}
-            </h2>
-            <p className={styles.description}>
-              {innovator.tagline}
-            </p>
+            <h2 className={styles.name}>{innovator.company}</h2>
+            <p className={styles.description}>{innovator.tagline}</p>
           </div>
         </div>
       </a>

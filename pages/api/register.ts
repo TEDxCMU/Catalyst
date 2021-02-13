@@ -20,92 +20,99 @@ import validator from 'validator';
 import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
-    error: {
-        code: string;
-        message: string;
-    };
+  error: {
+    code: string;
+    message: string;
+  };
 };
 
 export default async function register(
-    req: NextApiRequest,
-    res: NextApiResponse<ConfUser | ErrorResponse>
+  req: NextApiRequest,
+  res: NextApiResponse<ConfUser | ErrorResponse>
 ) {
-    if (req.method !== 'POST') {
-        return res.status(501).json({
-            error: {
-                code: 'method_unknown',
-                message: 'This endpoint only responds to POST'
-            }
-        });
-    }
-
-    const email: string = ((req.body.email as string) || '').trim().toLowerCase();
-    if (!validator.isEmail(email)) {
-        return res.status(400).json({
-        error: {
-            code: 'bad_email',
-            message: 'Invalid email'
-        }
-        });
-    }
-
-    const password: string = ((req.body.password as string) || '');
-    const firstName: string = ((req.body.firstName as string) || '');
-    const lastName: string = ((req.body.lastName as string) || '');
-
-    let id;
-    let ticketNumber: number;
-    let createdAt: number;
-    let name: string;
-    let username: string;
-    let token: string;
-
-    try {
-        ticketNumber = await incrementTicketCounter();
-    } catch (e) {
-        console.error(e);
-        return res.status(400).json({
-            error: {
-                code: 'ticket_err',
-                message: e.message
-            }
-        });
-    }
-
-    createdAt = Date.now();
-    name = `${firstName} ${lastName}`
-    // Assume username is the part just before the @ in the email
-    // Username is NOT used for auth purposes thus it doesn't have to
-    // be unique, it will just be used to display on the ticket
-    username = email.split('@')[0];
-
-    try{
-        token = await registerUser(email, password, firstName, lastName, username, ticketNumber)
-    } catch (e) {
-        console.error(e);
-        if (e.code?.slice(0, 5) === "auth/"){
-            return res.status(400).json({
-                error: {
-                    code: 'auth_err',
-                    message: e.message
-                }
-            });
-        }
-        return res.status(400).json({
-            error: {
-                code: 'user_err',
-                message: e.message
-            }
-        });
-    }
-
-    return res.status(201).json({
-        id,
-        email,
-        username,
-        ticketNumber,
-        createdAt,
-        name,
-        token,
+  if (req.method !== 'POST') {
+    return res.status(501).json({
+      error: {
+        code: 'method_unknown',
+        message: 'This endpoint only responds to POST',
+      },
     });
+  }
+
+  const email: string = ((req.body.email as string) || '').trim().toLowerCase();
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({
+      error: {
+        code: 'bad_email',
+        message: 'Invalid email',
+      },
+    });
+  }
+
+  const password: string = (req.body.password as string) || '';
+  const firstName: string = (req.body.firstName as string) || '';
+  const lastName: string = (req.body.lastName as string) || '';
+
+  let id;
+  let ticketNumber: number;
+  let createdAt: number;
+  let name: string;
+  let username: string;
+  let token: string;
+
+  try {
+    ticketNumber = await incrementTicketCounter();
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({
+      error: {
+        code: 'ticket_err',
+        message: e.message,
+      },
+    });
+  }
+
+  createdAt = Date.now();
+  name = `${firstName} ${lastName}`;
+  // Assume username is the part just before the @ in the email
+  // Username is NOT used for auth purposes thus it doesn't have to
+  // be unique, it will just be used to display on the ticket
+  username = email.split('@')[0];
+
+  try {
+    token = await registerUser(
+      email,
+      password,
+      firstName,
+      lastName,
+      username,
+      ticketNumber
+    );
+  } catch (e) {
+    console.error(e);
+    if (e.code?.slice(0, 5) === 'auth/') {
+      return res.status(400).json({
+        error: {
+          code: 'auth_err',
+          message: e.message,
+        },
+      });
+    }
+    return res.status(400).json({
+      error: {
+        code: 'user_err',
+        message: e.message,
+      },
+    });
+  }
+
+  return res.status(201).json({
+    id,
+    email,
+    username,
+    ticketNumber,
+    createdAt,
+    name,
+    token,
+  });
 }

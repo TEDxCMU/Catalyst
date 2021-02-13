@@ -20,13 +20,20 @@ import Link from 'next/link';
 import cn from 'classnames';
 import { NAVIGATION } from '@lib/constants';
 import { useOverlayTriggerState } from '@react-stately/overlays';
-import { useOverlay, usePreventScroll, useModal, OverlayContainer } from '@react-aria/overlays';
+import {
+  useOverlay,
+  usePreventScroll,
+  useModal,
+  OverlayContainer,
+} from '@react-aria/overlays';
 import { useDialog } from '@react-aria/dialog';
 import { FocusScope } from '@react-aria/focus';
 import { useButton } from '@react-aria/button';
 import styles from './mobile-menu.module.css';
 
-function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]) {
+function ModalDialog(
+  props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]
+) {
   const router = useRouter();
   const activeRoute = router.asPath;
 
@@ -40,12 +47,18 @@ function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof
   return (
     <div className={styles['nav-overlay']}>
       <FocusScope contain restoreFocus autoFocus>
-        <nav className={styles.nav} {...overlayProps} {...dialogProps} {...modalProps} ref={ref}>
+        <nav
+          className={styles.nav}
+          {...overlayProps}
+          {...dialogProps}
+          {...modalProps}
+          ref={ref}
+        >
           {NAVIGATION.map(({ name, route }) => (
             <Link key={name} href={route}>
               <a
                 className={cn(styles['nav-item'], {
-                  [styles['nav-active']]: activeRoute.startsWith(route)
+                  [styles['nav-active']]: activeRoute.startsWith(route),
                 })}
               >
                 {name}
@@ -63,7 +76,7 @@ export default function Overlay() {
   const ref = useRef<HTMLButtonElement | null>(null);
   const { buttonProps } = useButton(
     {
-      onPress: () => (state.isOpen ? state.close() : state.open())
+      onPress: () => (state.isOpen ? state.close() : state.open()),
     },
     ref
   );

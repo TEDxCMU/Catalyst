@@ -17,7 +17,10 @@
 import cn from 'classnames';
 import styles from './select.module.css';
 
-export default function Select({ className, ...props }: JSX.IntrinsicElements['select']) {
+export default function Select({
+  className,
+  ...props
+}: JSX.IntrinsicElements['select']) {
   return (
     <div className={styles.container}>
       <select className={cn(styles.select, className)} {...props} />

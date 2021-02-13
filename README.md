@@ -202,7 +202,7 @@ const EMOJI = '🎥';
 
 // Whitelisted user IDs that are allowed to add the emoji to influence this API
 const USERS = [
-  '752552204124291104' // username
+  '752552204124291104', // username
 ];
 
 // Discord base API URL
@@ -213,7 +213,7 @@ const CHANNELS = new Map<string, string>([
   ['a', '769350098697191515'],
   ['c', '769350352226877549'],
   ['m', '769350396623192074'],
-  ['e', '769350429644685351']
+  ['e', '769350429644685351'],
 ]);
 
 const api = (url: string, opts: RequestInit = {}) => {
@@ -223,7 +223,7 @@ const api = (url: string, opts: RequestInit = {}) => {
 
   return fetch(`${API}${url}`, {
     ...opts,
-    headers
+    headers,
   });
 };
 
@@ -233,10 +233,14 @@ async function getReactionSelectors(
   emoji: string
 ): Promise<ReactionSelector[]> {
   const res = await api(
-    `channels/${channelId}/messages/${messageId}/reactions/${encodeURIComponent(emoji)}`
+    `channels/${channelId}/messages/${messageId}/reactions/${encodeURIComponent(
+      emoji
+    )}`
   );
   if (!res.ok) {
-    throw new Error(`Failed to get message reactions: ${await res.text()} (${res.status})`);
+    throw new Error(
+      `Failed to get message reactions: ${await res.text()} (${res.status})`
+    );
   }
   return res.json();
 }
@@ -254,8 +258,12 @@ async function getLatestMessageWithEmoji(
     }
     for (const reaction of message.reactions || []) {
       if (reaction.emoji.name === emoji) {
-        const selectors = await getReactionSelectors(message.channel_id, message.id, emoji);
-        const selector = selectors.find(r => usersWhitelist.includes(r.id));
+        const selectors = await getReactionSelectors(
+          message.channel_id,
+          message.id,
+          emoji
+        );
+        const selector = selectors.find((r) => usersWhitelist.includes(r.id));
         if (selector) {
           // The correct emoji was added from a whitelisted user
           return { message, selector };
@@ -265,10 +273,15 @@ async function getLatestMessageWithEmoji(
   }
 }
 
-export default async function getDiscordMessage(req: NextApiRequest, res: NextApiResponse) {
+export default async function getDiscordMessage(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { stage } = req.query;
   if (typeof stage !== 'string') {
-    return res.status(400).json({ error: 'Query parameter "stage" must be a string' });
+    return res
+      .status(400)
+      .json({ error: 'Query parameter "stage" must be a string' });
   }
 
   const channelId = CHANNELS.get(stage);
@@ -298,7 +311,7 @@ export default async function getDiscordMessage(req: NextApiRequest, res: NextAp
   const body = {
     username: messageToShow.message.author.username,
     content: messageToShow.message.content,
-    timestamp: messageToShow.message.timestamp
+    timestamp: messageToShow.message.timestamp,
   };
 
   // Set caching headers

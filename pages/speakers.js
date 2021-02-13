@@ -25,7 +25,7 @@ import { SPEAKERS_DESCRIPTION } from '@lib/constants';
 export default function Speakers({ speakers }) {
   const meta = {
     title: 'Speakers - TEDxCMU Catalyst',
-    description: SPEAKERS_DESCRIPTION
+    description: SPEAKERS_DESCRIPTION,
   };
 
   return (
@@ -43,8 +43,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      speakers
+      speakers,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }

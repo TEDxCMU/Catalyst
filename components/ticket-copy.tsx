@@ -42,7 +42,7 @@ export default function TicketCopy({ username }: Props) {
   const copiedText = (
     <span
       className={cn(styles.copied, {
-        [styles.visible]: copied
+        [styles.visible]: copied,
       })}
     >
       Copied!
@@ -73,7 +73,7 @@ export default function TicketCopy({ username }: Props) {
         <div className={styles.label}>Your ticket URL:</div>
         <div
           className={cn(styles['mobile-copy'], {
-            [styles['mobile-copy-disabled']]: !copyEnabled
+            [styles['mobile-copy-disabled']]: !copyEnabled,
           })}
         >
           {copiedText}
@@ -82,7 +82,7 @@ export default function TicketCopy({ username }: Props) {
       </div>
       <div
         className={cn(styles.field, {
-          [styles['desktop-copy-disabled']]: !copyEnabled
+          [styles['desktop-copy-disabled']]: !copyEnabled,
         })}
       >
         <span
@@ -93,9 +93,11 @@ export default function TicketCopy({ username }: Props) {
               setScrolling(true);
               const animationFrame = requestAnimationFrame(() => {
                 const scrollableWidth =
-                  (scrollRef.current?.scrollWidth || 0) - (scrollRef.current?.clientWidth || 0);
+                  (scrollRef.current?.scrollWidth || 0) -
+                  (scrollRef.current?.clientWidth || 0);
                 setFadeOpacity(
-                  (scrollableWidth - (scrollRef.current?.scrollLeft || 0)) / (scrollableWidth || 1)
+                  (scrollableWidth - (scrollRef.current?.scrollLeft || 0)) /
+                    (scrollableWidth || 1)
                 );
                 cancelAnimationFrame(animationFrame);
                 setScrolling(false);
@@ -107,13 +109,13 @@ export default function TicketCopy({ username }: Props) {
         </span>
         <span
           className={cn(styles.fade, {
-            [styles['desktop-copy-disabled']]: !copyEnabled
+            [styles['desktop-copy-disabled']]: !copyEnabled,
           })}
           style={{ opacity: fadeOpacity }}
         />
         <div
           className={cn(styles['desktop-copy'], styleUtils['hide-on-mobile'], {
-            [styles['desktop-copy-disabled']]: !copyEnabled
+            [styles['desktop-copy-disabled']]: !copyEnabled,
           })}
         >
           {copiedText}

@@ -32,7 +32,12 @@ type Props = {
   layoutStyles?: any;
 };
 
-export default function Layout({ children, className, hideNav, layoutStyles }: Props) {
+export default function Layout({
+  children,
+  className,
+  hideNav,
+  layoutStyles,
+}: Props) {
   const router = useRouter();
   const activeRoute = router.asPath;
 
@@ -48,10 +53,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
                 {/* <a className={styles.logo}>
                   <Logo />
                 </a> */}
-                <a className={styles.home}>
-                  {CONF_TITLE.toUpperCase()}
-                </a>
-                
+                <a className={styles.home}>{CONF_TITLE.toUpperCase()}</a>
               </Link>
             </div>
             <div className={styles.tabs}>
@@ -59,7 +61,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
                 <Link key={name} href={route}>
                   <a
                     className={cn(styles.tab, {
-                      [styles['tab-active']]: activeRoute.startsWith(route)
+                      [styles['tab-active']]: activeRoute.startsWith(route),
                     })}
                   >
                     {name}
@@ -67,8 +69,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
                 </Link>
               ))}
             </div>
-            <div className={cn(styles['header-right'])}>
-            </div>
+            <div className={cn(styles['header-right'])}></div>
           </header>
         )}
         <div className={styles.page}>

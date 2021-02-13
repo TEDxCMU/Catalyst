@@ -7,10 +7,12 @@
   "homepage": "https://demo.vercel.events",
   "license": "Apache-2.0",
   "scripts": {
+    "postinstall": "husky install",
     "dev": "next",
     "start": "next start",
     "build": "next build",
     "export": "next export",
+    "format": "prettier --write .",
     "license": "addlicense -l apache -c 'Vercel Inc.' components/**/* lib/**/* pages/**/* styles/**/* *.ts *.js"
   },
   "dependencies": {
@@ -47,9 +49,11 @@
     "@types/react": "17.0.0",
     "@types/smoothscroll-polyfill": "0.3.1",
     "@types/validator": "13.1.1",
+    "husky": "^5.0.9",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-hover-media-feature": "1.0.0",
     "postcss-preset-env": "6.7.0",
+    "prettier": "2.2.1",
     "typescript": "4.1.3"
   }
 }

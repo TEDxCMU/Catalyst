@@ -37,7 +37,7 @@ export default function TicketVisual({
   name,
   username,
   ticketNumber,
-  ticketGenerationState = 'default'
+  ticketGenerationState = 'default',
 }: Props) {
   return (
     <>
@@ -57,7 +57,9 @@ export default function TicketVisual({
           />
         </div>
         <div className={styles.info}>
-          <TicketInfo logoTextSecondaryColor={ticketNumber ? 'var(--brand)' : undefined} />
+          <TicketInfo
+            logoTextSecondaryColor={ticketNumber ? 'var(--brand)' : undefined}
+          />
         </div>
         {ticketNumber && (
           <div className={styles['ticket-number-wrapper']}>

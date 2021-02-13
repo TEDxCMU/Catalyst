@@ -36,7 +36,8 @@ export default function useEmailQueryParam(
         params.delete(paramName);
         const newSearch = params.toString();
         const newAsPath = pathname + (newSearch ? `?${newSearch}` : '');
-        const newPathname = router.pathname + (newSearch ? `?${newSearch}` : '');
+        const newPathname =
+          router.pathname + (newSearch ? `?${newSearch}` : '');
         history.replaceState(
           { url: newPathname, as: newAsPath, options: { shallow: true } },
           '',
