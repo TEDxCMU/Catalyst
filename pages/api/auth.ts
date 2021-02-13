@@ -19,7 +19,23 @@ import { COOKIE } from '@lib/constants';
 import { signOutUser, getCurrentUser } from '@lib/firestore-api';
 import cookie from 'cookie';
 
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+interface Request extends NextApiRequest {
+  netlifyFunctionParams: any;
+}
+
+export default async function auth(req: Request, res: NextApiResponse) {
+  // Get event and context from Netlify Function
+  const { context } = req.netlifyFunctionParams || {};
+
+  // If we are currently in a Netlify function (deployed on netlify.app or
+  // locally with netlify dev), do not wait for empty event loop.
+  // See: https://stackoverflow.com/a/39215697/6451879
+  // Skip during next dev.
+  if (context) {
+    console.log("Setting callbackWaitsForEmptyEventLoop: false");
+    context.callbackWaitsForEmptyEventLoop = false;
+  }
+
   // 2 modes of auth, the username cookie and the user looged into Firebase auth.
   // Need to check both, and make sure they correspond 
 
