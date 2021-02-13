@@ -17,7 +17,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import screenshot from '@lib/screenshot';
 import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
-import { getUser } from '@lib/firestore-api';
 
 export default async function ticketImages(
   req: NextApiRequest,
@@ -26,23 +25,9 @@ export default async function ticketImages(
   let url: string;
   const { username } = req.query || {};
   if (username) {
-    // const usernameString = username.toString();
-    // let id = usernameToId(username);
-    // let existingUsernameId = await checkUser(id);
-    // let existingUsernameId = false;
-    // if (existingUsernameId) {
-    //   let data = await getUser(id);
-    //   url = `${SITE_URL}/ticket-image?username=${encodeURIComponent(
-    //     usernameString
-    //   )}&ticketNumber=${encodeURIComponent(data.ticketNumber)}`;
-    //   if (data.name) {
-    //     url = `${url}&name=${encodeURIComponent(data.name)}`;
-    //   }
-    // } else {
     url = `${SITE_URL}/ticket-image?ticketNumber=${encodeURIComponent(
       SAMPLE_TICKET_NUMBER
     )}`;
-    // }
 
     // TODO: Code fails here at screenshot, still need to fix
     const file = await screenshot(url);

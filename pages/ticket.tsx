@@ -3,7 +3,7 @@ import Page from '@components/page';
 import Layout from '@components/layout';
 import TicketContainer from '@components/ticket-container';
 import { META_DESCRIPTION } from '@lib/constants';
-import { getCurrentUser, getUser } from '@lib/firestore-api';
+import { getCurrentUser, getUser } from '@lib/firebase-client';
 
 type Props = {
   name: string;

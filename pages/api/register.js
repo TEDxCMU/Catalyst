@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { ConfUser } from '@lib/types';
 import validator from 'validator';
-import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
+import cookie from 'cookie';
+import ms from 'ms';
+import { COOKIE } from '@lib/constants';
+import { incrementTicketCounter, registerUser } from '@lib/firebase-server';
 
-type ErrorResponse = {
-  error: {
-    code: string;
-    message: string;
-  };
-};
-
-export default async function register(
-  req: NextApiRequest,
-  res: NextApiResponse<ConfUser | ErrorResponse>
-) {
+export default async function register(req, res) {
   if (req.method !== 'POST') {
     return res.status(501).json({
       error: {
@@ -39,7 +30,7 @@ export default async function register(
     });
   }
 
-  const email: string = ((req.body.email as string) || '').trim().toLowerCase();
+  const email = ((req.body.email) || '').trim().toLowerCase();
   if (!validator.isEmail(email)) {
     return res.status(400).json({
       error: {
@@ -49,16 +40,14 @@ export default async function register(
     });
   }
 
-  const password: string = (req.body.password as string) || '';
-  const firstName: string = (req.body.firstName as string) || '';
-  const lastName: string = (req.body.lastName as string) || '';
+  const password = (req.body.password) || '';
+  const firstName = (req.body.firstName) || '';
+  const lastName = (req.body.lastName) || '';
 
-  let id;
-  let ticketNumber: number;
-  let createdAt: number;
-  let name: string;
-  let username: string;
-  let token: string;
+  let ticketNumber;
+  let createdAt;
+  let name;
+  let username;
 
   try {
     ticketNumber = await incrementTicketCounter();
@@ -80,7 +69,7 @@ export default async function register(
   username = email.split('@')[0];
 
   try {
-    token = await registerUser(
+    const [token, id] = await registerUser(
       email,
       password,
       firstName,
@@ -88,6 +77,27 @@ export default async function register(
       username,
       ticketNumber
     );
+
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize(COOKIE, id, {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      })
+    );
+  
+    return res.status(201).json({
+      token,
+      id,
+      email,
+      username,
+      ticketNumber,
+      createdAt,
+      name,
+    });
   } catch (e) {
     console.error(e);
     if (e.code?.slice(0, 5) === 'auth/') {
@@ -105,14 +115,4 @@ export default async function register(
       },
     });
   }
-
-  return res.status(201).json({
-    id,
-    email,
-    username,
-    ticketNumber,
-    createdAt,
-    name,
-    token,
-  });
 }

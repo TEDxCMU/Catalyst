@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import { checkUser, getCurrentUser, signInUser } from '@lib/firestore-api';
+import { checkUser, getCurrentUser, signInUser } from '@lib/firebase-server';
 
 type ErrorResponse = {
   error: {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { signOutUser, getCurrentUser } from '@lib/firestore-api';
+import { signOutUser, getCurrentUser } from '@lib/firebase-server';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 

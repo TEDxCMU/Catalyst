@@ -24,6 +24,7 @@ import styleUtils from './utils.module.css';
 import styles from './form.module.css';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import { register } from '@lib/user-api';
+import { signInUser } from '@lib/firebase-client';
 
 type FormState = 'default' | 'loading' | 'error';
 
@@ -62,6 +63,7 @@ export default function Form({ sharePage }: Props) {
           ticketNumber: data.ticketNumber,
           name: data.name,
         };
+        signInUser(data.token);
 
         if (sharePage) {
           const queryString = Object.keys(params)
