@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
+import { encrypt } from '@lib/hash';
 import { checkUser, getCurrentUser, signInUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -38,7 +39,7 @@ export default async function signIn( req: Request, res: NextApiResponse)
     context.callbackWaitsForEmptyEventLoop = false;
   }
 
-  const email: string = ((req.body.email as string) || '');
+  const email: string = ((req.body.email as string) || '').trim().toLowerCase();
   const password: string = ((req.body.password as string) || '');
   let user;
   let id;
@@ -91,13 +92,22 @@ export default async function signIn( req: Request, res: NextApiResponse)
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(COOKIE, id, {
-      httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/api',
-      expires: new Date(Date.now() + ms('1 day'))
-    })
+    [
+      cookie.serialize("user_id", encrypt(email), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      }),
+      cookie.serialize("session_id", encrypt(password), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      })
+    ]
   );
 
   return res.status(200).json({ signInSuccess: true });

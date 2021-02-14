@@ -16,7 +16,8 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
-import { signOutUser, getCurrentUser } from '@lib/firestore-api';
+import { signInUser, signOutUser, getCurrentUser } from '@lib/firestore-api';
+import { decrypt } from '@lib/hash';
 import cookie from 'cookie';
 
 interface Request extends NextApiRequest {
@@ -36,62 +37,92 @@ export default async function auth(req: Request, res: NextApiResponse) {
     context.callbackWaitsForEmptyEventLoop = false;
   }
 
-  // 2 modes of auth, the username cookie and the user looged into Firebase auth.
+  // 2 modes of auth, the cookie and the user looged into Firebase auth.
   // Need to check both, and make sure they correspond 
 
-  const id = req.cookies[COOKIE];
-  const authUser = await getCurrentUser();
+  const user_id_cookie = req.cookies["user_id"];
+  const session_id_cookie = req.cookies["session_id"];
+  let authUser = await getCurrentUser();
 
-  if (!id && !authUser) {
-      //console.log("!id && !authUser");
-      return res.status(200).json({ loggedIn: false });
-  } else if (!id && authUser) {
-      //console.log("!id && authUser");
+
+  if(user_id_cookie && session_id_cookie){
+    let emailFromCookie = decrypt(user_id_cookie);
+    let passFromCookie = decrypt(session_id_cookie);
+
+    if(authUser){
+
+      // Check whether they actually correspond with eachother
+      console.log("cookie && authUser");
+      let emailFromAuth = authUser.email;
+      console.log(`${emailFromAuth} and ${emailFromCookie}`);
+      if (emailFromAuth != emailFromCookie){
+        console.log("DO NOT CORRESPOND!");
+        // If they don't correspond clear EVERYTHING and return false
+        res.setHeader(
+          'Set-Cookie',
+          [
+            cookie.serialize("user_id", user_id_cookie, {
+            httpOnly: true,
+            maxAge: -1,
+            path: '/api'
+            }),
+            cookie.serialize("session_id", session_id_cookie, {
+            httpOnly: true,
+            maxAge: -1,
+            path: '/api'
+            })
+          ]
+        );
+  
+        await signOutUser();
+  
+        return res.status(200).json({ loggedIn: false });
+      }
+
+      // id and authUser exist and correspond with eachother, return true
+      // and the authUser's info
+      return res.status(200).json({ loggedIn: true, user: authUser });
+
+    } else {
+      // Sign in with cookie and return true
+      console.log("cookie && !authUser");
+      await signInUser(emailFromCookie, passFromCookie);
+      authUser = await getCurrentUser();
+      return res.status(200).json({ loggedIn: true, user: authUser });
+    }
+    
+  } else {
+
+    // Handle if either one is true
+    if(user_id_cookie || session_id_cookie){
+      console.log("cookie existed, deleting now");
+      res.setHeader(
+        'Set-Cookie',
+        [
+          cookie.serialize("user_id", user_id_cookie, {
+          httpOnly: true,
+          maxAge: -1,
+          path: '/api'
+          }),
+          cookie.serialize("session_id", session_id_cookie, {
+          httpOnly: true,
+          maxAge: -1,
+          path: '/api'
+          })
+        ]
+      );
+    }
+
+    if(authUser){
+      console.log("!cookie && authUser");
       // Sign out of Firebase auth and return false
       await signOutUser();
       return res.status(200).json({ loggedIn: false });
-  } else if (id && !authUser){
-      //console.log("id && !authUser");
-      // TODO: update so that it actually auto-logs you in and return true
-      // Delete cookie and return false
-      res.setHeader(
-        'Set-Cookie',
-        cookie.serialize(COOKIE, id, {
-          httpOnly: true,
-          maxAge: -1,
-          path: '/api'
-        })
-      );
-      return res.status(200).json({ loggedIn: false });
-  } else if (id && authUser){
-    //console.log("id && authUser");
-    // Check whether they actually correspond with eachother
-    let idFromUser = authUser.uid;
-    //console.log(`${idFromUser} and ${idFromUser}`);
-    
-    if (idFromUser != id){
-      //console.log("DO NOT CORRESPOND!");
-      // If they don't correspond clear BOTH and return false
-      res.setHeader(
-        'Set-Cookie',
-        cookie.serialize(COOKIE, id, {
-          httpOnly: true,
-          maxAge: -1,
-          path: '/api'
-        })
-      );
-
-      await signOutUser();
-
-      return res.status(200).json({ loggedIn: false });
     }
 
-    // id and authUser exist and correspond with eachother, return true
-    // and the authUser's info
-    return res.status(200).json({ loggedIn: true, user: authUser });
-  } else {
-    // Should never reach here
+    console.log("!cookie && !authUser");
     return res.status(200).json({ loggedIn: false });
+
   }
   
 }
