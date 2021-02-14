@@ -20,10 +20,8 @@ import { useRouter } from 'next/router';
 import { SkipNavContent } from '@reach/skip-nav';
 import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
-import Logo from './icons/icon-logo';
 import MobileMenu from './mobile-menu';
-import Footer, { HostedByVercel } from './footer';
-import ViewSource from '@components/view-source';
+import Footer from './footer';
 
 type Props = {
   children: React.ReactNode;
@@ -44,14 +42,9 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             <div className={styles['header-logos']}>
               <MobileMenu key={router.asPath} />
               <Link href="/">
-                {/* eslint-disable-next-line */}
-                {/* <a className={styles.logo}>
-                  <Logo />
-                </a> */}
                 <a className={styles.home}>
                   {CONF_TITLE.toUpperCase()}
                 </a>
-                
               </Link>
             </div>
             <div className={styles.tabs}>
@@ -76,7 +69,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             <SkipNavContent />
             <div className={cn(styles.full, className)}>{children}</div>
           </main>
-          {!activeRoute.startsWith('/stage') && <Footer />}
+          {!activeRoute.startsWith('/stage') && activeRoute !== '/' && <Footer />}
         </div>
       </div>
     </>

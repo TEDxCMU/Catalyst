@@ -14,67 +14,51 @@
  * limitations under the License.
  */
 
-.wrapper {
-  margin-top: var(--space-12x);
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
 }
 
-.hero {
-  font-size: 52px;
-  line-height: 1.15;
-  letter-spacing: -0.05em;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 25px;
+.imgContainer {
+  position: relative;
+  height: 1646px;
 }
 
-.info {
-  font-size: 20px;
-  line-height: 1.4;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: var(--space-8x);
-  color: var(--brand);
-}
-
-.description {
+.heading {
+  font-family: 'ivypresto-display';
   font-weight: 400;
-  font-size: 20px;
-  line-height: 1.4;
-  text-align: center;
-  margin: auto auto 30px;
-  color: var(--secondary-color);
-  max-width: 355px;
+  font-size: 120px;
+  line-height: 124px;
 }
 
-.description-separator {
-  height: 24px;
-  width: 1px;
-  background: var(--secondary-color);
-  margin: 0 var(--space-4x);
+.img {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+  filter: grayscale(100);
 }
 
-.info :global(p) {
-  margin: 0;
+.img img {
+  display: block;
+  height: 100%;
+  width: 100vw;
 }
 
-@media (min-width: 768px) {
-  .hero {
-    font-size: 100px;
-    line-height: 1;
-    font-weight: 800;
-    margin: 0 0px 40px;
-  }
+.imgOverlay {
+  filter: grayscale(0);
+}
 
-  .info {
-    font-size: 24px;
-    margin-bottom: 40px;
-  }
-
-  .description {
-    font-size: var(--space-8x);
-    max-width: 531px;
-    margin: 40px auto;
-  }
+.slider {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: #2196F3;
+  cursor: ew-resize;
+  z-index: 10;
+  opacity: 0.7;
+  border-radius: 50%;
 }
