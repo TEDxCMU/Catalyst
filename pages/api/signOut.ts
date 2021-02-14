@@ -3,7 +3,23 @@ import { signOutUser, getCurrentUser} from '@lib/firestore-api';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 
-export default async function signOut(req: NextApiRequest, res: NextApiResponse) {
+interface Request extends NextApiRequest {
+  netlifyFunctionParams: any;
+}
+
+export default async function signOut(req: Request, res: NextApiResponse) {
+  // Get event and context from Netlify Function
+  const { context } = req.netlifyFunctionParams || {};
+
+  // If we are currently in a Netlify function (deployed on netlify.app or
+  // locally with netlify dev), do not wait for empty event loop.
+  // See: https://stackoverflow.com/a/39215697/6451879
+  // Skip during next dev.
+  if (context) {
+    console.log("Setting callbackWaitsForEmptyEventLoop: false");
+    context.callbackWaitsForEmptyEventLoop = false;
+  }
+
   const id = req.cookies[COOKIE];
   const authUser = await getCurrentUser();
 
