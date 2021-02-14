@@ -99,7 +99,7 @@ export default function StageContainer({ stage, events }) {
           <ConfEntry onRegister={() => mutate()} />
         )}
       </div>
-      <ScheduleSidebar events={events} />
+      {loginStatus === "loggedIn" && <ScheduleSidebar events={events} />}
     </div>
   );
 }
