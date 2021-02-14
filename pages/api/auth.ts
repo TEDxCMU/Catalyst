@@ -52,11 +52,11 @@ export default async function auth(req: Request, res: NextApiResponse) {
     if(authUser){
 
       // Check whether they actually correspond with eachother
-      console.log("cookie && authUser");
+      //console.log("cookie && authUser");
       let emailFromAuth = authUser.email;
-      console.log(`${emailFromAuth} and ${emailFromCookie}`);
+      //console.log(`${emailFromAuth} and ${emailFromCookie}`);
       if (emailFromAuth != emailFromCookie){
-        console.log("DO NOT CORRESPOND!");
+        //console.log("DO NOT CORRESPOND!");
         // If they don't correspond clear EVERYTHING and return false
         res.setHeader(
           'Set-Cookie',
@@ -85,7 +85,7 @@ export default async function auth(req: Request, res: NextApiResponse) {
 
     } else {
       // Sign in with cookie and return true
-      console.log("cookie && !authUser");
+      // console.log("cookie && !authUser");
       await signInUser(emailFromCookie, passFromCookie);
       authUser = await getCurrentUser();
       return res.status(200).json({ loggedIn: true, user: authUser });
@@ -95,7 +95,7 @@ export default async function auth(req: Request, res: NextApiResponse) {
 
     // Handle if either one is true
     if(user_id_cookie || session_id_cookie){
-      console.log("cookie existed, deleting now");
+      // console.log("cookie existed, deleting now");
       res.setHeader(
         'Set-Cookie',
         [
@@ -114,13 +114,13 @@ export default async function auth(req: Request, res: NextApiResponse) {
     }
 
     if(authUser){
-      console.log("!cookie && authUser");
+      //console.log("!cookie && authUser");
       // Sign out of Firebase auth and return false
       await signOutUser();
       return res.status(200).json({ loggedIn: false });
     }
 
-    console.log("!cookie && !authUser");
+    //console.log("!cookie && !authUser");
     return res.status(200).json({ loggedIn: false });
 
   }
