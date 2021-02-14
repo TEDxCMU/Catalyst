@@ -20,6 +20,7 @@ import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
+import { encrypt } from '@lib/hash';
 import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -126,14 +127,24 @@ export default async function register(
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(COOKIE, id, {
-      httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/api',
-      expires: new Date(Date.now() + ms('1 day'))
-    })
+    [
+      cookie.serialize("user_id", encrypt(email), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      }),
+      cookie.serialize("session_id", encrypt(password), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      })
+    ]
   );
+
 
   return res.status(statusCode).json({
     id,
