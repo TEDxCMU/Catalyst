@@ -20,7 +20,6 @@ import TicketVisual from './ticket-visual';
 import styles from './ticket-image.module.css';
 
 export default function TicketImage() {
-
   const { query } = useRouter();
   if (query.ticketNumber) {
     return (

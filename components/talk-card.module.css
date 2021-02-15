@@ -27,45 +27,35 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  /* min-width: var(--talk-card-width, 270px); */
-  width: var(--talk-card-width, 307px);
-  /* background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
-  background-clip: content-box, border-box; */
-  border: 1px solid #333333;
+  min-width: var(--talk-card-width, 270px);
+  max-width: var(--talk-card-width, 270px);
   padding: 1px;
+  background-clip: content-box, border-box;
+  background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
 }
 .card:hover {
   background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #aaa, #aaa);
-  border: 1px solid white;
 }
 
 .is-live {
-  background-image: linear-gradient(#111111, #111111), linear-gradient(to right, var(--brand), var(--brand));
+  background-image: linear-gradient(#111111, #111111),
+    linear-gradient(to right, var(--brand), var(--brand));
 }
 
 .card-body {
-  background-image: linear-gradient(#000000, #000000), linear-gradient(to right, #333333, #333333);
-  background-clip: border-box;
-  border-radius: 0px 0px var(--space-2x) var(--space-2x);
-  padding: var(--space-6x);
-  position: relative;
+  padding: var(--space-4x);
 }
 
 .title {
-  font-family: "ivypresto-display", serif;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 24px;
+  font-size: 14px;
+  font-weight: 700;
   color: #e5e5e5;
   margin: 0;
-  line-height: 103%;
+  line-height: 1.4;
   width: 100%;
 }
 
 .speaker {
-  font-family: "neue-haas-grotesk-display", serif;
-  text-transform: uppercase;
-  font-size: 16px;
   display: flex;
   align-items: center;
   margin-top: var(--space-2x);
@@ -79,22 +69,23 @@
 }
 
 .avatar {
-  width: 100%;
-  object-fit: contain;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .avatar-wrapper {
-  height: 200px;
-  position: relative;
+  margin-right: var(--space-2x);
 }
-/* 
+
 .avatar-group {
   display: flex;
 }
 
 .avatar-wrapper:nth-child(n + 2) {
   margin-left: -15px;
-} */
+}
 
 .link:hover .card:not(.is-live) {
   background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #555, #555);
