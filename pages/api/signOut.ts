@@ -20,18 +20,26 @@ export default async function signOut(req: Request, res: NextApiResponse) {
     context.callbackWaitsForEmptyEventLoop = false;
   }
 
-  const id = req.cookies[COOKIE];
+  const user_id_cookie = req.cookies["user_id"];
+  const session_id_cookie = req.cookies["session_id"];
   const authUser = await getCurrentUser();
 
-  if (id) {
-    // Deletes the cookie by making it expire immediately
+  if(user_id_cookie || session_id_cookie){
+    // Delete both cookies
     res.setHeader(
       'Set-Cookie',
-      cookie.serialize(COOKIE, id, {
+      [
+        cookie.serialize("user_id", user_id_cookie, {
         httpOnly: true,
         maxAge: -1,
         path: '/api'
-      })
+        }),
+        cookie.serialize("session_id", session_id_cookie, {
+        httpOnly: true,
+        maxAge: -1,
+        path: '/api'
+        })
+      ]
     );
   }
 
