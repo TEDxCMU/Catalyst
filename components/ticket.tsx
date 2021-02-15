@@ -74,13 +74,13 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
               name ? (
                 <>{name}’s Ticket</>
               ) : (
-                <>{SITE_NAME}</>
-              )
+                  <>{SITE_NAME}</>
+                )
             ) : (
-              <>
-                Here's your ticket to the the experience.
+                <>
+                  Here's your ticket to the the experience.
               </>
-            )}
+              )}
           </h2>
           <p className={cn(styles.description, styleUtils.appear, styleUtils['appear-second'])}>
             {sharePage ? (
@@ -88,11 +88,11 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
                 Join {name && 'them '} on {DATE}.
               </>
             ) : (
-              <>
-                Download or share your ticket and <br className={styleUtils['hide-on-mobile']} />
+                <>
+                  Download or share your ticket and <br className={styleUtils['hide-on-mobile']} />
                 spread the word.
               </>
-            )}
+              )}
           </p>
         </div>
         <div className={cn(styleUtils.appear, styleUtils['appear-third'])}>
@@ -115,18 +115,18 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
         </div>
         {!sharePage && (
           <>
-            {username ? (
+            {username && name && ticketNumber ? (
               <div>
                 <div className={styles['ticket-actions']}>
-                  <TicketActions username={username} />
+                  <TicketActions username={username} name={name} ticketNumber={ticketNumber} />
                 </div>
                 <div className={styles['ticket-copy']}>
                   <TicketCopy username={username} />
                 </div>
               </div>
             ) : (
-              <div className={styles['ticket-actions-placeholder']} />
-            )}
+                <div className={styles['ticket-actions-placeholder']} />
+              )}
           </>
         )}
       </div>
