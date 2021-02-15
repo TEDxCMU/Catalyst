@@ -15,10 +15,12 @@
  */
 
 .hero {
-  font-size: 28px;
+  font-family: "ivypresto-display", serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 48px;
   line-height: 1;
   letter-spacing: -0.05em;
-  font-weight: 800;
   margin: var(--space-8x) 24px var(--space-2x);
 }
 

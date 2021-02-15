@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import Page from '@components/page';
-import Schedule from 'components/schedule';
-import Layout from '@components/layout';
-import Header from '@components/header';
+import Page from "@components/page";
+import Schedule from "components/schedule";
+import Layout from "@components/layout";
+import Header from "@components/header";
 
-import { getSchedule } from 'lib/cms-api';
-import { SCHEDULE_DESCRIPTION } from '@lib/constants';
+import { getSchedule } from "lib/cms-api";
+import { SCHEDULE_DESCRIPTION } from "@lib/constants";
 
 export default function SchedulePage({ events }) {
   const meta = {
-    title: 'Schedule - TEDxCMU Catalyst',
+    title: "Schedule - TEDxCMU Catalyst",
     description: SCHEDULE_DESCRIPTION
   };
 
   return (
     <Page meta={meta}>
       <Layout>
-        <Header hero="Schedule" description={meta.description} />
+        <Header hero='Schedule' />
         <Schedule events={events} />
       </Layout>
     </Page>
