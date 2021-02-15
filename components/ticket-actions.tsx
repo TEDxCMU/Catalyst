@@ -28,11 +28,6 @@ type Props = {
   username: string;
 };
 
-// async function getTicketImage(url: string) {
-//     const file = await screenshot(url);
-//     return file;
-//   }
-
 export default function TicketActions({ username }: Props) {
   const [imgReady, setImgReady] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -42,14 +37,12 @@ export default function TicketActions({ username }: Props) {
   const tweetUrl = `https://twitter.com/intent/tweet?url=${permalink}&text=${text}`;
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${permalink}`;
   const downloadUrl = `/api/ticket-images/${username}`;
-  // const downloadUrl = `${SITE_URL}/ticket-image?username=${encodeURIComponent(username)}&name=${encodeURIComponent(name)}&ticketNumber=${encodeURIComponent(ticketNumber)}`;
 
   useEffect(() => {
     setImgReady(false);
 
     const img = new Image();
 
-    console.log("downloadUrl", downloadUrl);
     img.src = downloadUrl;
     img.onload = () => {
       setImgReady(true);
@@ -92,17 +85,6 @@ export default function TicketActions({ username }: Props) {
         })}
         href={loading ? undefined : downloadUrl}
         onClick={e => {
-          // let tiltElem = document.getElementById('ticketImg');
-          // if (tiltElem)
-          //   tiltElem.vanillaTilt.destroy();
-          // domtoimage.toPng(document.getElementById('ticketImg') as HTMLCanvasElement, {quality : 1.0})
-          // .then(function (dataUrl) {
-          //   var link = document.createElement('a');
-          //   link.download = 'ticket.png';
-          //   link.href = dataUrl;
-          //   link.click();
-          // });
-
           if (imgReady) return;
 
           e.preventDefault();
