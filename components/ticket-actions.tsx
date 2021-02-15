@@ -48,13 +48,13 @@ export default function TicketActions({ username }: Props) {
     setImgReady(false);
 
     const img = new Image();
-
-    // console.log("downloadUrl", downloadUrl);
     img.src = downloadUrl;
     img.onload = () => {
+      // console.log("downloadUrl", img.src);
       setImgReady(true);
       setLoading(false);
       if (downloadLink.current) {
+        // console.log("hi!");
         downloadLink.current.click();
         downloadLink.current = undefined;
       }
@@ -92,22 +92,13 @@ export default function TicketActions({ username }: Props) {
         })}
         href={loading ? undefined : downloadUrl}
         onClick={e => {
-          // let tiltElem = document.getElementById('ticketImg');
-          // if (tiltElem)
-          //   tiltElem.vanillaTilt.destroy();
-          // domtoimage.toPng(document.getElementById('ticketImg') as HTMLCanvasElement, {quality : 1.0})
-          // .then(function (dataUrl) {
-          //   var link = document.createElement('a');
-          //   link.download = 'ticket.png';
-          //   link.href = dataUrl;
-          //   link.click();
-          // });
-
           if (imgReady) return;
 
           e.preventDefault();
+          // console.log("current target", e.currentTarget);
           downloadLink.current = e.currentTarget;
           // Wait for the image download to finish
+          // console.log("loading");
           setLoading(true);
         }}
         download="ticket.png"

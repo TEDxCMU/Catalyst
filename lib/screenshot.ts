@@ -22,16 +22,17 @@ export default async function screenshot(url: string) {
   // const options = {
   //   args: chrome.args,
   //   executablePath: await chrome.executablePath,
-  //   headless: chrome.headless
+  //   headless: true
   // };
   const options = process.env.AWS_REGION
     ? {
       args: chrome.args,
       executablePath: await chrome.executablePath,
-      headless: chrome.headless
+      headless: true
     }
     : {
-      args: [],
+      args: chrome.args,
+      headless: true,
       executablePath:
         process.platform === 'win32'
           ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
@@ -39,14 +40,16 @@ export default async function screenshot(url: string) {
             ? '/usr/bin/google-chrome'
             : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     };
-  const browser = await puppeteer.launch(options);
+  // console.log(options);
+  const browser = await chrome.puppeteer.launch(options);
   // const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 2000, height: 1000 });
   //console.log(url);
-  await page.goto(url);
-  // await page.goto(url, { waitUntil: 'networkidle0' });
-  const screenshot = await page.screenshot({ type: 'png' });
+  // await page.goto(url);
+  await page.goto(url, { waitUntil: 'domcontentloaded' });
+
+  const screenshot = await page.screenshot({ type: 'png', encoding: 'binary' });
   await browser.close();
   return screenshot;
 }
