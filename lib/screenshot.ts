@@ -31,8 +31,7 @@ export default async function screenshot(url: string) {
       headless: true
     }
     : {
-      args: chrome.args,
-      headless: true,
+      args: [],
       executablePath:
         process.platform === 'win32'
           ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
@@ -46,10 +45,10 @@ export default async function screenshot(url: string) {
   const page = await browser.newPage();
   await page.setViewport({ width: 2000, height: 1000 });
   //console.log(url);
-  // await page.goto(url);
-  await page.goto(url, { waitUntil: 'domcontentloaded' });
+  await page.goto(url);
+  // await page.goto(url, { waitUntil: 'networkidle0' });
 
   const screenshot = await page.screenshot({ type: 'png', encoding: 'binary' });
-  await browser.close();
+  // await browser.close();
   return screenshot;
 }

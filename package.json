@@ -35,6 +35,7 @@
     "vanilla-tilt": "^1.7.0"
   },
   "devDependencies": {
+    "@netlify/zip-it-and-ship-it": "^2.3.0",
     "@types/classnames": "2.2.11",
     "@types/cookie": "0.4.0",
     "@types/dom-to-image": "^2.6.2",
