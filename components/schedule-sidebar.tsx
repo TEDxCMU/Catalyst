@@ -16,49 +16,28 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Stage } from '@lib/types';
+import { Talk } from '@lib/types';
 import styles from './schedule-sidebar.module.css';
 import Select from './select';
-import TalkCard from './talk-card';
+import SidebarTalkCard from './sidebar-talk-card';
 import { SHORT_DATE } from '@lib/constants';
 
 type Props = {
-  allStages: Stage[];
+  events: Talk[];
 };
 
-export default function ScheduleSidebar({ allStages }: Props) {
-  const router = useRouter();
-  const [currentStageSlug, setCurrentStageSlug] = useState(router.query.slug);
-  const currentStage = allStages.find((s: Stage) => s.slug === currentStageSlug);
-
-  useEffect(() => {
-    setCurrentStageSlug(router.query.slug);
-  }, [router.query.slug]);
-
+export default function ScheduleSidebar({ events }: Props) {
+  console.log(events);
   return (
     <div className={styles.schedule}>
       <h3 className={styles.header}>Schedule</h3>
-      <p>{SHORT_DATE}</p>
-      <Select
-        aria-label="Select a stage"
-        value={currentStageSlug}
-        onChange={e => {
-          const slug = e.target.value;
-          setCurrentStageSlug(slug);
-          router.push(`/stage/${slug}`);
-        }}
-      >
-        {allStages.map(stage => (
-          <option key={stage.slug} value={stage.slug}>
-            {stage.name}
-          </option>
-        ))}
-      </Select>
+      {/* <p>{SHORT_DATE}</p> */}
       <div className={styles.talks}>
-        {currentStage?.schedule.map(talk => (
-          <TalkCard key={talk.title} talk={talk} />
+        {events.map(talk => (
+          <SidebarTalkCard key={talk.title} talk={talk} />
         ))}
       </div>
     </div>
   );
 }
+

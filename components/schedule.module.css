@@ -33,7 +33,6 @@
   flex-direction: column;
   margin: 0 24px;
   padding: var(--space-8x) 0 0;
-  border-bottom: 1px solid var(--accents-7);
   width: 100%;
 }
 
@@ -57,20 +56,16 @@
   margin-top: 40px;
 }
 
-.talks > div {
+.talkContainer {
+  width: 100%;
   margin-right: 24px;
 }
 
 @media (min-width: 500px) {
-  .container {
-    border-top: 1px solid var(--accents-7);
-    margin-top: var(--space-4x);
-  }
-
   .row {
-    margin: 0 var(--space-8x) 0 0;
+    margin: 0 var(--space-2x) 0 0;
     flex-direction: row;
-    padding: var(--space-8x);
+    padding: 0 var(--space-8x);
   }
 
   .talks {

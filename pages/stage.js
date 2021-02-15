@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import Page from '@components/page';
-import StageContainer from '@components/stage-container';
-import Layout from '@components/layout';
-import { getStage } from 'lib/cms-api';
+import Page from "@components/page";
+import StageContainer from "@components/stage-container";
+import Layout from "@components/layout";
+import { getStage, getSchedule } from "lib/cms-api";
 
-import { META_DESCRIPTION } from '@lib/constants';
+import { META_DESCRIPTION } from "@lib/constants";
 
-export default function StagePage({ stage }) {
+export default function StagePage({ stage, events }) {
   const meta = {
-    title: 'Stage - TEDxCMU Catalyst',
+    title: "Stage - TEDxCMU Catalyst",
     description: META_DESCRIPTION
   };
 
   return (
     <Page meta={meta} fullViewport>
       <Layout>
-        <StageContainer stage={stage} />
+        <StageContainer stage={stage} events={events} />
       </Layout>
     </Page>
   );
@@ -38,11 +38,13 @@ export default function StagePage({ stage }) {
 
 export async function getStaticProps() {
   const stages = await getStage();
+  const events = await getSchedule();
   const stage = stages[0];
 
   return {
     props: {
-      stage
+      stage,
+      events
     },
     revalidate: 1
   };
