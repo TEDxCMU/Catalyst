@@ -20,21 +20,21 @@ import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
 import { getUser, checkUser, getCurrentUser } from '@lib/firestore-api';
 
 export default async function ticketImages(req: NextApiRequest, res: NextApiResponse) {
-  
+
   const authUser = await getCurrentUser();
-  
+
   let url: string;
-  const { username } = req.query || {};
+  // const { username } = req.query || {};
   // console.log('query', req);
-  
-  if (authUser && username) {
+
+  if (authUser) {
     // console.log('user', authUser.uid);
-    const usernameString = username.toString();
     let id = authUser.uid;
     let existingUsernameId = await checkUser(id);
     // let existingUsernameId = false;
     if (existingUsernameId) {
       let data = await getUser(id);
+      const usernameString = data.username.toString();
       url = `${SITE_URL}/ticket-image?username=${encodeURIComponent(
         usernameString
       )}&ticketNumber=${encodeURIComponent(data.ticketNumber)}`;

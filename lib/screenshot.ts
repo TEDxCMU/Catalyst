@@ -44,7 +44,9 @@ export default async function screenshot(url: string) {
   const page = await browser.newPage();
   await page.setViewport({ width: 2000, height: 1000 });
   //console.log(url);
-  // await page.goto(url);
-  await page.goto(url, { waitUntil: 'networkidle0' });
-  return await page.screenshot({ type: 'png' });
+  await page.goto(url);
+  // await page.goto(url, { waitUntil: 'networkidle0' });
+  const screenshot = await page.screenshot({ type: 'png' });
+  await browser.close();
+  return screenshot;
 }

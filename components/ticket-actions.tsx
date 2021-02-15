@@ -49,7 +49,7 @@ export default function TicketActions({ username }: Props) {
 
     const img = new Image();
 
-    console.log("downloadUrl", downloadUrl);
+    // console.log("downloadUrl", downloadUrl);
     img.src = downloadUrl;
     img.onload = () => {
       setImgReady(true);
@@ -115,10 +115,10 @@ export default function TicketActions({ username }: Props) {
         {loading ? (
           <LoadingDots size={4} />
         ) : (
-          <>
-            <IconDownload width={24} /> Download
+            <>
+              <IconDownload width={24} /> Download
           </>
-        )}
+          )}
       </a>
     </>
   );
