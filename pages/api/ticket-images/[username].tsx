@@ -16,31 +16,24 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import screenshot from '@lib/screenshot';
-import { SITE_URL, SAMPLE_TICKET_NUMBER } from '@lib/constants';
-import { getUser, checkUser, getCurrentUser } from '@lib/firestore-api';
+import { SITE_URL } from '@lib/constants';
+import { getUser, getCurrentUser } from '@lib/firestore-api';
 
 export default async function ticketImages(req: NextApiRequest, res: NextApiResponse) {
 
   // const authUser = await getCurrentUser();
 
-  // const user = await getCurrentUser();
-  // let userInfo = user ? await getUser(user.uid) : null;
-
-  let data = {
-    name: 'XXXXXX XXXXXXXXX',
-    username: 'XXXXXXXX',
-    ticketNumber: 0
-  };
-
-  // let data = userInfo ? {
-  //   name: userInfo.name,
-  //   username: userInfo.username,
-  //   ticketNumber: userInfo.ticketNumber,
-  // } : {
-  //     name: 'XXXXXX XXXXXXXXX',
-  //     username: 'XXXXXXXX',
-  //     ticketNumber: 0
-  //   };
+  const user = await getCurrentUser();
+  let userInfo = user ? await getUser(user.uid) : null;
+  let data = userInfo ? {
+    name: userInfo.name,
+    username: userInfo.username,
+    ticketNumber: userInfo.ticketNumber,
+  } : {
+      name: 'XXXXXX XXXXXXXXX',
+      username: 'XXXXXXXX',
+      ticketNumber: 0
+    };
 
   let url: string;
 
