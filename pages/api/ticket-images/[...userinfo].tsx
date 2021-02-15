@@ -24,7 +24,7 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
   // const authUser = await getCurrentUser();
   const user = req.query || {};
 
-  console.log("user", user.userinfo);
+  // console.log("user", user.userinfo);
 
   const userinfo = user.userinfo;
   // const user = await getCurrentUser();
@@ -39,7 +39,7 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
       ticketNumber: 0
     };
 
-  console.log("name", data.username);
+  // console.log("name", data.username);
 
   let url: string;
 
