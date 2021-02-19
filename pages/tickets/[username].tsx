@@ -45,8 +45,8 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
     : {
       title: 'Ticket Demo - Virtual Event Starter Kit',
       description: META_DESCRIPTION,
-      image: `/api/ticket-images/${usernameFromParams}`,
-      url: `${SITE_URL}/tickets/${usernameFromParams}/XXXXXXXX/0`
+      image: `/api/ticket-images/${usernameFromParams}/XXXXXXXX/0`,
+      url: `${SITE_URL}/tickets/${usernameFromParams}`
     };
 
   return (
@@ -59,7 +59,7 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
         defaultUserData={{
           username: username || undefined,
           name: name || '',
-          ticketNumber
+          ticketNumber: ticketNumber
         }}
         sharePage
       />
