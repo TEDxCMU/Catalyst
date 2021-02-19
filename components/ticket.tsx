@@ -120,9 +120,6 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
                 <div className={styles['ticket-actions']}>
                   <TicketActions username={username} name={name} ticketNumber={ticketNumber} />
                 </div>
-                <div className={styles['ticket-copy']}>
-                  <TicketCopy username={username} />
-                </div>
               </div>
             ) : (
                 <div className={styles['ticket-actions-placeholder']} />
