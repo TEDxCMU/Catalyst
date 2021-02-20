@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Page from '@components/page';
 import Layout from '@components/layout';
 import TicketContainer from '@components/ticket-container';
@@ -27,7 +27,7 @@ export default function TicketPage({name, username, ticketNumber}:Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   let user;
   let ticketProps = {
     name: 'XXXXXX XXXXXXXXX',
@@ -43,10 +43,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     ticketNumber: userInfo.ticketNumber,
   } : ticketProps;
 
+  console.log(user)
 
   return {
     props: ticketProps,
-    revalidate: 5
   };
-  
 };
