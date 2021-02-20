@@ -59,7 +59,7 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
         defaultUserData={{
           username: username || undefined,
           name: name || '',
-          ticketNumber: ticketNumber
+          ticketNumber
         }}
         sharePage
       />

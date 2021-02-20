@@ -12,7 +12,7 @@ type Props = {
   ticketNumber: number;
 };
 
-export default function TicketPage({name, username, ticketNumber}:Props) {
+export default function TicketPage({ name, username, ticketNumber }: Props) {
   const meta = {
     title: 'Your Ticket - TEDxCMU Catalyst',
     description: META_DESCRIPTION
@@ -21,7 +21,7 @@ export default function TicketPage({name, username, ticketNumber}:Props) {
   return (
     <Page meta={meta} fullViewport>
       <Layout>
-        <TicketContainer name={name} username={username} ticketNumber={ticketNumber}/>
+        <TicketContainer name={name} username={username} ticketNumber={ticketNumber} />
       </Layout>
     </Page>
   );
@@ -34,9 +34,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     username: 'XXXXXXXX',
     ticketNumber: 0
   };
-    
+
   user = await getCurrentUser();
   let userInfo = user ? await getUser(user.uid) : null;
+
   ticketProps = userInfo ? {
     name: userInfo.name,
     username: userInfo.username,
@@ -48,5 +49,5 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     props: ticketProps,
     revalidate: 5
   };
-  
+
 };
