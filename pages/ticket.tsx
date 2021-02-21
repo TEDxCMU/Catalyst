@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Page from '@components/page';
 import Layout from '@components/layout';
 import TicketContainer from '@components/ticket-container';
@@ -12,7 +12,7 @@ type Props = {
   ticketNumber: number;
 };
 
-export default function TicketPage({name, username, ticketNumber}:Props) {
+export default function TicketPage({ name, username, ticketNumber }: Props) {
   const meta = {
     title: 'Your Ticket - TEDxCMU Catalyst',
     description: META_DESCRIPTION

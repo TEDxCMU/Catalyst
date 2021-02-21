@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-export const SITE_URL = 'http://localhost:3000';
+export const SITE_URL = 'https://deploy-preview-15--tedx-virtual-event.netlify.app';
+// export const SITE_URL = 'http://localhost:3000';
 export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';

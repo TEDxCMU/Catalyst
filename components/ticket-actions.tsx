@@ -23,12 +23,21 @@ import IconDownload from './icons/icon-download';
 import LoadingDots from './loading-dots';
 import styleUtils from './utils.module.css';
 import styles from './ticket-actions.module.css';
+import screenshot from '@lib/screenshot';
+import { getUser, checkUser, getCurrentUser } from '@lib/firestore-api';
 
 type Props = {
   username: string;
+  name: string;
+  ticketNumber: number;
 };
 
-export default function TicketActions({ username }: Props) {
+// async function getTicketImage(url: string) {
+//   const file = await screenshot(url);
+//   return file;
+// }
+
+export default function TicketActions({ username, name, ticketNumber }: Props) {
   const [imgReady, setImgReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const downloadLink = useRef<HTMLAnchorElement>();
@@ -36,18 +45,20 @@ export default function TicketActions({ username }: Props) {
   const text = encodeURIComponent(TWEET_TEXT);
   const tweetUrl = `https://twitter.com/intent/tweet?url=${permalink}&text=${text}`;
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${permalink}`;
-  const downloadUrl = `/api/ticket-images/${username}`;
+
+  const downloadUrl = `/api/ticket-images/${username}/${encodeURIComponent(name)}/${encodeURIComponent(ticketNumber)}`;
 
   useEffect(() => {
     setImgReady(false);
 
     const img = new Image();
-
     img.src = downloadUrl;
     img.onload = () => {
+      // console.log("downloadUrl", img.src);
       setImgReady(true);
       setLoading(false);
       if (downloadLink.current) {
+        // console.log("hi!");
         downloadLink.current.click();
         downloadLink.current = undefined;
       }
@@ -88,8 +99,10 @@ export default function TicketActions({ username }: Props) {
           if (imgReady) return;
 
           e.preventDefault();
+          // console.log("current target", e.currentTarget);
           downloadLink.current = e.currentTarget;
           // Wait for the image download to finish
+          // console.log("loading");
           setLoading(true);
         }}
         download="ticket.png"
@@ -97,10 +110,10 @@ export default function TicketActions({ username }: Props) {
         {loading ? (
           <LoadingDots size={4} />
         ) : (
-          <>
-            <IconDownload width={24} /> Download
+            <>
+              <IconDownload width={24} /> Download
           </>
-        )}
+          )}
       </a>
     </>
   );

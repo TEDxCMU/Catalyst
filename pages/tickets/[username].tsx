@@ -35,19 +35,19 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
     return <Error statusCode={404} />;
   }
 
-  const meta = username
+  const meta = username && ticketNumber && name
     ? {
-        title: `${name}’s ${SITE_NAME} Ticket`,
-        description: META_DESCRIPTION,
-        image: `/api/ticket-images/${username}`,
-        url: `${SITE_URL}/tickets/${username}`
-      }
+      title: `${name}’s ${SITE_NAME} Ticket`,
+      description: META_DESCRIPTION,
+      image: `/api/ticket-images/${username}/${encodeURIComponent(name)}/${encodeURIComponent(ticketNumber)}`,
+      url: `${SITE_URL}/tickets/${username}`
+    }
     : {
-        title: 'Ticket Demo - Virtual Event Starter Kit',
-        description: META_DESCRIPTION,
-        image: `/api/ticket-images/${usernameFromParams}`,
-        url: `${SITE_URL}/tickets/${usernameFromParams}`
-      };
+      title: 'Ticket Demo - Virtual Event Starter Kit',
+      description: META_DESCRIPTION,
+      image: `/api/ticket-images/${usernameFromParams}/XXXXXXXX/0`,
+      url: `${SITE_URL}/tickets/${usernameFromParams}`
+    };
 
   return (
     <Page meta={meta}>
@@ -70,54 +70,54 @@ export default function TicketShare({ username, ticketNumber, name, usernameFrom
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const username = params?.username?.toString() || null;
 
-  
-    // if (username) {
-    //   let id = usernameToId(username);
-    //   let existingUsernameId = await checkUser(id);
-    //   if (existingUsernameId) {
-    //     let data = await getUser(id);
-    //     return {
-    //       props: {
-    //         username: username || null,
-    //         usernameFromParams: username || null,
-    //         name: data.name || username || null,
-    //         ticketNumber: data.ticketNumber || null
-    //       },
-    //       revalidate: 5
-    //     };
-    //   } else {
-    //     return {
-    //       props: {
-    //         username: null,
-    //         usernameFromParams: username || null,
-    //         name: null,
-    //         ticketNumber: null
-    //       },
-    //       revalidate: 5
-    //     };
-    //   }
-      
-    // } else {
-    //   return {
-    //     props: {
-    //       username: null,
-    //       usernameFromParams: username || null,
-    //       name: null,
-    //       ticketNumber: null
-    //     },
-    //     revalidate: 5
-    //   };
-    // }
 
-    return {
-      props: {
-        username: null,
-        usernameFromParams: username || null,
-        name: null,
-        ticketNumber: SAMPLE_TICKET_NUMBER
-      },
-      revalidate: 5
-    };
+  // if (username) {
+  //   let id = usernameToId(username);
+  //   let existingUsernameId = await checkUser(id);
+  //   if (existingUsernameId) {
+  //     let data = await getUser(id);
+  //     return {
+  //       props: {
+  //         username: username || null,
+  //         usernameFromParams: username || null,
+  //         name: data.name || username || null,
+  //         ticketNumber: data.ticketNumber || null
+  //       },
+  //       revalidate: 5
+  //     };
+  //   } else {
+  //     return {
+  //       props: {
+  //         username: null,
+  //         usernameFromParams: username || null,
+  //         name: null,
+  //         ticketNumber: null
+  //       },
+  //       revalidate: 5
+  //     };
+  //   }
+
+  // } else {
+  //   return {
+  //     props: {
+  //       username: null,
+  //       usernameFromParams: username || null,
+  //       name: null,
+  //       ticketNumber: null
+  //     },
+  //     revalidate: 5
+  //   };
+  // }
+
+  return {
+    props: {
+      username: null,
+      usernameFromParams: username || null,
+      name: null,
+      ticketNumber: SAMPLE_TICKET_NUMBER
+    },
+    revalidate: 5
+  };
 
 };
 
