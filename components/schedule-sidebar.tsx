@@ -27,7 +27,6 @@ type Props = {
 };
 
 export default function ScheduleSidebar({ events }: Props) {
-  console.log(events);
   return (
     <div className={styles.schedule}>
       <h3 className={styles.header}>Schedule</h3>
