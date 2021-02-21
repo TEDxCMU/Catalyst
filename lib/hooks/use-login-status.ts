@@ -32,7 +32,6 @@ export default function useLoginStatus(opts?: ConfigInterface) {
     }
   );
 
-
   return {
     loginStatus: error
       ? ('loggedOut' as const)
@@ -41,6 +40,7 @@ export default function useLoginStatus(opts?: ConfigInterface) {
       : data.loggedIn
       ? ('loggedIn' as const)
       : ('loggedOut' as const),
+    user: data ? data.user : null,
     mutate
   };
 }

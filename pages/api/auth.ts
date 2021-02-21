@@ -16,7 +16,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
-import { signInUser, signOutUser, getCurrentUser } from '@lib/firestore-api';
+import { signInUser, signOutUser, getCurrentUser, getUser } from '@lib/firestore-api';
 import { decrypt } from '@lib/hash';
 import cookie from 'cookie';
 
@@ -44,13 +44,11 @@ export default async function auth(req: Request, res: NextApiResponse) {
   const session_id_cookie = req.cookies["session_id"];
   let authUser = await getCurrentUser();
 
-
   if(user_id_cookie && session_id_cookie){
     let emailFromCookie = decrypt(user_id_cookie);
     let passFromCookie = decrypt(session_id_cookie);
 
     if(authUser){
-
       // Check whether they actually correspond with eachother
       //console.log("cookie && authUser");
       let emailFromAuth = authUser.email;
@@ -81,14 +79,28 @@ export default async function auth(req: Request, res: NextApiResponse) {
 
       // id and authUser exist and correspond with eachother, return true
       // and the authUser's info
-      return res.status(200).json({ loggedIn: true, user: authUser });
+      let infoUser = await getUser(authUser.uid);
+      let user = {
+        auth: authUser,
+        info: infoUser
+      }
+      return res.status(200).json({ loggedIn: true, user: user });
 
     } else {
       // Sign in with cookie and return true
       // console.log("cookie && !authUser");
       await signInUser(emailFromCookie, passFromCookie);
       authUser = await getCurrentUser();
-      return res.status(200).json({ loggedIn: true, user: authUser });
+      
+      let infoUser;
+      if(authUser){
+        infoUser = await getUser(authUser.uid);
+      }
+      let user = {
+        auth: authUser,
+        info: infoUser
+      }
+      return res.status(200).json({ loggedIn: true, user: user });
     }
     
   } else {
