@@ -18,35 +18,13 @@ export default function TicketPage({ name, username, ticketNumber }: Props) {
     description: META_DESCRIPTION
   };
 
+  // TicketContainer takes undefined information since that data will be fetched in the component itself
   return (
     <Page meta={meta} fullViewport>
       <Layout>
-        <TicketContainer name={name} username={username} ticketNumber={ticketNumber} />
+        <TicketContainer/>
       </Layout>
     </Page>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  let user;
-  let ticketProps = {
-    name: 'XXXXXX XXXXXXXXX',
-    username: 'XXXXXXXX',
-    ticketNumber: 0
-  };
-
-  user = await getCurrentUser();
-  let userInfo = user ? await getUser(user.uid) : null;
-
-  ticketProps = userInfo ? {
-    name: userInfo.name,
-    username: userInfo.username,
-    ticketNumber: userInfo.ticketNumber,
-  } : ticketProps;
-
-  console.log(user)
-
-  return {
-    props: ticketProps,
-  };
-};

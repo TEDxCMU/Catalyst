@@ -14,20 +14,23 @@ type Props = {
     name: UserData['name'];
 };
 
-export default function TicketContainer({name, username, ticketNumber}:Props) {
-    const { loginStatus } = useLoginStatus();
+export default function TicketContainer() {
+    const { loginStatus, user } = useLoginStatus();
 
     return (
         <>
-            {loginStatus === 'loggedIn' ? (
+            {loginStatus === 'loggedIn' && user.info ? (
                 <ConfContainer>
                     <Ticket
-                    username={username}
-                    name={name}
-                    ticketNumber={ticketNumber}
+                    username={user.info.username}
+                    name={user.info.name}
+                    ticketNumber={user.info.ticketNumber}
                     sharePage={false} />
                 </ConfContainer>
-            ) : loginStatus === 'loading' ? null : (
+            ) : loginStatus === 'loggedIn' ? (
+                <p>Couldn't load your ticket right now. Check back later!</p>
+            )
+               : loginStatus === 'loading' ? null : (
                 <div className={styles.container}>
                     <div className={styles.streamContainer}>
                         <ConfEntry/>
