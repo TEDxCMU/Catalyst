@@ -1,10 +1,10 @@
 .signin {
   width: 80%;
   height: 56px;
-  margin-top: var(--space-4x);
-  border-radius: var(--space-2x);
-  border: 1px solid var(--brand);
-  background: var(--brand);
+  margin-top: var(--space-8x);
+  border-radius: var(--space-8x);
+  border: 1px solid #ffffff;
+  background: none;
   cursor: pointer;
   font-family: inherit;
   font-size: var(--text-md);

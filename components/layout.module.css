@@ -42,6 +42,7 @@
 }
 
 .header {
+  font-family: 'helvetica neue';
   display: flex;
   align-items: center;
   justify-content: space-between;

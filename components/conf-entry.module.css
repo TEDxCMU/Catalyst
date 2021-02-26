@@ -20,24 +20,36 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  background: url('/bg.png') no-repeat center;
   background-size: cover;
   padding: 0 var(--space-4x);
 }
 
 .hero {
+  font-family: "ivypresto-display", serif;
+  text-transform: uppercase;
   font-size: 24px;
   line-height: 1.15;
-  letter-spacing: -0.05em;
-  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-weight: 400;
   text-align: center;
   margin-bottom: var(--space-4x);
   max-width: 700px;
 }
 
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--space-2x);
+  border: 1px solid #333333;
+  padding: var(--space-16x) var(--space-12x);
+}
+
 .description {
+  font-family: 'helvetica neue', serif;
   font-weight: 400;
-  font-size: var(--text-md);
+  font-size: 20px;
   line-height: 1.4;
   text-align: center;
   color: var(--secondary-color);
@@ -48,7 +60,6 @@
   .hero {
     font-size: 48px;
     line-height: 1;
-    font-weight: 800;
   }
 
   .description {
