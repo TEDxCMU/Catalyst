@@ -15,14 +15,14 @@
  */
 
 .grid {
-  margin: 50px auto;
+  margin: 40px auto;
   padding: 0 24px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 24px;
+  grid-gap: 24px; */
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
@@ -40,21 +40,24 @@
 }
 
 .card {
+  color: inherit;
+  display: block;
   border-radius: var(--space-2x);
-  background: #111111;
-  display: flex;
-  flex-direction: column;
-  background-clip: content-box, border-box;
-  background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
+  /* min-width: var(--talk-card-width, 270px); */
+  width: var(--talk-card-width, 307px);
+  /* background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
+  background-clip: content-box, border-box; */
+  border: 1px solid #333333;
   padding: 1px;
-  cursor: pointer;
+  margin-right: 24px;
+  margin-bottom: 24px;
 }
 
 .card:hover,
 .card:focus {
   outline: none;
   background-image: linear-gradient(#111111, #111111),
-    linear-gradient(to right, var(--brand), var(--brand));
+    linear-gradient(to right, #ffffff, #ffffff);
 }
 
 .cardBody {
@@ -63,12 +66,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .imageWrapper {
-  width: 100%;
-  height: 100%;
+  height: 207px;
+  position: relative;
 }
 
 .image {
@@ -83,16 +86,24 @@
   .imageWrapper > div {
     width: 100% !important;
   }
+  .card {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 .name {
-  font-weight: bold;
+  font-family: "ivypresto-display", serif;
+  text-transform: uppercase;
   color: #f1f1f1;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 400;
   margin: 0;
   line-height: 1.4;
 }
 
 .tagline {
+  font-family: "lapture", serif;
+  font-size: 14px;
   margin: 0;
 }
