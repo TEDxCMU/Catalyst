@@ -99,3 +99,13 @@
 .link:hover .card:not(.is-live) {
   background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #555, #555);
 }
+
+@media (max-width: 767px) {
+  .talk {
+    width: 100%;
+  }
+  .card {
+    margin: none;
+    width: 100%;
+  }
+}
