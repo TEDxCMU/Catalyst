@@ -81,21 +81,14 @@
 
 .avatar {
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar-wrapper {
   height: 200px;
   position: relative;
 }
-/* 
-.avatar-group {
-  display: flex;
-}
-
-.avatar-wrapper:nth-child(n + 2) {
-  margin-left: -15px;
-} */
 
 .link:hover .card:not(.is-live) {
   background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #555, #555);
@@ -107,6 +100,9 @@
   }
   .card {
     margin: none;
+    width: 100%;
+  }
+  .card-body {
     width: 100%;
   }
 }
