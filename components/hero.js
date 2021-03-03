@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import cn from 'classnames';
 import { useEffect, useRef } from 'react';
+import cn from 'classnames';
 import styles from './hero.module.css';
 
 export default function Hero() {
@@ -106,14 +106,21 @@ export default function Hero() {
     <>
       <div className={styles.container}>
         <div className={styles.imgContainer}>
-          {/* <h1 className={styles.heading}>
-            The future belongs to those who believe in the beauty of their dreams.
-          </h1> */}
           <div className={styles.img}>
-            <img src="/hero.jpg" width="2880" height="1646" />
+            <div className={styles.content}>
+              <img src="/hero.jpg" width="2880" height="1646" />
+              <h1 className={cn(styles.heading, styles.headingStroke)}>
+                Who shapes the future?
+              </h1>
+            </div>
           </div>
           <div ref={overlayImgRef} className={cn(styles.img, styles.imgOverlay)}>
-            <img src="/hero.jpg" width="2880" height="1646" />
+            <div className={styles.content}>
+              <img src="/hero.jpg" width="2880" height="1646" />
+              <h1 className={styles.heading}>
+                The future belongs to those who believe in the beauty of their dreams.
+              </h1>
+            </div>
           </div>
         </div>
       </div>

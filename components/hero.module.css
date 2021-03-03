@@ -27,11 +27,28 @@
   height: 1646px;
 }
 
+.content {
+  position: relative;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
 .heading {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  right: 5%;
   font-family: 'ivypresto-display';
   font-weight: 400;
   font-size: 120px;
   line-height: 124px;
+}
+
+.headingStroke {
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fff;
 }
 
 .img {
@@ -55,13 +72,13 @@
 
 .slider {
   position: absolute;
-  height: 100%;
+  height: 100vh;
   width: 40px;
 }
 
 .circle {
   position: absolute;
-  top: 65%;
+  bottom: 20%;
   height: 40px;
   width: 40px;
   border: 1px solid #FFFFFF;
