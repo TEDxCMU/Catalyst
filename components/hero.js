@@ -78,9 +78,14 @@ export default function Hero() {
       // Set width of overlay img to 50%
       overlayImgRef.current.style.width = `${(imgWidth.current / 2)}px`;
 
-      // Create slider elem
-      sliderRef.current = document.createElement("div");
-      sliderRef.current.setAttribute("class", styles.slider);
+      // Create slider element
+      sliderRef.current = document.createElement('div');
+      sliderRef.current.setAttribute('class', styles.slider);
+
+      // Add circle to slider
+      const circle = document.createElement('div');
+      circle.setAttribute('class', styles.circle);
+      sliderRef.current.appendChild(circle);
 
       // Add slider to the DOM
       overlayImgRef.current.parentElement.insertBefore(sliderRef.current, overlayImgRef.current);
