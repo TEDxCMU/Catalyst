@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import styles from './schedule.module.css';
-import TalkCard from './talk-card';
+import styles from "./schedule.module.css";
+import TalkCard from "./talk-card";
 
 export default function Schedule({ events }) {
   return (
     <div className={styles.container}>
-      <div className={styles['row-wrapper']}>
+      <div className={styles["row-wrapper"]}>
         <div className={styles.row}>
           <div className={styles.talks}>
             {events.map((event) => (
-              <div key={event.startTime}>
+              <div key={event.startTime} className={styles.talkContainer}>
                 <TalkCard key={event.title} talk={event} />
               </div>
             ))}
