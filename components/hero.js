@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import styles from './hero.module.css';
+import RegisterModal from '@components/register-modal';
+import useLoginStatus from '@lib/hooks/use-login-status';
 
 export default function Hero() {
   const overlayImgRef = useRef(null);
   const sliderRef = useRef(null);
+  const knobRef= useRef(null);
+  const arrowsRef = useRef(null);
   const imgWidth = useRef(null);
   const imgHeight = useRef(null);
   const clicked = useRef(false);
+  const [activeModal, setActiveModal] = useState(false);
+  const { loginStatus } = useLoginStatus();
+
+  const handleModal = () => {
+    setActiveModal((prevState) => !prevState);
+  }
 
   const slide = (x) => {
     overlayImgRef.current.style.width = `${x}px`;
@@ -82,10 +92,16 @@ export default function Hero() {
       sliderRef.current = document.createElement('div');
       sliderRef.current.setAttribute('class', styles.slider);
 
-      // Add circle to slider
-      const circle = document.createElement('div');
-      circle.setAttribute('class', styles.circle);
-      sliderRef.current.appendChild(circle);
+      // Add knob to slider
+      knobRef.current = document.createElement('div');
+      knobRef.current.setAttribute('class', styles.knob);
+      sliderRef.current.appendChild(knobRef.current);
+
+      // Add image to circle
+      arrowsRef.current = document.createElement('img');
+      arrowsRef.current.setAttribute('src', '/slider-arrows.svg');
+      arrowsRef.current.setAttribute('class', styles.arrows);
+      knobRef.current.appendChild(arrowsRef.current);
 
       // Add slider to the DOM
       overlayImgRef.current.parentElement.insertBefore(sliderRef.current, overlayImgRef.current);
@@ -98,32 +114,58 @@ export default function Hero() {
       addEvents();
 
       // Clean up events
-      return () => removeEvents();
+      return () => {
+        removeEvents();
+        arrowsRef.current.remove();
+        knobRef.current.remove();
+        sliderRef.current.remove();
+      }
     }
   }, [])
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.imgContainer}>
-          <div className={styles.img}>
-            <div className={styles.content}>
-              <img src="/hero.jpg" width="2880" height="1646" />
-              <h1 className={cn(styles.heading, styles.headingStroke)}>
-                Who shapes the future?
-              </h1>
-            </div>
+        <div className={styles.slide}>
+          <div className={styles.content}>
+            <img className={styles.img} src="/hero.jpg" width="2880" height="1646" />
+            <h1 className={cn(styles.heading, styles.stroke)}>
+              Who shapes the future?
+              {loginStatus !== 'loggedIn' && (
+                <button className={styles.btn} onClick={handleModal}>
+                  Register For Event
+                </button>
+              )}
+            </h1>
+            <p className={cn(styles.body, styles.stroke)}>
+              April 4, 2021 10:00AM
+            </p>
+            <p className={cn(styles.body, styles.stroke)}>
+              Online Experience
+            </p>
           </div>
-          <div ref={overlayImgRef} className={cn(styles.img, styles.imgOverlay)}>
-            <div className={styles.content}>
-              <img src="/hero.jpg" width="2880" height="1646" />
-              <h1 className={styles.heading}>
-                The future belongs to those who believe in the beauty of their dreams.
-              </h1>
-            </div>
+        </div>
+        <div ref={overlayImgRef} className={cn(styles.slide, styles.overlay)}>
+          <div className={styles.content}>
+            <img className={styles.img} src="/hero.jpg" width="2880" height="1646" />
+            <h1 className={styles.heading}>
+              The future belongs to those who believe in the beauty of their dreams.
+              {loginStatus !== 'loggedIn' && (
+                <button className={styles.btn} onClick={handleModal}>
+                  Register For Event
+                </button>
+              )}
+            </h1>
+            <p className={styles.body}>
+              April 4, 2021 10:00AM
+            </p>
+            <p className={styles.body}>
+              Online Experience
+            </p>
           </div>
         </div>
       </div>
+      {loginStatus !== 'loggedIn' && <RegisterModal active={activeModal} setActive={setActiveModal} />}
     </>
   );
 }

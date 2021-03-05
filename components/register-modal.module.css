@@ -1,0 +1,27 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(10, 10, 11, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 2%;
+    background-color: #000;
+    border: 1px solid #4F4F4F;
+    border-radius: 10px;
+}
+
+.active {
+    display: block;
+}
