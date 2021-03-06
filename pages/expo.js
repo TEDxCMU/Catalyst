@@ -31,8 +31,7 @@ export default function ExpoPage({ innovators }) {
   return (
     <Page meta={meta}>
       <Layout>
-        <Header hero="Expo" description={meta.description} />
-        <p>{meta.description}</p>
+        <Header hero="Innovation Expo" description={meta.description} />
         <InnovatorsGrid innovators={innovators} />
       </Layout>
     </Page>

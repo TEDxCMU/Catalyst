@@ -1,10 +1,9 @@
-.signin {
-  width: 80%;
+.button {
   height: 56px;
+  border-radius: var(--space-8x);
   margin-top: var(--space-4x);
-  border-radius: var(--space-2x);
-  border: 1px solid var(--brand);
-  background: var(--brand);
+  border: 1px solid #ffffff;
+  background: none;
   cursor: pointer;
   font-family: inherit;
   font-size: var(--text-md);
@@ -16,16 +15,44 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
 }
 
-.signin:hover,
-.signin:focus {
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button:hover,
+.button:focus {
   background: black;
-  color: var(--brand);
+}
+
+@media (max-width: 599px) {
+  .buttonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .button {
+    width: 80%;
+  }
 }
 
 @media (min-width: 600px) {
-  .signin {
+  .buttonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: var(--space-8x);
+  }
+  .button {
     width: 150px;
+  }
+  .register {
+    width: 280px;
   }
 }

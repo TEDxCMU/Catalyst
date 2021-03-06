@@ -26,12 +26,14 @@ import SignInButton from './sign-in-button';
 
 
 export default function ConfEntry() {
-  
+
   return (
     <div className={cn(styles.container, styleUtils.appear, styleUtils['appear-first'])}>
-      <h1 className={cn(styles.hero)}>Join the conference.</h1>
-      <h2 className={cn(styles.description)}>{SITE_DESCRIPTION}</h2>
-      <SignInButton />
+      <div className={styles.heroContainer}>
+        <h1 className={cn(styles.hero)}>Join the conference.</h1>
+        <h2 className={cn(styles.description)}>{SITE_DESCRIPTION}</h2>
+        <SignInButton />
+      </div>
     </div>
   );
 }
