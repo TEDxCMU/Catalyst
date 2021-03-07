@@ -20,7 +20,7 @@
   font-weight: 400;
   font-size: 48px;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.03em;
   margin: var(--space-8x) 24px var(--space-2x);
 }
 

@@ -30,9 +30,9 @@
 
 .row {
   display: flex;
+  margin: 0;
   flex-direction: column;
-  margin: 0 24px;
-  padding: var(--space-8x) 0 0;
+  padding: 0 var(--space-8x) 24px 24px;
   width: 100%;
 }
 
@@ -79,5 +79,14 @@
     left: 0;
     padding-left: var(--space-8x);
     z-index: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .talk-card {
+    margin: none;
+  }
+  .talks {
+    flex-direction: column;
   }
 }
