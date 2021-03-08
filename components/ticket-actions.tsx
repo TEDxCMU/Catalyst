@@ -23,19 +23,12 @@ import IconDownload from './icons/icon-download';
 import LoadingDots from './loading-dots';
 import styleUtils from './utils.module.css';
 import styles from './ticket-actions.module.css';
-import screenshot from '@lib/screenshot';
-import { getUser, checkUser, getCurrentUser } from '@lib/firestore-api';
 
 type Props = {
   username: string;
   name: string;
   ticketNumber: number;
 };
-
-// async function getTicketImage(url: string) {
-//   const file = await screenshot(url);
-//   return file;
-// }
 
 export default function TicketActions({ username, name, ticketNumber }: Props) {
   const [imgReady, setImgReady] = useState(false);
@@ -91,9 +84,7 @@ export default function TicketActions({ username, name, ticketNumber }: Props) {
         <IconLinkedin width={20} /> Share on LinkedIn
       </a>
       <a
-        className={cn(styles.button, styleUtils.appear, styles.third, 'icon-button', {
-          [styles.loading]: loading
-        })}
+        className={cn(styles.button, styleUtils.appear, styles.third, 'icon-button', { [styles.loading]: loading })}
         href={loading ? undefined : downloadUrl}
         onClick={e => {
           if (imgReady) return;
@@ -112,7 +103,7 @@ export default function TicketActions({ username, name, ticketNumber }: Props) {
         ) : (
             <>
               <IconDownload width={24} /> Download
-          </>
+            </>
           )}
       </a>
     </>

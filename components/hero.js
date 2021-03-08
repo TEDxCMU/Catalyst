@@ -19,7 +19,8 @@ import { useRouter } from 'next/router';
 import cn from 'classnames';
 import styles from './hero.module.css';
 import Modal from '@components/modal';
-import Form from '@components/form';
+import SignInForm from '@components/sign-in-form';
+import RegisterForm from '@components/register-form';
 import useLoginStatus from '@lib/hooks/use-login-status';
 import { signOut } from '@lib/user-api';
 
@@ -213,12 +214,12 @@ export default function Hero() {
       </div>
       {loginStatus !== 'loggedIn' && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
-          <Form />
+          <SignInForm />
         </Modal>
       )}
       {loginStatus !== 'loggedIn' && (
         <Modal active={activeRegisterModal} setActive={setActiveRegisterModal}>
-          <Form />
+          <RegisterForm />
         </Modal>
       )}
     </>

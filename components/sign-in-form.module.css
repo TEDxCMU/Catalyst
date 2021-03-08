@@ -33,7 +33,6 @@
   border-radius: var(--space-2x);
   margin-top: var(--space-4x);
   border: 1px solid transparent;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
   display: block;
 }
 
@@ -81,7 +80,6 @@
   outline: none;
   font-weight: 500;
   color: white;
-  transition: background-color 0.2s ease, color 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;

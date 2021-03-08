@@ -20,7 +20,7 @@ import useConfData from '@lib/hooks/use-conf-data';
 import { useRouter } from 'next/router';
 import FormError from '@lib/form-error';
 import LoadingDots from './loading-dots';
-import styles from './form.module.css';
+import styles from './register-form.module.css';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import { register } from '@lib/user-api';
 
