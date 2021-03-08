@@ -23,10 +23,8 @@ import isMobileOrTablet from '@lib/is-mobile-or-tablet';
 import { scrollTo } from '@lib/smooth-scroll';
 import styles from './ticket.module.css';
 import styleUtils from './utils.module.css';
-import TicketForm from './ticket-form';
 import TicketVisual from './ticket-visual';
 import TicketActions from './ticket-actions';
-import TicketCopy from './ticket-copy';
 import { DATE, SITE_NAME } from '@lib/constants';
 import Form from './register-form';
 
