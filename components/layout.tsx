@@ -22,6 +22,8 @@ import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
 import MobileMenu from './mobile-menu';
 import Footer from './footer';
+import useLoginStatus from '@lib/hooks/use-login-status';
+import { signOut } from '@lib/user-api';
 
 type Props = {
   children: React.ReactNode;
@@ -33,35 +35,40 @@ type Props = {
 export default function Layout({ children, className, hideNav, layoutStyles }: Props) {
   const router = useRouter();
   const activeRoute = router.asPath;
+  const { loginStatus } = useLoginStatus();
+
+  const handleLogout = async () => {
+    await signOut();
+    router.reload();
+  };
 
   return (
     <>
       <div className={styles.background}>
         {!hideNav && (
           <header className={cn(styles.header)}>
-            <div className={styles['header-logos']}>
-              <MobileMenu key={router.asPath} />
-              <Link href="/">
-                <a className={styles.home}>
-                  {CONF_TITLE.toUpperCase()}
-                </a>
-              </Link>
-            </div>
+            <MobileMenu key={router.asPath} />
+            <Link href="/">
+              <a className={styles.logo}>
+                <img src="/logo.png" alt="TEDxCMU Logo" />
+              </a>
+            </Link>
             <div className={styles.tabs}>
               {NAVIGATION.map(({ name, route }) => (
                 <Link key={name} href={route}>
-                  <a
-                    className={cn(styles.tab, {
-                      [styles['tab-active']]: activeRoute.startsWith(route)
-                    })}
-                  >
+                  <a className={cn(styles.tab, { [styles.active]: activeRoute === route})}>
                     {name}
                   </a>
                 </Link>
               ))}
             </div>
-            <div className={cn(styles['header-right'])}>
-            </div>
+            {loginStatus === 'loggedIn' ? (
+              <button className={styles.btn} onClick={handleLogout}>
+                Log Out
+              </button>
+            ) : (
+              <div />
+            )}
           </header>
         )}
         <div className={styles.page}>

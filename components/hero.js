@@ -15,12 +15,16 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import cn from 'classnames';
 import styles from './hero.module.css';
-import RegisterModal from '@components/register-modal';
+import Modal from '@components/modal';
+import Form from '@components/form';
 import useLoginStatus from '@lib/hooks/use-login-status';
+import { signOut } from '@lib/user-api';
 
 export default function Hero() {
+  const router = useRouter();
   const overlayImgRef = useRef(null);
   const sliderRef = useRef(null);
   const knobRef= useRef(null);
@@ -28,12 +32,26 @@ export default function Hero() {
   const imgWidth = useRef(null);
   const imgHeight = useRef(null);
   const clicked = useRef(false);
-  const [activeModal, setActiveModal] = useState(false);
+  const [activeLoginModal, setActiveLoginModal] = useState(false);
+  const [activeRegisterModal, setActiveRegisterModal] = useState(false);
   const { loginStatus } = useLoginStatus();
 
-  const handleModal = () => {
-    setActiveModal((prevState) => !prevState);
-  }
+  const handleLoginModal = () => {
+    setActiveLoginModal((prevState) => !prevState);
+  };
+
+  const handleRegisterModal = () => {
+    setActiveRegisterModal((prevState) => !prevState);
+  };
+
+  const handleTicket = () => {
+    router.push('/ticket');
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    router.reload();
+  };
 
   const slide = (x) => {
     overlayImgRef.current.style.width = `${x}px`;
@@ -130,11 +148,25 @@ export default function Hero() {
           <div className={styles.content}>
             <img className={styles.img} src="/hero.jpg" width="2880" height="1646" />
             <h1 className={cn(styles.heading, styles.stroke)}>
-              Who shapes the future?
-              {loginStatus !== 'loggedIn' && (
-                <button className={styles.btn} onClick={handleModal}>
-                  Register For Event
-                </button>
+              TEDxCMU 2021: CATALYST
+              {loginStatus === 'loggedIn' ? (
+                <div>
+                  <button className={styles.btn} onClick={handleTicket}>
+                    View Ticket
+                  </button>
+                  <button className={styles.btn} onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button className={styles.btn} onClick={handleLoginModal}>
+                    Sign In
+                  </button>
+                  <button className={styles.btn} onClick={handleRegisterModal}>
+                    Register For Free
+                  </button>
+                </div>
               )}
             </h1>
             <p className={cn(styles.body, styles.stroke)}>
@@ -149,11 +181,25 @@ export default function Hero() {
           <div className={styles.content}>
             <img className={styles.img} src="/hero.jpg" width="2880" height="1646" />
             <h1 className={styles.heading}>
-              The future belongs to those who believe in the beauty of their dreams.
-              {loginStatus !== 'loggedIn' && (
-                <button className={styles.btn} onClick={handleModal}>
-                  Register For Event
-                </button>
+              TEDxCMU 2021: CATALYST
+              {loginStatus === 'loggedIn' ? (
+                <div>
+                  <button className={styles.btn} onClick={handleTicket}>
+                    View Ticket
+                  </button>
+                  <button className={styles.btn} onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button className={styles.btn} onClick={handleLoginModal}>
+                    Sign In
+                  </button>
+                  <button className={styles.btn} onClick={handleRegisterModal}>
+                    Register For Free
+                  </button>
+                </div>
               )}
             </h1>
             <p className={styles.body}>
@@ -165,7 +211,16 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      {loginStatus !== 'loggedIn' && <RegisterModal active={activeModal} setActive={setActiveModal} />}
+      {loginStatus !== 'loggedIn' && (
+        <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
+          <Form />
+        </Modal>
+      )}
+      {loginStatus !== 'loggedIn' && (
+        <Modal active={activeRegisterModal} setActive={setActiveRegisterModal}>
+          <Form />
+        </Modal>
+      )}
     </>
   );
 }

@@ -18,7 +18,7 @@
   background: #000;
   color: #fff;
   min-height: 100vh;
-  min-height: var(--100vh);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -47,33 +47,59 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--sidebar);
-  border-bottom: 1px solid var(--accents-7);
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(40px);
+  border-bottom: 1px solid #E5E5E6;
   height: var(--header-height);
   z-index: 2;
+  padding: 0 15px;
 }
 
-.header-logos {
-  max-width: 200px;
+.logo {
   display: flex;
   align-items: center;
-  margin: var(--space-2x) var(--space-4x);
-}
-
-.header-right {
-  margin: var(--space-2x) var(--space-16x);
-  display: none;
-}
-
-@media screen and (min-width: 770px) {
-  .header-right {
-    display: initial;
-  }
 }
 
 .tabs {
   height: 100%;
   display: none;
+}
+
+.tab {
+  font-family: 'Helvetica Neue', serif;
+  text-transform: uppercase;
+  padding: var(--space-4x);
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tab:hover, .tab:focus, .tab:active {
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid #FFFFFF;
+  padding: 8px 20px;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  outline: none;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.active {
+  color: #fff;
+  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom transparent no-repeat;
+  background-size: 100% 1px;
 }
 
 @media screen and (min-width: 1032px) {
@@ -86,41 +112,4 @@
   .tabs > a:nth-child(4) {
     display: inline-flex;
   }
-}
-
-.tab {
-  font-family: 'Helvetica Neue', serif;
-  text-transform: uppercase;
-  padding: var(--space-4x);
-  font-size: 14px;
-  color: var(--secondary-color);
-  font-weight: 400;
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.tab:hover,
-.tab:focus,
-.tab:active {
-  color: #fff;
-}
-
-.tab-active {
-  color: #fff;
-  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom
-    transparent no-repeat;
-  background-size: 100% 1px;
-}
-
-.logo {
-  display: flex;
-  width: 40px;
-}
-
-.home {
-  font-size: 20px;
-  color: #fff;
-  font-weight: 700;
 }

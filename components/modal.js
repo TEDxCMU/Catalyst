@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
 import cn from 'classnames';
-import Form from '@components/form';
-import styles from './register-modal.module.css';
+import styles from './modal.module.css';
 
-export default function RegisterModal({ active, setActive }) {
+export default function RegisterModal({ active, setActive, children }) {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -25,7 +24,7 @@ export default function RegisterModal({ active, setActive }) {
     return (
         <section ref={modalRef} className={cn(styles.modal, { [styles.active]: active })}>
             <div className={styles.content}>
-                <Form />
+                {children}
             </div>
         </section>
     );

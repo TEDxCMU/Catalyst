@@ -48,29 +48,8 @@
   }
 }
 
-.created-by {
-  display: flex;
-  align-items: center;
-  color: var(--accents-4);
-}
-
-@media (min-width: 768px) {
-  .created-by {
-    margin-right: var(--space-4x);
-  }
-}
-
-.created-by-text {
-  white-space: nowrap;
-  margin-right: var(--space);
-}
-
-.created-by-logo {
-  height: calc(16px * var(--size));
-  display: inline-flex;
-}
-
 .url {
+  grid-column: 1 / -1;
   color: var(--accents-4);
   margin-bottom: var(--space-12x);
 }

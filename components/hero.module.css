@@ -50,9 +50,11 @@
 
 .heading {
   position: absolute;
-  top: 20%;
+  top: 50%;
   left: 5%;
   right: 5%;
+  width: 70%;
+  transform: translateY(-50%);
   font-family: 'ivypresto-display';
   font-weight: 400;
   font-size: 120px;
@@ -76,7 +78,7 @@
 }
 
 .btn {
-  display: block;
+  display: inline-block;
   margin-top: 25px;
   border: 1px solid #FFFFFF;
   padding: 21px 60px;
@@ -85,8 +87,13 @@
   border-radius: 100px;
   backdrop-filter: blur(10px);
   text-transform: uppercase;
+  outline: none;
   opacity: 0.9;
   cursor: pointer;
+}
+
+.btn:not(:last-child) {
+  margin-right: 20px;
 }
 
 .stroke {
