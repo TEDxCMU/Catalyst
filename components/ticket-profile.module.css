@@ -69,11 +69,6 @@
   margin: 0;
 }
 
-.githubIcon {
-  margin-right: calc(5px * var(--size));
-  display: inline-flex;
-}
-
 .empty-icon {
   display: block;
   background: linear-gradient(135deg, #b4b6b8, #7f8183);

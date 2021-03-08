@@ -1,17 +1,11 @@
 {
-  "name": "virtual-event-starter-kit",
-  "description": "Starter kit for your virtual event.",
+  "name": "virtual-tedx-event",
   "private": true,
-  "repository": "vercel/virtual-event-starter-kit",
-  "author": "Vercel Inc.",
-  "homepage": "https://demo.vercel.events",
-  "license": "Apache-2.0",
   "scripts": {
     "dev": "next",
     "start": "next start",
     "build": "next build",
-    "export": "next export",
-    "license": "addlicense -l apache -c 'Vercel Inc.' components/**/* lib/**/* pages/**/* styles/**/* *.ts *.js"
+    "export": "next export"
   },
   "dependencies": {
     "@reach/skip-nav": "0.12.1",
@@ -21,7 +15,6 @@
     "date-fns": "2.16.1",
     "firebase": "^8.2.4",
     "htmlescape": "1.1.1",
-    "ioredis": "4.19.4",
     "ms": "2.1.3",
     "next": "10.0.3",
     "nprogress": "0.2.0",

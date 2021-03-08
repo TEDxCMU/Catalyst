@@ -85,12 +85,6 @@
   justify-content: center;
 }
 
-.submit.generate-with-github {
-  display: flex;
-  margin-bottom: 12px;
-  position: relative;
-}
-
 .submit.loading {
   cursor: default;
 }
@@ -99,11 +93,6 @@
 .submit.default:focus {
   background: black;
   color: var(--brand);
-}
-
-.submit.default.generate-with-github:hover path,
-.submit.default.generate-with-github:focus path {
-  fill: var(--brand);
 }
 
 .submit.error:hover,
@@ -123,23 +112,9 @@
   overflow: hidden;
 }
 
-.submit.default.generate-with-github:disabled path,
-.submit.default.generate-with-github:disabled:hover path,
-.submit.default.generate-with-github:disabled:focus path {
-  fill: #fff;
-}
-
-.submit.default.generate-with-github.not-allowed:disabled {
-  cursor: not-allowed;
-}
-
 @media (min-width: 1200px) {
   .form-row {
     margin: 0;
-  }
-
-  .submit.generate-with-github {
-    width: 240px;
   }
 }
 

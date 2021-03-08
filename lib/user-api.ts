@@ -24,19 +24,6 @@ export async function register(email: string, password: string, firstName: strin
   });
 }
 
-export async function saveGithubToken({ id, token }: { id?: string; token: string }) {
-  return await fetch('/api/save-github-token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id,
-      token
-    })
-  });
-}
-
 export async function signOut(){
   return await fetch('/api/signOut', {
     method: 'POST',

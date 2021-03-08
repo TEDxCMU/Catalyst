@@ -124,7 +124,3 @@
 .disabled {
   cursor: not-allowed;
 }
-
-.githubIcon {
-  margin-left: var(--space-2x);
-}
