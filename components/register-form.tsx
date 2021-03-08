@@ -150,12 +150,11 @@ export default function Form({ sharePage }: Props) {
             required
           />
         </label>
-        <label htmlFor="email-input-field" className={cn(styles['input-label'], { [styles.focused]: focused })}>
+        <label className={cn(styles['input-label'], { [styles.focused]: focused })}>
           <input
             className={styles.input}
-            autoComplete="off"
             type="email"
-            id="email-input-field"
+            autoComplete="off"
             value={email}
             onChange={e => setEmail(e.target.value)}
             onFocus={() => setFocused(true)}
@@ -165,12 +164,11 @@ export default function Form({ sharePage }: Props) {
             required
           />
         </label>
-        <label htmlFor="pass-input-field" className={cn(styles['input-label'], { [styles.focused]: focused })}>
+        <label className={cn(styles['input-label'], { [styles.focused]: focused })}>
           <input
             className={styles.input}
             autoComplete="off"
             type="password"
-            id="pass-input-field"
             value={password}
             onChange={e => setPassword(e.target.value)}
             onFocus={() => setFocused(true)}

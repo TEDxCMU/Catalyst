@@ -83,15 +83,11 @@ export default function SignInForm() {
     <form className={cn(styles.form)} onSubmit={handleSubmit}>
       <div className={styles['form-row']}>
         <h2>SIGN IN</h2>
-      <label
-          htmlFor="email-input-field"
-          className={cn(styles['input-label'])}
-        >
+      <label className={cn(styles['input-label'])}>
           <input
             className={styles.input}
             autoComplete="off"
             type="email"
-            id="email-input-field"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="Email"
@@ -99,15 +95,11 @@ export default function SignInForm() {
             required
           />
         </label>
-        <label
-          htmlFor="pass-input-field"
-          className={cn(styles['input-label'])}
-        >
+        <label className={cn(styles['input-label'])}>
           <input
             className={styles.input}
             autoComplete="off"
             type="password"
-            id="pass-input-field"
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Password"
