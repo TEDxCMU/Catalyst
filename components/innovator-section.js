@@ -16,10 +16,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import cn from 'classnames';
 import styles from './innovator-section.module.css';
-import styleUtils from './utils.module.css';
 import Modal from './modal';
 
 export default function InnovatorSection({ innovator }) {
@@ -32,16 +29,25 @@ export default function InnovatorSection({ innovator }) {
     }
   }, [active]);
 
-  console.log(innovator)
-
   return (
     <Modal active={active} setActive={setActive} large>
       <div className={styles.container}>
         <div className={styles.overlay}>
-          <img className={styles.image} src={innovator.image.url} alt={innovator.image.alt} />
+          <img className={styles.logo} src={innovator.image.url} alt={innovator.image.alt} />
         </div>
         <div className={styles.content}>
           <h2 className={styles.title}>{innovator.company}</h2>
+          <div className={styles.people}>
+            {innovator?.people?.map((person) => (
+              <div className={styles.person} key={person.name}>
+                <img className={styles.avatar} src={person?.image?.url} alt={person?.image?.alt} />
+                <div>
+                  <p className={styles.tag}>{person?.name}</p>
+                  <p className={styles.tag}>{person?.tagline}</p>
+                </div>
+              </div>
+            ))}
+          </div>
           <p className={styles.body}>{innovator.bio}</p>
           <a className={styles.button} href={innovator.website} rel="noopener noreferrer" target="_blank">
             Visit Website

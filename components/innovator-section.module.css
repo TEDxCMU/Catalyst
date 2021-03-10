@@ -7,7 +7,7 @@
   width: 160%;
 }
 
-.image {
+.logo {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,6 +29,32 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: #E5E5E6;
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-row-gap: 16px;
+  margin-bottom: 28px;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  grid-column: span 6;
+}
+
+.avatar {
+  height: 35px;
+  width: 35px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.tag {
+  margin: 0;
+  font-size: 14px;
+  color: #828282;
 }
 
 .body {
