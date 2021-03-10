@@ -92,5 +92,18 @@
 
   .title {
     padding-top: 0;
+    font-size: 24px;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+
+  .logo {
+    position: static;
+  }
+
+  .person {
+    grid-column: 1 / -1;
   }
 }

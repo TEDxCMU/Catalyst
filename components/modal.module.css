@@ -8,6 +8,7 @@
     background-color: rgba(10, 10, 11, 0.5);
     backdrop-filter: blur(10px);
     z-index: 100;
+    overflow-y: auto;
 }
 
 .content {
