@@ -20,15 +20,35 @@
     background-color: #000;
     border: 1px solid #4F4F4F;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .active {
     display: block;
 }
 
+.body {
+    overflow: hidden;
+}
+
+.large {
+    width: 70%;
+    padding: 0;
+}
+
 @media screen and (max-width: 768px) {
     .content {
         padding: 26px;
         width: 90%;
+    }
+
+    .large {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .large {
+        width: 50%;
     }
 }

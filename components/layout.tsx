@@ -50,7 +50,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             <MobileMenu key={router.asPath} />
             <Link href="/">
               <a className={styles.logo}>
-                <img className={styles.image} src="/logo.png" alt="TEDxCMU Logo" />
+                <img className={styles.image} src="/logo.svg" alt="TEDxCMU Logo" />
               </a>
             </Link>
             <div className={styles.tabs}>

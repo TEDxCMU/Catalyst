@@ -16,12 +16,14 @@
 
 import Page from '@components/page';
 import Layout from '@components/layout';
+import Header from '@components/header';
+import InnovatorsGrid from 'components/innovators-grid';
 import InnovatorSection from 'components/innovator-section';
 
 import { META_DESCRIPTION } from '@lib/constants';
 import { getInnovators } from 'lib/cms-api';
 
-export default function InnovatorPage({ innovator }) {
+export default function InnovatorPage({ innovators, innovator }) {
   const meta = {
     title: `${innovator.company} - TEDxCMU Catalyst`,
     description: META_DESCRIPTION
@@ -30,6 +32,8 @@ export default function InnovatorPage({ innovator }) {
   return (
     <Page meta={meta}>
       <Layout>
+        <Header hero="Innovation Expo" description={meta.description} />
+        <InnovatorsGrid innovators={innovators} />
         <InnovatorSection innovator={innovator} />
       </Layout>
     </Page>
@@ -49,6 +53,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
+      innovators,
       innovator
     },
     revalidate: 60
