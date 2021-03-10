@@ -67,7 +67,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
                 Log Out
               </button>
             ) : (
-              <div />
+              <div className={styles.hidden} />
             )}
           </header>
         )}
