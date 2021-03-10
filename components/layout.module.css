@@ -43,7 +43,6 @@
 }
 
 .header {
-  font-family: 'helvetica neue';
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,7 +69,6 @@
 }
 
 .tab {
-  font-family: 'Helvetica Neue', serif;
   text-transform: uppercase;
   padding: var(--space-4x);
   font-size: 14px;
