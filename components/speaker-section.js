@@ -13,60 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from './speaker-section.module.css';
+import Modal from '@components/modal';
 
 export default function SpeakerSection({ speaker }) {
+  const router = useRouter();
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    if (!active) {
+      router.push('/speakers');
+    }
+  }, [active]);
+
+  console.log(speaker)
+
   return (
-    <>
-      <Link href="/speakers">
-        <a className={styles.backlink}>
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            shapeRendering="geometricPrecision"
-          >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-          Back to speakers
-        </a>
-      </Link>
-      <div key={speaker.name} className={styles.container}>
-        <div style={{ minWidth: '300px' }}>
-          <img
-            className={styles.image}
-            src={speaker.image.url}
-            alt={speaker.name}
-            loading="lazy"
-            height={300}
-            width={400}
-          />
+    <Modal active={active} setActive={setActive} large>
+      <div className={styles.container}>
+        <div className={styles.overlay}>
+          <img className={styles.image} src={speaker.image.url} alt={speaker.image.alt} />
         </div>
-        <div className={styles['speaker-details']}>
-          <div>
-            <h1 className={styles.name}>{speaker.name}</h1>
-            <p className={styles.tagline}>
-              {speaker.tagline}
-              <span className={styles.company}>{speaker.company}</span>
-            </p>
-            <h2 className={styles['bio-header']}>Bio</h2>
-            <p className={styles.bio}>{speaker.bio}</p>
-          </div>
+        <div className={styles.content}>
+          <h2 className={styles.title}>{speaker.name}</h2>
+          <h3 className={styles.tagline}>{speaker.tagline}</h3>
+          <p className={styles.body}>{speaker.bio}</p>
+          <a className={styles.button} href={speaker.website} rel="noopener noreferrer" target="_blank">
+            Visit Website
+          </a>
         </div>
       </div>
-      {speaker.talk && (
-        <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{speaker.talk.title}</h3>
-          <p>{speaker.talk.description}</p>
-        </div>
-      )}
-    </>
+    </Modal>
   );
 }
