@@ -126,3 +126,14 @@
   width: calc(40px - 24px);
   margin: 0 11px;
 }
+
+@media screen and (max-width: 768px) {
+  .heading {
+    font-size: 60px;
+    line-height: 62px;
+  }
+
+  .body {
+    font-size: 16px;
+  }
+}

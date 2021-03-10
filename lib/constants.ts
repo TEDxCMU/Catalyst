@@ -15,23 +15,17 @@
  */
 
 export const SITE_URL = 'https://catalyst.tedxcmu.edu';
-// export const SITE_URL = 'http://localhost:3000';
-export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
+export const SITE_ORIGIN = new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
 export const CONF_TITLE = 'Catalyst';
 export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
 export const SITE_NAME = 'TEDxCMU Virtual Conference';
-export const META_DESCRIPTION =
-  'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
-export const SCHEDULE_DESCRIPTION =
-  'This is the tagline for the schedule page.';
-export const SPEAKERS_DESCRIPTION =
-  'This is the tagline for the speakers page.';
-export const EXPO_DESCRIPTION =
-  'This is the tagline for the expo page.';
-export const SITE_DESCRIPTION =
-  'An interactive online experience by the community, free for everyone.';
+export const META_DESCRIPTION = 'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
+export const SCHEDULE_DESCRIPTION = 'This is the tagline for the schedule page.';
+export const SPEAKERS_DESCRIPTION = 'This is the tagline for the speakers page.';
+export const EXPO_DESCRIPTION = 'This is the tagline for the expo page.';
+export const SITE_DESCRIPTION = 'An interactive online experience by the community, free for everyone.';
 export const DATE = 'April 3, 2021';
 export const SHORT_DATE = 'Apr 3rd - 9:00am PST';
 export const FULL_DATE = 'Apr 3rd 9am Pacific Time (GMT-7)';

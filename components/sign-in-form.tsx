@@ -10,103 +10,87 @@ import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 type FormState = 'default' | 'loading' | 'error';
 
 export default function SignInForm() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [formState, setFormState] = useState<FormState>('default');
-
-  const router = useRouter();
   useEmailQueryParam('email', setEmail);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     if (formState === 'default') {
       setFormState('loading');
-      signIn(email, password)
-        .then(async res => {
-          if (!res.ok) {
-            throw new FormError(res);
-          }
+      try {
+        const response = await signIn(email, password);
+        if (!response.ok) {
+          throw new FormError(response);
+        }
 
-          const data = await res.json();
-
-          if (!data?.signInSuccess){
-            setFormState('error');
-          }
-
-          router.push("/ticket");
-        })
-        .catch(async err => {
-          let message = 'Error! Please try again.';
-          console.log("Error from sign in:");
-           
-          if (err instanceof FormError) {
-            const { res } = err;
-            
-            const data = res.headers.get('Content-Type')?.includes('application/json')
-              ? await res.json()
-              : null;
-
-            if (data?.error?.code === 'bad_email') {
-              message = 'Please enter a valid email';
-            } else if (data?.error?.code === 'auth_err' || data?.error.code === 'no_data_err') {
-              message = data.error.message;
-            }
-          }
-
-          setErrorMsg(message);
+        const data = await response.json();
+        if (!data?.signInSuccess) {
           setFormState('error');
-        });
+        }
+        router.push('/ticket');
+      } catch (error) {
+        let message = 'Error! Please try again.';
+        if (error instanceof FormError) {
+          const { res } = error;
+          const data = res.headers.get('Content-Type')?.includes('application/json') ? await res.json() : null;
+
+          if (data?.error?.code === 'bad_email') {
+            message = 'Please enter a valid email';
+          } else if (data?.error?.code === 'auth_err' || data?.error.code === 'no_data_err') {
+            message = data.error.message;
+          }
+        }
+
+        setErrorMsg(message);
+        setFormState('error');
+      }
     } else {
       setFormState('default');
-      console.log("form - set form state to default");
     }
-    e.preventDefault();
   }
 
-  return formState === 'error' ? (
-    <div className={cn(styles.form)}>
-      <div className={styles['form-row']}>
-        <h2>SIGN IN</h2>
-        <div className={cn(styles['input-label'], styles.error)}>
-          <div className={cn(styles.input, styles['input-text'])}>{errorMsg}</div>
+  if (formState === 'error') {
+    return (
+      <div className={styles.form}>
+        <div className={styles.row}>
+          <h2 className={styles.title}>SIGN IN</h2>
+          <p>{errorMsg}</p>
           <button
+            className={styles.submit}
             type="button"
-            className={cn(styles.submit, styles.error)}
-            onClick={() => { setFormState('default')}}
+            onClick={() => setFormState('default')}
           >
             Try Again
           </button>
         </div>
       </div>
-    </div>
-  ) : (
-    <form className={cn(styles.form)} onSubmit={handleSubmit}>
-      <div className={styles['form-row']}>
-        <h2>SIGN IN</h2>
-      <label className={cn(styles['input-label'])}>
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Email"
-            aria-label="Your email address"
-            required
-          />
-        </label>
-        <label className={cn(styles['input-label'])}>
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
-            aria-label="Your password"
-            required
-          />
-        </label>
+    )
+  }
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.row}>
+        <h2 className={styles.title}>SIGN IN</h2>
+        <input
+          className={styles.input}
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          className={styles.input}
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
         <button
           type="submit"
           className={cn(styles.submit, styles[formState])}

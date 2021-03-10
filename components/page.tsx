@@ -49,13 +49,10 @@ export default function Page({ meta, children, fullViewport = false }: Props) {
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
         <meta name="twitter:site" content={`@${TWITTER_USER_NAME}`} />
-        <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:card" content="summary_large_image" />
         <link rel="shortcut icon" href="/favicon.png" />
         {image && (
-          <meta
-            property="og:image"
-            content={image.startsWith('https://') ? image : `${SITE_URL}${image}`}
-          />
+          <meta property="og:image" content={`${SITE_URL}${image}`}/>
         )}
       </Head>
       {children}

@@ -33,11 +33,10 @@ export default function Hero() {
   const imgWidth = useRef(null);
   const imgHeight = useRef(null);
   const clicked = useRef(false);
+  const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
   const [activeLoginModal, setActiveLoginModal] = useState(false);
   const [activeRegisterModal, setActiveRegisterModal] = useState(false);
   const { loginStatus } = useLoginStatus();
-
-  const imgIndex = Math.floor(Math.random() * 6) + 1;
 
   const handleLoginModal = () => {
     setActiveLoginModal((prevState) => !prevState);
@@ -149,7 +148,7 @@ export default function Hero() {
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imgIndex}-branch.jpg`} width="2976" height="1674" />
+            <img className={styles.img} src={`/visuals/${imageIndex.current}-branch.jpg`} width="2976" height="1674" />
             <h1 className={cn(styles.heading, styles.stroke)}>
               TEDxCMU 2021: CATALYST
               {loginStatus === 'loggedIn' ? (
@@ -182,7 +181,7 @@ export default function Hero() {
         </div>
         <div ref={overlayImgRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imgIndex}-flower.jpg`} width="2976" height="1674" />
+            <img className={styles.img} src={`/visuals/${imageIndex.current}-flower.jpg`} width="2976" height="1674" />
             <h1 className={styles.heading}>
               TEDxCMU 2021: CATALYST
               {loginStatus === 'loggedIn' ? (

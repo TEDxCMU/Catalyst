@@ -60,6 +60,10 @@
   align-items: center;
 }
 
+.image {
+  width: 91px;
+}
+
 .tabs {
   height: 100%;
   display: none;
@@ -111,5 +115,11 @@
   .tabs > a:nth-child(3),
   .tabs > a:nth-child(4) {
     display: inline-flex;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    display: none;
   }
 }

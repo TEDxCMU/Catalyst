@@ -42,150 +42,119 @@ export default function Form({ sharePage }: Props) {
   const router = useRouter();
   useEmailQueryParam('email', setEmail);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     if (formState === 'default') {
       setFormState('loading');
-      register(email, password, firstName, lastName)
-        .then(async res => {
-          if (!res.ok) {
-            throw new FormError(res);
+      try {
+        const response = await register(email, password, firstName, lastName);
+        if (!response.ok) {
+          throw new FormError(response);
+        }
+        
+        const data = await response.json();
+        const params = {
+          id: data.id,
+          email: data.email,
+          username: data.username,
+          ticketNumber: data.ticketNumber,
+          name: data.name
+        };
+
+        if (sharePage) {
+          const queryString = Object.keys(params).map((key) => {
+            return `${encodeURIComponent(key)}=${encodeURIComponent(params[key as keyof typeof params] || '')}`
+          }).join('&');
+          router.replace(`/?${queryString}`, '/');
+        } else {
+          setUserData(params);
+          setPageState('ticket');
+        }
+      } catch (error) {
+        let message = 'Error! Please try again.';
+        if (error instanceof FormError) {
+          const { res } = error;
+          const data = res.headers.get('Content-Type')?.includes('application/json') ? await res.json() : null;
+
+          if (data?.error?.code === 'bad_email') {
+            message = 'Please enter a valid email';
+          } else if (data?.error?.code === 'auth_err') {
+            message = data.error.message
+          } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
+            message = 'Our services are down. Please try again later.';
           }
+        }
 
-          const data = await res.json();
-          const params = {
-            id: data.id,
-            email: data.email,
-            username: data.username,
-            ticketNumber: data.ticketNumber,
-            name: data.name
-          };
-
-          if (sharePage) {
-            const queryString = Object.keys(params)
-              .map(
-                key =>
-                  `${encodeURIComponent(key)}=${encodeURIComponent(
-                    params[key as keyof typeof params] || ''
-                  )}`
-              )
-              .join('&');
-            router.replace(`/?${queryString}`, '/');
-          } else {
-            setUserData(params);
-            setPageState('ticket');
-          }
-        })
-        .catch(async err => {
-          let message = 'Error! Please try again.';
-          if (err instanceof FormError) {
-            const { res } = err;
-            const data = res.headers.get('Content-Type')?.includes('application/json')
-              ? await res.json()
-              : null;
-
-            if (data?.error?.code === 'bad_email') {
-              message = 'Please enter a valid email';
-            } else if (data?.error?.code === 'auth_err') {
-              message = data.error.message
-            } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
-              message = 'Our services are down. Please try again later.';
-            }
-          }
-
-          setErrorMsg(message);
-          setFormState('error');
-        });
+        setErrorMsg(message);
+        setFormState('error');
+      }
     } else {
       setFormState('default');
     }
-    e.preventDefault();
   }
 
-  return formState === 'error' ? (
-    <div className={cn(styles.form, { [styles['share-page']]: sharePage })} >
-      <div className={styles['form-row']}>
-        <div className={cn(styles['input-label'], styles.error)}>
-          <div className={cn(styles.input, styles['input-text'])}>{errorMsg}</div>
-          <button
-            type="button"
-            className={cn(styles.submit, styles.register, styles.error)}
-            onClick={() => setFormState('default')}
-          >
-            Try Again
-          </button>
+  if (formState === 'error') {
+    return (
+      <div className={styles.form}>
+        <div className={styles.row}>
+            <h2 className={styles.title}>Registration</h2>
+            <p>{errorMsg}</p>
+            <button
+              className={styles.submit}
+              type="button"
+              onClick={() => setFormState('default')}
+            >
+              Try Again
+            </button>
         </div>
       </div>
-    </div>
-  ) : (
-    <form className={cn(styles.form, { [styles['share-page']]: sharePage })} onSubmit={handleSubmit}>
-      <div className={styles['form-row']}>
-        <h2>Registration</h2>
-        <label htmlFor="fname-input-field" className={cn(styles['input-label'], { [styles.focused]: focused })}>
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="text"
-            id="fname-input-field"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="First Name"
-            aria-label="Your First Name"
-            required
-          />
-        </label>
-        <label htmlFor="lname-input-field" className={cn(styles['input-label'], { [styles.focused]: focused })}>
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="text"
-            id="lname-input-field"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="Last Name"
-            aria-label="Your Last Name"
-            required
-          />
-        </label>
-        <label className={cn(styles['input-label'], { [styles.focused]: focused })}>
-          <input
-            className={styles.input}
-            type="email"
-            autoComplete="off"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="Email"
-            aria-label="Your email address"
-            required
-          />
-        </label>
-        <label className={cn(styles['input-label'], { [styles.focused]: focused })}>
-          <input
-            className={styles.input}
-            autoComplete="off"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="Password (must be at least 6 chars.)"
-            aria-label="Your password"
-            required
-          />
-        </label>
+    )
+  }
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.row}>
+        <h2 className={styles.title}>Registration</h2>
+        <input
+          className={styles.input}
+          type="text"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          placeholder="First Name"
+          required
+        />
+        <input
+          className={styles.input}
+          type="text"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          placeholder="Last Name"
+          required
+        />
+        <input
+          className={styles.input}
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          className={styles.input}
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password (must be at least 6 chars.)"
+          required
+        />
         <button
           type="submit"
-          className={cn(styles.submit, styles.register, styles[formState])}
+          className={cn(styles.submit, styles[formState])}
           disabled={formState === 'loading'}
         >
           {formState === 'loading' ? <LoadingDots size={4} /> : <>Register</>}
         </button>
       </div>
     </form>
-  );
+  )
 }

@@ -16,7 +16,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    padding: 2%;
+    padding: 42px 52px;
     background-color: #000;
     border: 1px solid #4F4F4F;
     border-radius: 10px;
@@ -24,4 +24,11 @@
 
 .active {
     display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .content {
+        padding: 26px;
+        width: 90%;
+    }
 }
