@@ -17,6 +17,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { isMobileOnly } from 'react-device-detect';
 import styles from './hero.module.css';
 import Modal from '@components/modal';
 import SignInForm from '@components/sign-in-form';
@@ -100,7 +101,7 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    if (overlayImgRef && overlayImgRef.current) {
+    if (overlayImgRef && overlayImgRef.current && !isMobileOnly) {
       // Get overlay img dimensions
       imgWidth.current = overlayImgRef.current.offsetWidth;
       imgHeight.current = overlayImgRef.current.offsetHeight;
@@ -141,7 +142,7 @@ export default function Hero() {
         sliderRef.current.remove();
       }
     }
-  }, [])
+  }, [isMobileOnly])
 
   return (
     <>
