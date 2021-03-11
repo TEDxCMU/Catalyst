@@ -15,18 +15,12 @@
  */
 
 import cn from 'classnames';
-import { useCallback, useState } from 'react';
 import styleUtils from './utils.module.css';
 import styles from './conf-entry.module.css';
-import LoadingDots from './loading-dots';
-import { register } from '@lib/user-api';
 import { SITE_DESCRIPTION } from '@lib/constants';
-import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import SignInButton from './sign-in-button';
 
-
 export default function ConfEntry() {
-
   return (
     <div className={cn(styles.container, styleUtils.appear, styleUtils['appear-first'])}>
       <div className={styles.heroContainer}>

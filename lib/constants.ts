@@ -14,40 +14,30 @@
  * limitations under the License.
  */
 
-export const SITE_URL = 'https://deploy-preview-15--tedx-virtual-event.netlify.app';
-// export const SITE_URL = 'http://localhost:3000';
-export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || new URL(SITE_URL).origin;
+export const SITE_URL = 'https://catalyst.tedxcmu.edu';
+export const SITE_ORIGIN = new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
 export const CONF_TITLE = 'Catalyst';
 export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
 export const SITE_NAME = 'TEDxCMU Virtual Conference';
-export const META_DESCRIPTION =
-  'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
-export const SCHEDULE_DESCRIPTION =
-  'This is the tagline for the schedule page.';
-export const SPEAKERS_DESCRIPTION =
-  'This is the tagline for the speakers page.';
-export const EXPO_DESCRIPTION =
-  'This is the tagline for the expo page.';
-export const SITE_DESCRIPTION =
-  'An interactive online experience by the community, free for everyone.';
+export const META_DESCRIPTION = 'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
+export const SCHEDULE_DESCRIPTION = 'This is the tagline for the schedule page.';
+export const SPEAKERS_DESCRIPTION = 'This is the tagline for the speakers page.';
+export const EXPO_DESCRIPTION = 'This is the tagline for the expo page.';
+export const SITE_DESCRIPTION = 'An interactive online experience by the community, free for everyone.';
 export const DATE = 'April 3, 2021';
 export const SHORT_DATE = 'Apr 3rd - 9:00am PST';
 export const FULL_DATE = 'Apr 3rd 9am Pacific Time (GMT-7)';
 export const TWEET_TEXT = META_DESCRIPTION;
 export const COOKIE = 'user-id';
 
-// Remove process.env.NEXT_PUBLIC_... below and replace them with
-// strings containing your own privacy policy URL and copyright holder name
-export const LEGAL_URL = process.env.NEXT_PUBLIC_PRIVACY_POLICY_URL;
-export const COPYRIGHT_HOLDER = process.env.NEXT_PUBLIC_COPYRIGHT_HOLDER;
-
-export const CODE_OF_CONDUCT =
-  'https://www.notion.so/vercel/Code-of-Conduct-Example-7ddd8d0e9c354bb597a0faed87310a78';
-export const REPO = 'https://github.com/vercel/virtual-event-starter-kit';
 export const SAMPLE_TICKET_NUMBER = 1234;
 export const NAVIGATION = [
+  {
+    name: 'Home',
+    route: '/'
+  },
   {
     name: 'Stage',
     route: '/stage'
@@ -61,7 +51,7 @@ export const NAVIGATION = [
     route: '/speakers'
   },
   {
-    name: 'Expo',
+    name: 'Innovation Expo',
     route: '/expo'
   },
 ];

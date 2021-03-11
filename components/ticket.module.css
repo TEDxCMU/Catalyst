@@ -72,6 +72,7 @@
   border-radius: var(--space-4x);
   overflow: hidden;
   width: 330px;
+  height: 156px;
   margin: 0 auto;
 }
 
@@ -88,32 +89,25 @@
 }
 
 .ticket-visual:before {
-  left: 50%;
-  top: -7.5%;
-  transform: translateZ(0) translateX(-50%) rotate(90deg);
+  top: 50%;
+  left: -18%;
+  transform: translateZ(0) translateY(-50%);
 }
 
 .ticket-visual:after {
-  left: 50%;
-  bottom: -7.5%;
-  transform: translateZ(0) translateX(-50%) rotate(90deg);
+  top: 50%;
+  left: 96%;
+  transform: translateZ(0) translateY(-50%);
 }
 
 @media (min-width: 768px) {
   .ticket-visual {
     width: 650px;
+    height: 308px;
   }
 
   .ticket-visual:before {
-    top: 50%;
     left: -7%;
-    transform: translateZ(0) translateY(-50%);
-  }
-
-  .ticket-visual:after {
-    top: 50%;
-    left: 96%;
-    transform: translateZ(0) translateY(-50%);
   }
 }
 

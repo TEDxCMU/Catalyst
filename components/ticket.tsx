@@ -23,12 +23,9 @@ import isMobileOrTablet from '@lib/is-mobile-or-tablet';
 import { scrollTo } from '@lib/smooth-scroll';
 import styles from './ticket.module.css';
 import styleUtils from './utils.module.css';
-import TicketForm from './ticket-form';
 import TicketVisual from './ticket-visual';
-import TicketActions from './ticket-actions';
-import TicketCopy from './ticket-copy';
 import { DATE, SITE_NAME } from '@lib/constants';
-import Form from './form';
+import Form from './register-form';
 
 type Props = {
   username: UserData['username'];
@@ -70,17 +67,16 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
       <div ref={divRef}>
         <div className={styles['ticket-text']}>
           <h2 className={cn(styles.hero, styleUtils.appear, styleUtils['appear-first'])}>
-            {sharePage ? (
-              name ? (
+            {sharePage ? (name ? (
                 <>{name}’s Ticket</>
               ) : (
-                  <>{SITE_NAME}</>
-                )
+                <>{SITE_NAME}</>
+              )
             ) : (
-                <>
-                  Here's your ticket to the the experience.
+              <>
+                WELCOME TO THE TEDxCMU FAMILY
               </>
-              )}
+            )}
           </h2>
           <p className={cn(styles.description, styleUtils.appear, styleUtils['appear-second'])}>
             {sharePage ? (
@@ -89,9 +85,8 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
               </>
             ) : (
                 <>
-                  Download or share your ticket and <br className={styleUtils['hide-on-mobile']} />
-                spread the word.
-              </>
+                  On the day of the event, sign in with your email and password. We look forward to seeing you there!
+                </>
               )}
           </p>
         </div>
@@ -113,19 +108,6 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
             ticketGenerationState={ticketGenerationState}
           />
         </div>
-        {!sharePage && (
-          <>
-            {username && name && ticketNumber ? (
-              <div>
-                <div className={styles['ticket-actions']}>
-                  <TicketActions username={username} name={name} ticketNumber={ticketNumber} />
-                </div>
-              </div>
-            ) : (
-                <div className={styles['ticket-actions-placeholder']} />
-              )}
-          </>
-        )}
       </div>
     </div>
   );

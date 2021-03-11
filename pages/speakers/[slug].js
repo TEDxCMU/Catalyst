@@ -15,13 +15,15 @@
  */
 
 import Page from '@components/page';
-import SpeakerSection from 'components/speaker-section';
 import Layout from '@components/layout';
+import Header from '@components/header';
+import SpeakersGrid from '@components/speakers-grid';
+import SpeakerSection from '@components/speaker-section';
 
 import { getSpeakers } from 'lib/cms-api';
 import { META_DESCRIPTION } from '@lib/constants';
 
-export default function SpeakerPage({ speaker }) {
+export default function SpeakerPage({ speakers, speaker }) {
   const meta = {
     title: `${speaker.name} - TEDxCMU Catalyst`,
     description: META_DESCRIPTION
@@ -30,6 +32,8 @@ export default function SpeakerPage({ speaker }) {
   return (
     <Page meta={meta}>
       <Layout>
+        <Header hero="Speakers" description={meta.description} />
+        <SpeakersGrid speakers={speakers} />
         <SpeakerSection speaker={speaker} />
       </Layout>
     </Page>
@@ -39,9 +43,9 @@ export default function SpeakerPage({ speaker }) {
 export async function getStaticProps({ params }) {
   const slug = params?.slug;
   const speakers = await getSpeakers();
-  const currentSpeaker = speakers.find((s) => s.slug === slug) || null;
+  const speaker = speakers.find((s) => s.slug === slug) || null;
 
-  if (!currentSpeaker) {
+  if (!speaker) {
     return {
       notFound: true
     };
@@ -49,7 +53,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      speaker: currentSpeaker
+      speakers,
+      speaker,
     },
     revalidate: 60
   };

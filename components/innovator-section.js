@@ -14,72 +14,46 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import cn from 'classnames';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from './innovator-section.module.css';
-import styleUtils from './utils.module.css';
+import Modal from './modal';
 
 export default function InnovatorSection({ innovator }) {
+  const router = useRouter();
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    if (!active) {
+      router.push('/expo');
+    }
+  }, [active]);
+
   return (
-    <>
-      <Link href="/expo">
-        <a className={styles.backlink}>
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            shapeRendering="geometricPrecision"
-          >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-          Back to expo
-        </a>
-      </Link>
-      <div className={styles.layout}>
-        <iframe
-          className={cn(styles.video, styleUtils.appear, styleUtils['appear-first'])}
-          allow="picture-in-picture"
-          allowFullScreen
-          frameBorder="0"
-          height="100%"
-          src={innovator.website}
-          title={innovator.company}
-          width="100%"
-        />
-        <div className={styles.container}>
-          <div className={styles['name-and-logo']}>
-            <img
-              className={styles.image}
-              src={innovator.image.url}
-              alt={innovator.company}
-              loading="lazy"
-              height={64}
-              width={64}
-            />
-            <h1 className={styles.name}>
-              {innovator.company}
-            </h1>
-          </div>
-          <p className={styles.description}>
-            {innovator.bio}
-          </p>
-          <div className={styles.resources}>
-            <h2 className={styles.heading}>Innovators</h2>
-            {innovator.people.map((person) => (
-              <div key={person.name} className={cn(styles.button, styles['button-resource'])}>
-                <span className={styles.truncate}>
-                   {person.name} | {person.tagline}
-                </span>
+    <Modal active={active} setActive={setActive} large>
+      <div className={styles.container}>
+        <div className={styles.overlay}>
+          <img className={styles.logo} src={innovator.image.url} alt={innovator.image.alt} />
+        </div>
+        <div className={styles.content}>
+          <h2 className={styles.title}>{innovator.company}</h2>
+          <div className={styles.people}>
+            {innovator?.people?.map((person) => (
+              <div className={styles.person} key={person.name}>
+                <img className={styles.avatar} src={person?.image?.url} alt={person?.image?.alt} />
+                <div>
+                  <p className={styles.tag}>{person?.name}</p>
+                  <p className={styles.tag}>{person?.tagline}</p>
+                </div>
               </div>
             ))}
           </div>
+          <p className={styles.body}>{innovator.bio}</p>
+          <a className={styles.button} href={innovator.website} rel="noopener noreferrer" target="_blank">
+            Visit Website
+          </a>
         </div>
       </div>
-    </>
+    </Modal>
   );
 }

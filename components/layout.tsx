@@ -20,10 +20,10 @@ import { useRouter } from 'next/router';
 import { SkipNavContent } from '@reach/skip-nav';
 import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
-import Logo from './icons/icon-logo';
 import MobileMenu from './mobile-menu';
-import Footer, { HostedByVercel } from './footer';
-import ViewSource from '@components/view-source';
+import Footer from './footer';
+import useLoginStatus from '@lib/hooks/use-login-status';
+import { signOut } from '@lib/user-api';
 
 type Props = {
   children: React.ReactNode;
@@ -35,40 +35,40 @@ type Props = {
 export default function Layout({ children, className, hideNav, layoutStyles }: Props) {
   const router = useRouter();
   const activeRoute = router.asPath;
+  const { loginStatus } = useLoginStatus();
+
+  const handleLogout = async () => {
+    await signOut();
+    router.reload();
+  };
 
   return (
     <>
       <div className={styles.background}>
         {!hideNav && (
           <header className={cn(styles.header)}>
-            <div className={styles['header-logos']}>
-              <MobileMenu key={router.asPath} />
-              <Link href="/">
-                {/* eslint-disable-next-line */}
-                {/* <a className={styles.logo}>
-                  <Logo />
-                </a> */}
-                <a className={styles.home}>
-                  {CONF_TITLE.toUpperCase()}
-                </a>
-                
-              </Link>
-            </div>
+            <MobileMenu key={router.asPath} />
+            <Link href="/">
+              <a className={styles.logo}>
+                <img className={styles.image} src="/logo.svg" alt="TEDxCMU Logo" />
+              </a>
+            </Link>
             <div className={styles.tabs}>
               {NAVIGATION.map(({ name, route }) => (
                 <Link key={name} href={route}>
-                  <a
-                    className={cn(styles.tab, {
-                      [styles['tab-active']]: activeRoute.startsWith(route)
-                    })}
-                  >
+                  <a className={cn(styles.tab, { [styles.active]: activeRoute === route})}>
                     {name}
                   </a>
                 </Link>
               ))}
             </div>
-            <div className={cn(styles['header-right'])}>
-            </div>
+            {loginStatus === 'loggedIn' ? (
+              <button className={styles.btn} onClick={handleLogout}>
+                Log Out
+              </button>
+            ) : (
+              <div className={styles.hidden} />
+            )}
           </header>
         )}
         <div className={styles.page}>
@@ -76,7 +76,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             <SkipNavContent />
             <div className={cn(styles.full, className)}>{children}</div>
           </main>
-          {!activeRoute.startsWith('/stage') && <Footer />}
+          {!activeRoute.startsWith('/stage') && activeRoute !== '/' && <Footer />}
         </div>
       </div>
     </>

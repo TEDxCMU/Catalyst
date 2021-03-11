@@ -20,7 +20,9 @@ export default class CustomDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head> <link rel="stylesheet" href="https://use.typekit.net/lsm8ztg.css"></link></Head>
+        <Head>
+          <link rel="stylesheet" href="https://use.typekit.net/lsm8ztg.css" />
+        </Head>
         <body>
           <Main />
           <NextScript />

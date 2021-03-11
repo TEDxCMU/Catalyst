@@ -89,14 +89,3 @@ export type ConfUser = {
   username: string;
   createdAt: number;
 };
-
-export type GitHubOAuthData =
-  | {
-      type: 'token';
-      token: string;
-    }
-  | {
-      type: 'user';
-      name: string;
-      login: string;
-    };

@@ -14,67 +14,131 @@
  * limitations under the License.
  */
 
-.wrapper {
-  margin-top: var(--space-12x);
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
 }
 
-.hero {
-  font-size: 52px;
-  line-height: 1.15;
-  letter-spacing: -0.05em;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 25px;
+.slide {
+  position: absolute;
+  height: 100vh;
+  width: auto;
+  overflow: hidden;
+  filter: grayscale(100);
 }
 
-.info {
-  font-size: 20px;
-  line-height: 1.4;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: var(--space-8x);
-  color: var(--brand);
+.overlay {
+  filter: grayscale(0);
 }
 
-.description {
+.content {
+  position: relative;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.img {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+}
+
+.heading {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  width: 70%;
+  transform: translateY(-50%);
+  font-family: "ivypresto-display";
   font-weight: 400;
-  font-size: 20px;
-  line-height: 1.4;
-  text-align: center;
-  margin: auto auto 30px;
-  color: var(--secondary-color);
-  max-width: 355px;
+  font-size: 120px;
+  line-height: 124px;
 }
 
-.description-separator {
-  height: 24px;
-  width: 1px;
-  background: var(--secondary-color);
-  margin: 0 var(--space-4x);
-}
-
-.info :global(p) {
+.body {
+  position: absolute;
+  bottom: 2%;
+  font-size: 32px;
   margin: 0;
+  text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
-  .hero {
-    font-size: 100px;
-    line-height: 1;
-    font-weight: 800;
-    margin: 0 0px 40px;
+.body:first-of-type {
+  left: 2%;
+}
+
+.body:last-of-type {
+  right: 2%;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 25px;
+  border: 1px solid #FFFFFF;
+  padding: 21px 60px;
+  background-color: rgba(51, 51, 51, 0.1);
+  color: #fff;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  font-size: 16px;
+  outline: none;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.btn:not(:last-child) {
+  margin-right: 20px;
+}
+
+.stroke {
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fff;
+}
+
+.slider {
+  position: absolute;
+  height: 100vh;
+  width: 40px;
+}
+
+.knob {
+  position: absolute;
+  bottom: 20%;
+  height: 40px;
+  width: 40px;
+  border: 1px solid #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px);
+  cursor: ew-resize;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.arrows {
+  height: 100%;
+  width: calc(40px - 24px);
+  margin: 0 11px;
+}
+
+@media screen and (max-width: 768px) {
+  .heading {
+    font-size: 60px;
+    line-height: 62px;
   }
 
-  .info {
-    font-size: 24px;
-    margin-bottom: 40px;
+  .body {
+    font-size: 16px;
   }
 
-  .description {
-    font-size: var(--space-8x);
-    max-width: 531px;
-    margin: 40px auto;
+  .btn {
+    font-size: 12px;
   }
 }

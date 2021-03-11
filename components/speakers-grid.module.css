@@ -87,7 +87,7 @@
 }
 
 .name {
-  font-family: "ivypresto-display", serif;
+  font-family: "ivypresto-display";
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #f1f1f1;
@@ -98,7 +98,7 @@
 }
 
 .tagline {
-  font-family: "lapture", serif;
+  font-family: "jaf-lapture";
   font-size: 14px;
   margin: 0;
 }

@@ -52,7 +52,7 @@
 }
 
 .title {
-  font-family: "ivypresto-display", serif;
+  font-family: "ivypresto-display";
   letter-spacing: 0.03em;
   text-transform: uppercase;
   font-weight: 400;
@@ -64,7 +64,6 @@
 }
 
 .speaker {
-  font-family: "neue-haas-grotesk-display", serif;
   text-transform: uppercase;
   font-size: 16px;
   display: flex;
