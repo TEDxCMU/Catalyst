@@ -69,7 +69,7 @@ body {
   height: 100%;
   margin: 0;
   line-height: 1.65;
-  font-family: "neue-haas-grotesk-display", "Helvetica Neue", sans-serif;
+  font-family: "neue-haas-grotesk-text", "Helvetica Neue", sans-serif;
   font-size: var(--text-md);
   font-weight: 400;
   min-width: 320px;
