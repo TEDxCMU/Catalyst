@@ -18,6 +18,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { isMobileOnly } from 'react-device-detect';
+import gsap from 'gsap';
 import styles from './hero.module.css';
 import Modal from '@components/modal';
 import SignInForm from '@components/sign-in-form';
@@ -89,11 +90,30 @@ export default function Hero() {
       imageHeight.current = overlayImageRef.current.offsetHeight;
 
       // Set width of overlay img to 50%
-      overlayImageRef.current.style.width = `${(imageWidth.current / 2)}px`;
+      gsap.fromTo(overlayImageRef.current,
+        {
+          width: 0,
+          delay: 1,
+        },
+        {
+          width: `${(imageWidth.current * 0.3)}px`,
+          ease: 'power3.inOut',
+          duration: 1.3,
+        }
+      );
 
       // Position the slider in the center
-      sliderRef.current.style.top = `${(imageHeight.current / 2) - (sliderRef.current.offsetHeight / 2)}px`;
-      sliderRef.current.style.left = `${(imageWidth.current / 2) - (sliderRef.current.offsetWidth / 2)}px`;
+      gsap.fromTo(sliderRef.current,
+        {
+          left: '-20px',
+          delay: 1,
+        },
+        {
+          left: `${(imageWidth.current * 0.3) - (sliderRef.current.offsetWidth / 2)}px`,
+          ease: 'power3.inOut',
+          duration: 1.3,
+        }
+      )
 
       // Add slider events
       window.addEventListener('mouseup', handleSlideEnd);
@@ -104,8 +124,6 @@ export default function Hero() {
       // Clean up events
       return () => {
         window.removeEventListener('mouseup', handleSlideEnd);
-        sliderRef.current.removeEventListener('mousedown', handleSlideStart);
-        sliderRef.current.removeEventListener('touchstart', handleSlideStart);
         window.removeEventListener('touchend', handleSlideEnd);
         window.removeEventListener('mousemove', handleSlideMove);
         window.removeEventListener('touchmove', handleSlideMove);

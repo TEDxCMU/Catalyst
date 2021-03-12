@@ -112,6 +112,8 @@
   position: absolute;
   height: 100vh;
   width: 40px;
+  top: 0px;
+  left: -20px;
 }
 
 .slider::before {
