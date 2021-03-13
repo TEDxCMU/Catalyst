@@ -30,7 +30,7 @@
 
 .nav {
   position: fixed;
-  top: 25px;
+  top: calc(72px + 25px);
   right: 25px;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,7 @@
   margin-bottom: 5px;
   font-size: 32px;
   line-height: 37px;
+  text-transform: uppercase;
   color: #E5E5E6;
   opacity: 0.5;
   outline: none;
