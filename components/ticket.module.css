@@ -17,17 +17,16 @@
 .hero {
   font-size: 52px;
   line-height: 1.15;
-  letter-spacing: -0.05em;
-  font-weight: 700;
+  font-weight: 400;
   margin: 0;
   text-align: center;
+  font-family: "ivypresto-display";
 }
 
 @media (min-width: 768px) {
   .hero {
     font-size: 100px;
     line-height: 1;
-    font-weight: 800;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -39,14 +38,11 @@
   line-height: 1.4;
   color: var(--secondary-color);
   text-align: center;
-  margin: 30px auto;
-  max-width: 350px;
 }
 
 @media (min-width: 768px) {
   .description {
     font-size: 24px;
-    max-width: 415px;
   }
 }
 
@@ -72,7 +68,7 @@
   border-radius: var(--space-4x);
   overflow: hidden;
   width: 330px;
-  height: 156px;
+  height: 154px;
   margin: 0 auto;
 }
 
@@ -152,6 +148,7 @@
 
 .ticket-visual-wrapper {
   width: 100%;
+  height: 100%;
 }
 
 @media screen and (min-width: 1280px) {

@@ -68,10 +68,10 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
         <div className={styles['ticket-text']}>
           <h2 className={cn(styles.hero, styleUtils.appear, styleUtils['appear-first'])}>
             {sharePage ? (name ? (
-                <>{name}’s Ticket</>
-              ) : (
-                <>{SITE_NAME}</>
-              )
+              <>{name}’s Ticket</>
+            ) : (
+              <>{SITE_NAME}</>
+            )
             ) : (
               <>
                 WELCOME TO THE TEDxCMU FAMILY
@@ -84,10 +84,10 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
                 Join {name && 'them '} on {DATE}.
               </>
             ) : (
-                <>
-                  On the day of the event, sign in with your email and password. We look forward to seeing you there!
+              <>
+                On the day of the event, sign in with your email and password. We look forward to seeing you there!
                 </>
-              )}
+            )}
           </p>
         </div>
         <div className={cn(styleUtils.appear, styleUtils['appear-third'])}>

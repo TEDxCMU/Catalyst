@@ -31,7 +31,6 @@ export default function TicketVisual({ size = 1, name, ticketNumber, ticketGener
   return (
     <>
       <div className={styles.visual} style={{ ['--size' as string]: size }}>
-        <TicketColored />
         <div className={styles.profile}>
           <TicketProfile
             name={name}
@@ -40,6 +39,7 @@ export default function TicketVisual({ size = 1, name, ticketNumber, ticketGener
             ticketGenerationState={ticketGenerationState}
           />
         </div>
+        <TicketColored />
       </div>
     </>
   );

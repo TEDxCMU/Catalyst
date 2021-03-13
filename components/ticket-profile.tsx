@@ -30,7 +30,7 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
   const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
 
   return (
-    <section className={styles.profile}>
+    <div className={styles.profile}>
       <img className={styles.image} src={`/tickets/ticket-${imageIndex.current}.jpg`} width="2976" height="1674" />
       <img className={styles.logo} src="/logo.svg" alt="TEDxCMU Logo" width="2976" height="1674" />
       <div className={styles.content}>
@@ -52,6 +52,6 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
