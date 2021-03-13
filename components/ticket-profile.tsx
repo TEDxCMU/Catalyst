@@ -16,7 +16,7 @@
 
 import { useRef, useEffect } from 'react';
 import cn from 'classnames';
-import { TicketGenerationState } from '@lib/constants';
+import { TicketGenerationState, DATE, TIME } from '@lib/constants';
 import styles from './ticket-profile.module.css';
 
 type Props = {
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
-  const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const imageIndex = useRef(ticketNumber ? ticketNumber % 6 + 1 : 1);
   const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#FFE3E3', '#E3AD21'];
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
         <div className={styles.details}>
           <div className={styles.item}>
             <p className={styles.title}>Date:</p>
-            <p className={styles.body}>April 4, 2021</p>
+            <p className={styles.body}>{DATE.toUpperCase()}</p>
           </div>
           <div className={styles.item}>
             <p className={styles.title}>Ticket Number</p>
@@ -59,6 +59,6 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

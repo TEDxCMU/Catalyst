@@ -110,7 +110,7 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
               </>
             ) : (
               <>
-                On the day of the event, sign in with your email and password. We look forward to seeing you there!
+                On the day of the event, sign in with your email and password and visit the <a href="/stage">main stage</a>. We look forward to seeing you there!
                 </>
             )}
           </p>
