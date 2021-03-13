@@ -28,8 +28,6 @@ export default function SpeakerSection({ speaker }) {
     }
   }, [active]);
 
-  console.log(speaker)
-
   return (
     <Modal active={active} setActive={setActive} large>
       <div className={styles.container}>

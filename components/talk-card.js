@@ -39,11 +39,11 @@ export default function TalkCard({ talk }) {
   return (
     <div key={talk.title} className={styles.talk}>
       {<p className={styles.time}>{startAndEndTime || <>&nbsp;</>}</p>}
-      <Link className={styles["card-container"]} href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
+      <Link className={styles["card-container"]} href={talk.speaker ? `/talks/${talk.slug}`: talk.slug === 'innovation-expo' ? `/expo` : "/schedule"}>
         <a className={cn(styles.card, { [styles["is-live"]]: isTalkLive })}>
-          {talk.speaker != null && (
-            <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
-              <img className={styles.avatar} src={talk.speaker.image.url} alt={talk.speaker.name} loading='lazy' />
+          {talk.image != null && (
+            <div key={talk.slug} className={styles["avatar-wrapper"]}>
+              <img className={styles.avatar} src={talk.image.url} alt={talk.title} loading='lazy' />
             </div>
           )}
           <div className={styles["card-body"]}>
@@ -51,13 +51,21 @@ export default function TalkCard({ talk }) {
               {talk.title}
             </h4>
             {talk.speaker != null && (
+              <>
               <div className={styles.speaker}>
                 <h5 className={styles.name}>
                   {/* {talk.speaker.length === 1 ? talk.speaker[0].name : `${talk.speaker.length} speakers`} */}
                   {talk.speaker.name}
                 </h5>
               </div>
+              <p className={styles.tagline}>
+              {talk.speaker.tagline}
+              </p>
+              </>
             )}
+            <p className={styles.blurb}>
+              {talk.blurb}
+            </p>
           </div>
         </a>
       </Link>

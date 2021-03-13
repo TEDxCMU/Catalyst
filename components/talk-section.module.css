@@ -1,0 +1,122 @@
+.container {
+  display: flex;
+}
+
+.overlay {
+  position: relative;
+  width: 150%;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: 25px;
+  width: 100%;
+}
+
+.time {
+  margin: 0;
+  font-size: 16px;
+  color: #828282;
+}
+
+.title {
+  padding-top: 0px;
+  padding-bottom: 16px;
+  font-family: "ivypresto-display";
+  font-size: 36px;
+  text-transform: uppercase;
+  /* letter-spacing: 0.03em; */
+  color: #e5e5e6;
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-row-gap: 16px;
+  margin-bottom: 28px;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  grid-column: span 6;
+}
+
+.avatar {
+  height: 50px;
+  width: 50px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.name {
+  margin: 0;
+  font-size: 14px;
+  color: #828282;
+}
+
+.tag {
+  margin: 0;
+  font-size: 14px;
+  color: #828282;
+  font-family: "rf-lapture";
+}
+
+.body {
+  margin: 0;
+  font-size: 16px;
+  color: #828282;
+  line-height: 124.5%;
+}
+
+.button {
+  display: block;
+  margin-top: 30px;
+  padding: 20px 60px;
+  border: 1px solid #4f4f4f;
+  border-radius: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #828282;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .overlay {
+    position: static;
+    width: 100%;
+  }
+
+  .image {
+    position: static;
+    width: 100%;
+  }
+
+  .title {
+    padding-top: 0;
+    font-size: 24px;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+
+  .logo {
+    position: static;
+  }
+
+  .person {
+    grid-column: 1 / -1;
+  }
+}
