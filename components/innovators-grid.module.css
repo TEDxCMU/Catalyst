@@ -70,6 +70,13 @@
   border-top-right-radius: 6px;
 }
 
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 32.33%);
+    gap: 1.5%;
+  }
+}
+
 @media (max-width: 471px) {
   .imageWrapper > div {
     width: 100% !important;

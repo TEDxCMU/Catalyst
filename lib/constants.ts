@@ -53,7 +53,7 @@ export const NAVIGATION = [
   {
     name: 'Innovation Expo',
     route: '/expo'
-  },
+  }
 ];
 
 export type TicketGenerationState = 'default' | 'loading';
