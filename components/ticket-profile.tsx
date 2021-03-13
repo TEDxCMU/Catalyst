@@ -16,7 +16,7 @@
 
 import { useRef } from 'react';
 import cn from 'classnames';
-import { TicketGenerationState } from '@lib/constants';
+import { TicketGenerationState, DATE, TIME} from '@lib/constants';
 import styles from './ticket-profile.module.css';
 
 type Props = {
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
-  const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const imageIndex = useRef(ticketNumber ? ticketNumber % 6 + 1: 1);
 
   return (
     <section className={styles.profile}>
@@ -44,11 +44,11 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
         <div className={styles.details}>
           <div className={styles.item}>
             <p className={styles.title}>Date:</p>
-            <p className={styles.body}>April 4, 2021</p>
+            <p className={styles.body}>{DATE.toUpperCase()}</p>
           </div>
           <div className={styles.item}>
             <p className={styles.title}>Time:</p>
-            <p className={styles.body}>10:00AM EST</p>
+            <p className={styles.body}>{TIME.toUpperCase()}</p>
           </div>
         </div>
       </div>
