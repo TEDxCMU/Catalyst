@@ -24,6 +24,8 @@ import { scrollTo } from '@lib/smooth-scroll';
 import styles from './ticket.module.css';
 import styleUtils from './utils.module.css';
 import TicketVisual from './ticket-visual';
+import IconDownload from './icons/icon-download';
+import LoadingDots from './loading-dots';
 import { DATE, SITE_NAME } from '@lib/constants';
 import Form from './register-form';
 
@@ -35,6 +37,12 @@ type Props = {
 };
 
 export default function Ticket({ username, name, ticketNumber, sharePage }: Props) {
+  const [imgReady, setImgReady] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const downloadLink = useRef<HTMLAnchorElement>();
+
+  const downloadUrl = name && ticketNumber ? `/api/ticket-images/${username}/${encodeURIComponent(name)}/${encodeURIComponent(ticketNumber)}` : `/api/ticket-images/${username}/${encodeURIComponent("XXXXXX")}/${encodeURIComponent(0)}`;
+
   const ticketRef = useRef<HTMLDivElement>(null);
   const [ticketGenerationState, setTicketGenerationState] = useState<TicketGenerationState>(
     'default'
@@ -57,6 +65,23 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
       scrollTo(divRef.current, -30);
     }
   }, [divRef, sharePage]);
+
+  useEffect(() => {
+    setImgReady(false);
+
+    const img = new Image();
+    img.src = downloadUrl;
+    img.onload = () => {
+      // console.log("downloadUrl", img.src);
+      setImgReady(true);
+      setLoading(false);
+      if (downloadLink.current) {
+        // console.log("hi!");
+        downloadLink.current.click();
+        downloadLink.current = undefined;
+      }
+    };
+  }, [downloadUrl]);
 
   return (
     <div
@@ -91,8 +116,23 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
           </p>
           {!sharePage && (
             <div className={cn(styles.buttonsContainer, styleUtils.appear, styleUtils['appear-third'])}>
-              <a className={styles.button} href="https://tedxcmu.org" rel="noopener noreferrer" target="_blank">
-                SHARE EVENT
+              <a className={styles.button} href={loading ? undefined : downloadUrl}
+                onClick={e => {
+                  if (imgReady) return;
+
+                  e.preventDefault();
+                  // console.log("current target", e.currentTarget);
+                  downloadLink.current = e.currentTarget;
+                  // Wait for the image download to finish
+                  // console.log("loading");
+                  setLoading(true);
+                }}
+                download="ticket.png">
+                {loading ? (
+                  <LoadingDots size={4} />
+                ) : (
+                  <> SHARE EVENT </>
+                )}
               </a>
               <a className={styles.button} href="/" rel="noopener noreferrer">
                 RETURN HOME

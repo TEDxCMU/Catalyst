@@ -34,10 +34,10 @@ export default async function ticketImages(req: NextApiRequest, res: NextApiResp
     username: userinfo[0],
     ticketNumber: userinfo[2],
   } : {
-      name: 'XXXXXX XXXXXXXXX',
-      username: 'XXXXXXXX',
-      ticketNumber: 0
-    };
+    name: 'XXXXXX XXXXXXXXX',
+    username: 'XXXXXXXX',
+    ticketNumber: 0
+  };
 
   // console.log("name", data.username);
 
