@@ -27,8 +27,6 @@ import { getSchedule } from "lib/cms-api";
 
 export default function StageContainer({ stage, events }) {
   const { loginStatus, mutate } = useLoginStatus();
-  console.log("stage");
-  console.log(stage);
   return (
     <div className={styles.container}>
       <div className={styles.streamContainer}>
