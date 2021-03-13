@@ -101,11 +101,7 @@ export default function StageContainer({ stage, events }) {
               </div>
             </div>
           ) : (
-            // KEEP THIS BEFORE CONFERENCE
-            <BeforeConfEntry />
-
-            // KEEP THIS DURING CONFERENCE
-            // <StreamLoading />
+            <StreamLoading />
           )
         ) : loginStatus === "loading" ? null : (
           <ConfEntry onRegister={() => mutate()} />
