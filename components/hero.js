@@ -89,31 +89,40 @@ export default function Hero() {
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
 
+      const timeline = gsap.timeline();
+
+      timeline.to(`.${styles.img}`, { opacity: 1, delay: 0 }, 0);
+
+      timeline.to(`.${styles.heading}`, { opacity: 1 }, .4);
+
+      timeline.to(`[data-left]`, { opacity: 1 }, .8);
+      timeline.to(`[data-right]`, { opacity: 1 }, .8);
+
       // Set width of overlay img to 50%
-      gsap.fromTo(overlayImageRef.current,
+      timeline.fromTo(overlayImageRef.current,
         {
           width: 0,
-          delay: 1,
         },
         {
-          width: `${(imageWidth.current * 0.3)}px`,
+          width: `${(imageWidth.current * 0.55)}px`,
           ease: 'power3.inOut',
           duration: 1.3,
-        }
+        },
+        .8
       );
 
       // Position the slider in the center
-      gsap.fromTo(sliderRef.current,
+      timeline.fromTo(sliderRef.current,
         {
           left: '-20px',
-          delay: 1,
         },
         {
-          left: `${(imageWidth.current * 0.3) - (sliderRef.current.offsetWidth / 2)}px`,
+          left: `${(imageWidth.current * 0.55) - (sliderRef.current.offsetWidth / 2)}px`,
           ease: 'power3.inOut',
           duration: 1.3,
-        }
-      )
+        },
+        .8
+      );
 
       // Add slider events
       window.addEventListener('mouseup', handleSlideEnd);
@@ -159,10 +168,10 @@ export default function Hero() {
                 </div>
               )}
             </h1>
-            <p className={cn(styles.body, styles.stroke)}>
+            <p data-left className={cn(styles.body, styles.stroke)}>
               April 4, 2021 10:00AM
             </p>
-            <p className={cn(styles.body, styles.stroke)}>
+            <p data-right className={cn(styles.body, styles.stroke)}>
               Online Experience
             </p>
           </div>
@@ -197,10 +206,10 @@ export default function Hero() {
                 </div>
               )}
             </h1>
-            <p className={styles.body}>
+            <p data-left className={styles.body}>
               April 4, 2021 10:00AM
             </p>
-            <p className={styles.body}>
+            <p data-right className={styles.body}>
               Online Experience
             </p>
           </div>
