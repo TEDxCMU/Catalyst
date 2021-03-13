@@ -43,19 +43,16 @@
   line-height: 124.5%;
 }
 
-.buttonsContainer {
-  margin-top: 25px;
-  width: 75%;
-  display: flex;
-  wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
+.buttonsContainer, .socials {
+  display: grid;
+  gap: 1.5%;
+  grid-template-columns: auto auto;
+  justify-items: start;
+  justify-content: start;
 }
 
 .socials {
-  width: 20%;
-  display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .button {
@@ -84,6 +81,7 @@
   }
 
   .buttonsContainer {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;

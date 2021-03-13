@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { TicketGenerationState } from '@lib/constants';
 import styles from './ticket-profile.module.css';
@@ -28,6 +28,13 @@ type Props = {
 
 export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
   const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#E3AD21', '#FFE3E3'];
+
+  useEffect(() => {
+    if (imageIndex) {
+      document.getElementById('conferenceHead')!.style.color = headerColors[imageIndex.current - 1];
+    }
+  }, [imageIndex]);
 
   return (
     <div className={styles.profile}>
@@ -35,7 +42,7 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
       <img className={styles.logo} src="/logo.svg" alt="TEDxCMU Logo" width="2976" height="1674" />
       <div className={styles.content}>
         <div>
-          <h3 className={styles.heading}>CATALYST CONFERENCE</h3>
+          <h3 className={styles.heading} id="conferenceHead">CATALYST CONFERENCE</h3>
           <p className={styles.subheading}>ONLINE EXPERIENCE</p>
         </div>
         <p className={styles.name}>

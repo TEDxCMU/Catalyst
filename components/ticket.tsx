@@ -89,6 +89,16 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
                 </>
             )}
           </p>
+          {!sharePage && (
+            <div className={cn(styles.buttonsContainer, styleUtils.appear, styleUtils['appear-third'])}>
+              <a className={styles.button} href="https://tedxcmu.org" rel="noopener noreferrer" target="_blank">
+                SHARE EVENT
+              </a>
+              <a className={styles.button} href="/" rel="noopener noreferrer">
+                RETURN HOME
+              </a>
+            </div>
+          )}
         </div>
         <div className={cn(styleUtils.appear, styleUtils['appear-third'])}>
           {sharePage &&

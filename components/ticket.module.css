@@ -15,7 +15,7 @@
  */
 
 .hero {
-  font-size: 52px;
+  font-size: 32px;
   line-height: 1.15;
   font-weight: 400;
   margin: 0;
@@ -25,16 +25,17 @@
 
 @media (min-width: 768px) {
   .hero {
-    font-size: 100px;
+    font-size: 64px;
     line-height: 1;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
   }
 }
 
 .description {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
   color: var(--secondary-color);
   text-align: center;
@@ -53,7 +54,7 @@
 .ticket-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 45px;
+  gap: 0px;
   margin: auto;
   padding: var(--space-4x);
 }
@@ -96,10 +97,55 @@
   transform: translateZ(0) translateY(-50%);
 }
 
+.button {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid white;
+  padding: 21px 60px;
+  color: white;
+  border-radius: 100px;
+  font-family: "neue-haas-grotesk-text";
+  font-size: 16px;
+  outline: none;
+  opacity: 0.9;
+  cursor: pointer;
+  margin-bottom: 20px;
+  -webkit-text-stroke-width: 0;
+  -webkit-text-stroke-color: transparent;
+}
+
+.buttonsContainer {
+  display: none;
+}
+
+.mobileButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 @media (min-width: 768px) {
+  .mobileButtonsContainer {
+    display: none;
+  }
+
+  .mobileButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
   .ticket-visual {
     width: 650px;
     height: 308px;
+  }
+
+  .ticket-layout {
+    gap: 45px;
   }
 
   .ticket-visual:before {
@@ -130,6 +176,15 @@
   .ticket-actions-placeholder {
     height: 157px;
   }
+  .buttonsContainer {
+    display: grid;
+    gap: 1.5%;
+    grid-template-columns: auto auto;
+    justify-items: start;
+    justify-content: center;
+    align-items: center;
+    order: 3;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -137,12 +192,17 @@
     grid-template-columns: 1fr 1fr;
   }
   .hero {
+    margin: 0;
     font-size: var(--space-16x);
     text-align: left;
   }
   .description {
     text-align: left;
     margin: 30px 0;
+  }
+  .buttonsContainer {
+    justify-content: start;
+    margin: 0;
   }
 }
 
@@ -153,6 +213,6 @@
 
 @media screen and (min-width: 1280px) {
   .ticket-layout {
-    padding: 0 40px;
+    padding: 0 60px;
   }
 }
