@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-.grid {
+ .grid {
   margin: 40px auto;
   padding: 0 24px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 23.875%);
+  gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
@@ -40,11 +41,8 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  width: var(--talk-card-width, 307px);
   border: 1px solid #333333;
   padding: 1px;
-  margin-right: 24px;
-  margin-bottom: 24px;
 }
 
 .card:hover,
@@ -83,6 +81,11 @@
   .card {
     width: 100%;
     margin-right: 0;
+    margin-bottom: 24px;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
   }
 }
 

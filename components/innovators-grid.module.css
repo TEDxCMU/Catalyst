@@ -18,11 +18,11 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  width: var(--talk-card-width, 307px);
   border: 1px solid #333333;
   padding: 1px;
-  margin-right: 24px;
+  /* margin-right: 24px; */
   margin-bottom: 24px;
+  /* width: 25%; */
 }
 
 .card:hover,
@@ -36,8 +36,9 @@
   margin: 40px auto;
   padding: 0 24px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 23.875%);
+  gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
@@ -72,6 +73,10 @@
 @media (max-width: 471px) {
   .imageWrapper > div {
     width: 100% !important;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
   }
   .card {
     width: 100%;
