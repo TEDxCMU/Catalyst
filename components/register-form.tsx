@@ -51,7 +51,7 @@ export default function Form({ sharePage }: Props) {
         if (!response.ok) {
           throw new FormError(response);
         }
-        
+
         const data = await response.json();
         const params = {
           id: data.id,
@@ -97,14 +97,14 @@ export default function Form({ sharePage }: Props) {
     return (
       <div className={styles.form}>
         <div className={styles.row}>
-            <h2 className={styles.title}>Registration</h2>
-            <p>{errorMsg}</p>
-            <button
-              className={styles.submit}
-              type="button"
-              onClick={() => setFormState('default')}
-            >
-              Try Again
+          <h2 className={styles.title}>Registration</h2>
+          <p>{errorMsg}</p>
+          <button
+            className={styles.submit}
+            type="button"
+            onClick={() => setFormState('default')}
+          >
+            Try Again
             </button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function Form({ sharePage }: Props) {
           </button>
         </div>
       </form>
-      <p>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
+      <p className={styles.blurb}>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
     </>
   )
 }
