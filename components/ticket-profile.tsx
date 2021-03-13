@@ -28,7 +28,7 @@ type Props = {
 
 export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
   const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
-  const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#E3AD21', '#FFE3E3'];
+  const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#FFE3E3', '#E3AD21'];
 
   useEffect(() => {
     if (imageIndex) {
@@ -54,8 +54,8 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
             <p className={styles.body}>April 4, 2021</p>
           </div>
           <div className={styles.item}>
-            <p className={styles.title}>Time:</p>
-            <p className={styles.body}>10:00AM EST</p>
+            <p className={styles.title}>Ticket Number</p>
+            <p className={styles.body}>#{"00000000".substring(0, 8 - (ticketNumber!.toString().length)) + ticketNumber!.toString()}</p>
           </div>
         </div>
       </div>

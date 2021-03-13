@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* 
+
 .visual {
   position: relative;
   transform: translateZ(0);
-} */
+}
 
 .profile {
   position: absolute;

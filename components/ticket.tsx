@@ -152,7 +152,6 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
           className={cn(styles['ticket-visual'], styleUtils.appear, styleUtils['appear-fourth'])}
         >
           <TicketVisual
-            username={username}
             name={name}
             ticketNumber={ticketNumber}
             ticketGenerationState={ticketGenerationState}
