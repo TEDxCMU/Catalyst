@@ -153,10 +153,36 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
         >
           <TicketVisual
             name={name}
+            size={window.innerWidth / 768 < 1 ? window.innerWidth / 768 : 1}
             ticketNumber={ticketNumber}
             ticketGenerationState={ticketGenerationState}
           />
         </div>
+        {!sharePage && (
+          <div className={cn(styles.mobileButtonsContainer, styleUtils.appear, styleUtils['appear-third'])}>
+            <a className={styles.button} href={loading ? undefined : downloadUrl}
+              onClick={e => {
+                if (imgReady) return;
+
+                e.preventDefault();
+                // console.log("current target", e.currentTarget);
+                downloadLink.current = e.currentTarget;
+                // Wait for the image download to finish
+                // console.log("loading");
+                setLoading(true);
+              }}
+              download="ticket.png">
+              {loading ? (
+                <LoadingDots size={4} />
+              ) : (
+                <> SHARE EVENT </>
+              )}
+            </a>
+            <a className={styles.button} href="/" rel="noopener noreferrer">
+              RETURN HOME
+              </a>
+          </div>
+        )}
       </div>
     </div>
   );

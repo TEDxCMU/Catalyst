@@ -124,28 +124,13 @@
   width: 80%;
   justify-content: center;
   margin: 0 auto;
+  margin-top: 40px;
 }
 
 @media (min-width: 768px) {
-  .mobileButtonsContainer {
-    display: none;
-  }
-
-  .mobileButtonsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    justify-content: center;
-    margin: 0 auto;
-  }
-
   .ticket-visual {
     width: 650px;
     height: 308px;
-  }
-
-  .ticket-layout {
-    gap: 45px;
   }
 
   .ticket-visual:before {
@@ -169,24 +154,6 @@
   height: 280px;
 }
 
-@media (min-width: 768px) {
-  .ticket-actions {
-    flex-direction: row;
-  }
-  .ticket-actions-placeholder {
-    height: 157px;
-  }
-  .buttonsContainer {
-    display: grid;
-    gap: 1.5%;
-    grid-template-columns: auto auto;
-    justify-items: start;
-    justify-content: center;
-    align-items: center;
-    order: 3;
-  }
-}
-
 @media (min-width: 1200px) {
   .ticket-layout {
     grid-template-columns: 1fr 1fr;
@@ -203,6 +170,21 @@
   .buttonsContainer {
     justify-content: start;
     margin: 0;
+  }
+  .ticket-layout {
+    gap: 45px;
+  }
+  .buttonsContainer {
+    display: grid;
+    gap: 1.5%;
+    grid-template-columns: auto auto;
+    justify-items: start;
+    justify-content: start;
+    align-items: center;
+    order: 3;
+  }
+  .mobileButtonsContainer {
+    display: none;
   }
 }
 

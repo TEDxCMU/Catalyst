@@ -76,7 +76,7 @@
   color: #E5E5E6;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .logo {
     width: 40px;
   }
@@ -105,4 +105,4 @@
   .body {
     font-size: 9px;
   }
-}
+} */
