@@ -26,9 +26,10 @@ export const SCHEDULE_DESCRIPTION = 'This is the tagline for the schedule page.'
 export const SPEAKERS_DESCRIPTION = 'This is the tagline for the speakers page.';
 export const EXPO_DESCRIPTION = 'This is the tagline for the expo page.';
 export const SITE_DESCRIPTION = 'An interactive online experience by the community, free for everyone.';
-export const DATE = 'April 3, 2021';
-export const SHORT_DATE = 'Apr 3rd - 9:00am PST';
-export const FULL_DATE = 'Apr 3rd 9am Pacific Time (GMT-7)';
+export const DATE = 'April 10, 2021';
+export const TIME = '2:00pm EST';
+export const SHORT_DATE = 'Apr 10th - '+TIME;
+
 export const TWEET_TEXT = META_DESCRIPTION;
 export const COOKIE = 'user-id';
 
