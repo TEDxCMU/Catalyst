@@ -36,7 +36,7 @@ export default function Hero() {
   const imageWidth = useRef(null);
   const imageHeight = useRef(null);
   const clicked = useRef(false);
-  const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const [imageIndex, setImageIndex] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [activeLoginModal, setActiveLoginModal] = useState(false);
   const [activeRegisterModal, setActiveRegisterModal] = useState(false);
@@ -96,6 +96,7 @@ export default function Hero() {
 
   useEffect(() => {
     setMounted(true);
+    setImageIndex(Math.floor(Math.random() * 6) + 1);
   }, []);
 
   useEffect(() => {
@@ -169,105 +170,107 @@ export default function Hero() {
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.slide}>
-          <div className={styles.content}>
-            {/* {mounted && !isMobileOnly && (
-              <Suspense fallback={null}>
-                <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
-              </Suspense>
-            )} */}
-            <img
-              className={styles.img}
-              src={`/visuals/${imageIndex.current}-branch.jpg`}
-              width="2976"
-              height="1674"
-            />
-            <h1 className={cn(styles.heading, styles.stroke)}>
-              TEDxCMU 2021: CATALYST
-              {loginStatus === "loggedIn" ? (
-                <div>
-                  <button className={styles.btn} onClick={handleTicket}>
-                    View Ticket
-                  </button>
-                  <button className={styles.btn} onClick={handleLogout}>
-                    Log Out
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button className={styles.btn} onClick={handleLoginModal}>
-                    Sign In
-                  </button>
-                  <button className={styles.btn} onClick={handleRegisterModal}>
-                    Register For Free
-                  </button>
-                </div>
-              )}
-            </h1>
-            <p data-left className={cn(styles.body, styles.strokeLight)}>
-              {DATE.slice(0, 9)} {TIME}
-              {/* April 10, 2021 10:00AM */}
-            </p>
-            <p data-right className={cn(styles.body, styles.strokeLight)}>
-              Online Experience
-            </p>
+      {imageIndex && (
+        <div className={styles.container}>
+          <div className={styles.slide}>
+            <div className={styles.content}>
+              {/* {mounted && !isMobileOnly && (
+                <Suspense fallback={null}>
+                  <ThreeCanvas image={`/visuals/${imageIndex}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
+                </Suspense>
+              )} */}
+              <img
+                className={styles.img}
+                src={`/visuals/${imageIndex}-branch.jpg`}
+                width="2976"
+                height="1674"
+              />
+              <h1 className={cn(styles.heading, styles.stroke)}>
+                TEDxCMU 2021: CATALYST
+                {loginStatus === "loggedIn" ? (
+                  <div>
+                    <button className={styles.btn} onClick={handleTicket}>
+                      View Ticket
+                    </button>
+                    <button className={styles.btn} onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button className={styles.btn} onClick={handleLoginModal}>
+                      Sign In
+                    </button>
+                    <button className={styles.btn} onClick={handleRegisterModal}>
+                      Register For Free
+                    </button>
+                  </div>
+                )}
+              </h1>
+              <p data-left className={cn(styles.body, styles.strokeLight)}>
+                {DATE.slice(0, 9)} {TIME}
+                {/* April 10, 2021 10:00AM */}
+              </p>
+              <p data-right className={cn(styles.body, styles.strokeLight)}>
+                Online Experience
+              </p>
+            </div>
+          </div>
+          <div ref={sliderRef} className={styles.slider}>
+            <div className={styles.knob}>
+              <img
+                className={styles.arrows}
+                src="/slider-arrows.svg"
+                alt="Slider Arrow"
+              />
+            </div>
+          </div>
+          <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
+            <div className={styles.content}>
+              {/* {mounted && !isMobileOnly && (
+                <Suspense fallback={null}>
+                  <ThreeCanvas image={`/visuals/${imageIndex}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
+                </Suspense>
+              )} */}
+              <img
+                className={styles.img}
+                src={`/visuals/${imageIndex}-flower.jpg`}
+                width="2976"
+                height="1674"
+              />
+              <h1 className={styles.heading}>
+                TEDxCMU 2021: CATALYST
+                {loginStatus === "loggedIn" ? (
+                  <div>
+                    <button className={styles.btn} onClick={handleTicket}>
+                      View Ticket
+                    </button>
+                    <button className={styles.btn} onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button className={styles.btn} onClick={handleLoginModal}>
+                      Sign In
+                    </button>
+                    <button className={styles.btn} onClick={handleRegisterModal}>
+                      Register For Free
+                    </button>
+                  </div>
+                )}
+              </h1>
+              <p data-left className={styles.body}>
+                {DATE.slice(0, 9)} {TIME}
+                {/* April 10, 2021 10:00AM */}
+              </p>
+              <p data-right className={styles.body}>
+                Online Experience
+              </p>
+            </div>
           </div>
         </div>
-        <div ref={sliderRef} className={styles.slider}>
-          <div className={styles.knob}>
-            <img
-              className={styles.arrows}
-              src="/slider-arrows.svg"
-              alt="Slider Arrow"
-            />
-          </div>
-        </div>
-        <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
-          <div className={styles.content}>
-            {/* {mounted && !isMobileOnly && (
-              <Suspense fallback={null}>
-                <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
-              </Suspense>
-            )} */}
-            <img
-              className={styles.img}
-              src={`/visuals/${imageIndex.current}-flower.jpg`}
-              width="2976"
-              height="1674"
-            />
-            <h1 className={styles.heading}>
-              TEDxCMU 2021: CATALYST
-              {loginStatus === "loggedIn" ? (
-                <div>
-                  <button className={styles.btn} onClick={handleTicket}>
-                    View Ticket
-                  </button>
-                  <button className={styles.btn} onClick={handleLogout}>
-                    Log Out
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button className={styles.btn} onClick={handleLoginModal}>
-                    Sign In
-                  </button>
-                  <button className={styles.btn} onClick={handleRegisterModal}>
-                    Register For Free
-                  </button>
-                </div>
-              )}
-            </h1>
-            <p data-left className={styles.body}>
-              {DATE.slice(0, 9)} {TIME}
-              {/* April 10, 2021 10:00AM */}
-            </p>
-            <p data-right className={styles.body}>
-              Online Experience
-            </p>
-          </div>
-        </div>
-      </div>
+      )}
       {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
           <SignInForm activeRegisterModal={activeLoginModal}/>
