@@ -1,10 +1,12 @@
 .container {
   display: flex;
+  height: 100%;
 }
 
 .overlay {
   position: relative;
-  width: 150%;
+  width: 332px;
+  /* height: 100%; */
 }
 
 .logo {
@@ -18,7 +20,9 @@
 
 .content {
   padding: 25px;
-  width: 100%;
+  width: 507px;
+  /* height: 500px; */
+  min-height: 100%;
 }
 
 .time {

@@ -30,7 +30,6 @@ export default function SpeakerSection({ speaker }) {
 
   return (
     <Modal active={active} setActive={setActive} large>
-      <div className={styles.container}>
         <div className={styles.overlay}>
           <img className={styles.image} src={speaker.image.url} alt={speaker.image.alt} />
         </div>
@@ -41,7 +40,6 @@ export default function SpeakerSection({ speaker }) {
           <a className={styles.button} href={speaker.website} rel="noopener noreferrer" target="_blank">
             Visit Website
           </a>
-        </div>
       </div>
     </Modal>
   );
