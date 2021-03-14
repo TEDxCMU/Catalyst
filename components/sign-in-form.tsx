@@ -7,6 +7,10 @@ import FormError from '@lib/form-error';
 import { signIn, resetPassword } from '@lib/user-api';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} color={'#828282'} />;
+
 type FormState = 'default' | 'sign-in-loading' | 'reset-pass' | 'reset-pass-loading' | 'reset-pass-complete' | 'error-sign-in' | 'error-reset-pass';
 
 export default function SignInForm() {
@@ -15,6 +19,12 @@ export default function SignInForm() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [formState, setFormState] = useState<FormState>('default');
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   useEmailQueryParam('email', setEmail);
 
   const handleSubmit = async (e: any) => {
@@ -180,14 +190,17 @@ export default function SignInForm() {
                 placeholder="Email"
                 required
               />
-              <input
-                className={styles.input}
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-              />
+              <div className={styles.passWrapper}>
+                <input
+                  className={styles.input}
+                  type={passwordShown ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="Password"
+                  required
+                />
+                <i onClick={togglePasswordVisiblity} className="eye">{eye}</i>
+              </div>
               <button
                 type="submit"
                 className={cn(styles.submit, styles[formState])}

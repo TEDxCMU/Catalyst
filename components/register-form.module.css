@@ -28,6 +28,18 @@
   outline: none;
 }
 
+.passWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eye:hover {
+  color: white;
+  cursor: pointer;
+}
+
 .input::placeholder {
   color: var(--secondary-color);
 }
