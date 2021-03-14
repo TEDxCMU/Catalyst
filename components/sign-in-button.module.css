@@ -1,7 +1,6 @@
 .button {
-  height: 56px;
+  padding: 21px 60px;
   border-radius: var(--space-8x);
-  margin-top: var(--space-4x);
   border: 1px solid #ffffff;
   background: none;
   cursor: pointer;
@@ -29,15 +28,15 @@
 }
 
 @media (max-width: 599px) {
+  .button {
+    margin-top: var(--space-4x);
+  }
   .buttonContainer {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  .button {
-    width: 80%;
   }
 }
 
@@ -47,9 +46,6 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: var(--space-8x);
-  }
-  .button {
-    width: 150px;
   }
   .register {
     width: 280px;

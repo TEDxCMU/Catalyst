@@ -43,3 +43,13 @@ export async function signIn(email:string, password: string){
     body: JSON.stringify({email, password})
   });
 }
+
+export async function resetPassword(email:string){
+  return await fetch('api/resetPassword', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email})
+  });
+}
