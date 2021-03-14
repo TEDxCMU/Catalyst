@@ -15,7 +15,8 @@
  */
 
 // export const SITE_URL = 'http://localhost:3000';
-export const SITE_URL = 'https://catalyst.tedxcmu.edu';
+export const SITE_URL = 'https://deploy-preview-21--tedxcmu2021.netlify.app';
+// export const SITE_URL = 'https://catalyst.tedxcmu.org';
 export const SITE_ORIGIN = new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
