@@ -18,7 +18,6 @@ import Link from 'next/link';
 import cn from 'classnames';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { SkipNavContent } from '@reach/skip-nav';
 import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
 import MobileMenu from './mobile-menu';
@@ -82,7 +81,6 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
         )}
         <div className={styles.page}>
           <main className={styles.main} style={layoutStyles}>
-            <SkipNavContent />
             <div className={cn(styles.full, className)}>{children}</div>
             <About showAbout={aboutActive} setShowAbout={setAboutActive} />
           </main>
