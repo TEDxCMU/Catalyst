@@ -80,11 +80,7 @@ export default function TalkCard({ talk }) {
                 <p className={styles.tagline}>{talk.speaker.tagline}</p>
               </>
             )}
-            <p className={styles.blurb}>
-              {talk.blurb.length > 129
-                ? talk.blurb.slice(0, 129) + "..."
-                : talk.blurb}
-            </p>
+            {talk.blurb ? talk.blurb.length > 129 ? (<p className="styles.blurb">talk.blurb.slice(0, 129)</p>) : (<p className="styles.blurb">talk.blurb</p>) : <></>}
           </div>
         </a>
       </Link>
