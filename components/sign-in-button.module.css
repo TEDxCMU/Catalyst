@@ -23,7 +23,8 @@
 
 .button:hover,
 .button:focus {
-  background: black;
+  background-color: rgba(100, 100, 100, 0.4);
+  color: #828282;
 }
 
 @media (max-width: 599px) {
