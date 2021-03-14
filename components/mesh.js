@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { extend, useFrame } from 'react-three-fiber';
+import { extend, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { shaderMaterial } from 'drei';
 
@@ -9,7 +9,6 @@ const MeshShader = shaderMaterial(
         progress: 0,
         angle: 0,
         texture1: undefined,
-        texture2: undefined,
         resolution: new THREE.Vector4(),
         uvRate1: new THREE.Vector2(1, 1),
     },
@@ -47,6 +46,7 @@ extend({ MeshShader });
 
 function Mesh({ texture, width, height }) {
     const mesh = useRef(null);
+    const { size } = useThree();
 
     useFrame((_, delta) => {
         if (mesh.current.material.uniforms) {
@@ -62,7 +62,7 @@ function Mesh({ texture, width, height }) {
             <meshShader
                 attach="material"
                 texture1={texture}
-                resolution={new THREE.Vector4(window.innerWidth, window.innerHeight, 1, window.innerHeight / window.innerWidth / (window.innerHeight / window.innerWidth))}
+                resolution={new THREE.Vector4(size.width, size.height, 1, size.height / size.width / (size.height / size.width))}
             />
         </mesh>
     )

@@ -20,8 +20,8 @@ function Effects() {
     useEffect(() => {
         const event = createInputEvents(window);
         event.on('move', ({ position }) => {
-            mouse.current.x = (position[0] / window.innerWidth);
-            mouse.current.y = 1 - (position[1] / window.innerHeight);
+            mouse.current.x = (position[0] / size.width);
+            mouse.current.y = 1 - (position[1] / size.height);
         });
     }, []);
 
@@ -29,7 +29,7 @@ function Effects() {
         void composer.current.setSize(size.width, size.height);
     }, [size]);
 
-    useFrame((state, delta) => {
+    useFrame((_, delta) => {
         const speed = Math.sqrt((previousMouse.current.x - mouse.current.x)**2 + (previousMouse.current.y- mouse.current.y)**2);
         targetSpeed.current -= 0.1 * (targetSpeed.current - speed);
         followMouse.current.x -= 0.1 * (followMouse.current.x - mouse.current.x);
@@ -42,10 +42,8 @@ function Effects() {
         customPass.current.uniforms.uVelo.value = Math.min(targetSpeed.current, 0.05);
         targetSpeed.current *= 0.999;
 
-        if (composer.current) {
-            composer.current.render();
-        }
-    });
+        composer.current.render();
+    }, 1);
 
     return (
         <effectComposer ref={composer} args={[gl]}>
@@ -62,7 +60,7 @@ function Effects() {
                     uniforms: {
                         tDiffuse: { value: null },
                         distort: { value: 0 },
-                        resolution: { value: new THREE.Vector2(1.0, window.innerHeight / window.innerWidth) },
+                        resolution: { value: new THREE.Vector2(1.0, size.height / size.width) },
                         uMouse: { value: new THREE.Vector2(-10,-10) },
                         uVelo: { value: 0 },
                         uScale: { value: 0 },
@@ -99,69 +97,16 @@ function Effects() {
                             float dist = sqrt(dot(uv, uv));
                             return smoothstep(disc_radius+border_size, disc_radius-border_size, dist);
                         }
-                    
-                        float map(float value, float min1, float max1, float min2, float max2) {
-                            return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-                        }
-                    
-                        float remap(float value, float inMin, float inMax, float outMin, float outMax) {
-                            return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
-                        }
-                    
-                        float hash12(vec2 p) {
-                            float h = dot(p,vec2(127.1,311.7));	
-                            return fract(sin(h)*43758.5453123);
-                        }
-                    
-                        // #define HASHSCALE3 vec3(.1031, .1030, .0973)
-                        vec2 hash2d(vec2 p) {
-                            vec3 p3 = fract(vec3(p.xyx) * vec3(.1031, .1030, .0973));
-                            p3 += dot(p3, p3.yzx+19.19);
-                            return fract((p3.xx+p3.yz)*p3.zy);
-                        }
                         
                         void main()	{
                             vec2 newUV = vUv;
                             vec4 color = vec4(1.,0.,0.,1.);
                             
-                            // colorful
-                            if(uType==0){
-                                float c = circle(newUV, uMouse, 0.0, 0.2);
-                                float r = texture2D(tDiffuse, newUV.xy += c * (uVelo * .5)).x;
-                                float g = texture2D(tDiffuse, newUV.xy += c * (uVelo * .525)).y;
-                                float b = texture2D(tDiffuse, newUV.xy += c * (uVelo * .55)).z;
-                                color = vec4(r, g, b, 1.);
-                            }
-                        
-                            // zoom
-                            if(uType==1){
-                                float c = circle(newUV, uMouse, 0.0, 0.1+uVelo*2.)*40.*uVelo;
-                                vec2 offsetVector = normalize(uMouse - vUv);
-                                vec2 warpedUV = mix(vUv, uMouse, c * 0.99); //power
-                                color = texture2D(tDiffuse,warpedUV) + texture2D(tDiffuse,warpedUV)*vec4(vec3(c),1.);
-                            }
-                        
-                            // zoom
-                            if(uType==2){
-                                float hash = hash12(vUv*10.);
-                                // float c = -circle(newUV, uMouse, 0.0, 0.1+uVelo*2.)*40.*uVelo;
-                                // vec2 offsetVector = -normalize(uMouse - vUv);
-                                // vec2 warpedUV = mix(vUv, uMouse, c * 0.6); //power
-                                // vec2 warpedUV1 = mix(vUv, uMouse, c * 0.3); //power
-                                // vec2 warpedUV2 = mix(vUv, uMouse, c * 0.1); //power
-                                // color = vec4(
-                                // 	texture2D(tDiffuse,warpedUV ).r,
-                                // 	texture2D(tDiffuse,warpedUV1 ).g,
-                                // 	texture2D(tDiffuse,warpedUV2 ).b,
-                                // 	1.);
-                                // color = vec4(,0.,0.,1.);
-                                float c = circle(newUV, uMouse, 0.0, 0.1+uVelo*0.01)*10.*uVelo;
-                                vec2 offsetVector = normalize(uMouse - vUv);
-                                // vec2 warpedUV = mix(vUv, uMouse,  20.*hash*c); //power
-                                vec2 warpedUV = vUv + vec2(hash - 0.5)*c; //power
-                                color = texture2D(tDiffuse,warpedUV) + texture2D(tDiffuse,warpedUV)*vec4(vec3(c),1.);
-                            }
-                
+                            float c = circle(newUV, uMouse, 0.0, 0.1+uVelo*2.)*40.*uVelo;
+                            vec2 offsetVector = normalize(uMouse - vUv);
+                            vec2 warpedUV = mix(vUv, uMouse, c * 0.99); //power
+                            color = texture2D(tDiffuse,warpedUV) + texture2D(tDiffuse,warpedUV)*vec4(vec3(c),1.);
+                            
                             gl_FragColor = color;
                         }
                     `
