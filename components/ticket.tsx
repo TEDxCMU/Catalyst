@@ -180,7 +180,7 @@ export default function Ticket({ username, name, ticketNumber, sharePage }: Prop
             </a>
             <a className={styles.button} href="/" rel="noopener noreferrer">
               RETURN HOME
-              </a>
+            </a>
           </div>
         )}
       </div>

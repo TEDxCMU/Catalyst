@@ -19,10 +19,12 @@ import Head from 'next/head';
 import TicketVisual from './ticket-visual';
 import styles from './ticket-image.module.css';
 import cn from 'classnames';
+import { useEffect } from 'react';
 
 export default function TicketImage() {
 
   const { query } = useRouter();
+
   if (query.ticketNumber) {
     return (
       <div className={styles.background}>
