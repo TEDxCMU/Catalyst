@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- .card {
+.card {
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
@@ -95,6 +95,7 @@
 .image {
   height: 100%;
   width: 100%;
+  opacity: 0.8;
   object-fit: cover;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
