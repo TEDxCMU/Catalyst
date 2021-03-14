@@ -20,7 +20,7 @@
   width: 100%;
   min-width: 300px;
   display: grid;
-  grid-template-columns: repeat(5, 18.8%);
+  grid-template-columns: repeat(4, 23.5%);
   gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
