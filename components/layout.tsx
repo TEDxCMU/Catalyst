@@ -61,7 +61,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
     <>
       <div className={styles.background}>
         {!hideNav && (
-          <header id="header" className={cn(styles.header)}>
+          <header id="header" className={cn(styles.header, { [styles.headerHome]: router.pathname === '/' })}>
             <MobileMenu key={router.asPath} />
             <Link href="/">
               <a className={cn(styles.logo, { [styles.logoDisable]: loginStatus === 'loggedIn' })}>
