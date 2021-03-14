@@ -105,7 +105,7 @@ export default function Hero() {
 
       const timeline = gsap.timeline();
 
-      timeline.to(`#stage`, { opacity: 1, delay: 0 }, 0);
+      timeline.to(`.${styles.img}`, { opacity: 1, delay: 0 }, 0);
 
       timeline.to(`.${styles.heading}`, { opacity: 1 }, 0.4);
 
@@ -166,14 +166,14 @@ export default function Hero() {
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
-            {mounted && !isMobileOnly && (
+            {/* {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
                 <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
-            )}
+            )} */}
             <img
               className={styles.img}
-              src={`/visuals/${imageIndex.current}-flower.jpg`}
+              src={`/visuals/${imageIndex.current}-branch.jpg`}
               width="2976"
               height="1674"
             />
@@ -218,11 +218,11 @@ export default function Hero() {
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
-            {mounted && !isMobileOnly && (
+            {/* {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
                 <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
-            )}
+            )} */}
             <img
               className={styles.img}
               src={`/visuals/${imageIndex.current}-flower.jpg`}
