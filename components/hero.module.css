@@ -46,10 +46,12 @@
   height: 100vh;
   width: 100vw;
   object-fit: cover;
+  opacity: 0;
 }
 
 .heading {
   position: absolute;
+  user-select: none;
   top: 50%;
   left: 5%;
   right: 5%;
@@ -59,7 +61,8 @@
   font-weight: 400;
   font-size: 120px;
   line-height: 124px;
-  text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.6);
 }
 
 .body {
@@ -69,6 +72,8 @@
   text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
   margin: 0;
   text-transform: uppercase;
+  opacity: 0;
+  user-select: none;
 }
 
 .body:first-of-type {
@@ -82,7 +87,7 @@
 .btn {
   display: inline-block;
   margin-top: 25px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   padding: 21px 60px;
   background-color: rgba(51, 51, 51, 0.1);
   color: #fff;
@@ -96,8 +101,12 @@
   cursor: pointer;
   -webkit-text-stroke-width: 0;
   -webkit-text-stroke-color: transparent;
+  transition: background-color 0.09s;
 }
 
+.btn:hover {
+  background-color: rgba(100, 100, 100, 0.4);
+}
 .btn:not(:last-child) {
   margin-right: 20px;
 }
@@ -106,6 +115,14 @@
   color: transparent;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #fff;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+.strokeLight {
+  color: transparent;
+  -webkit-text-stroke-width: 0.7px;
+  -webkit-text-stroke-color: #fff;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
 .slider {
@@ -132,12 +149,17 @@
   bottom: 20%;
   height: 40px;
   width: 40px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(40px);
   cursor: ew-resize;
   z-index: 10;
   border-radius: 50%;
+  transition: transform 0.1s;
+}
+
+.knob:hover {
+  transform: scale(1.05);
 }
 
 .arrows {

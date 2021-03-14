@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import cn from 'classnames';
-import { isMobileOnly } from 'react-device-detect';
-import gsap from 'gsap';
-import styles from './hero.module.css';
-import Modal from '@components/modal';
-import SignInForm from '@components/sign-in-form';
-import RegisterForm from '@components/register-form';
-import useLoginStatus from '@lib/hooks/use-login-status';
-import { signOut } from '@lib/user-api';
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import cn from "classnames";
+import { isMobileOnly } from "react-device-detect";
+import gsap from "gsap";
+import styles from "./hero.module.css";
+import Modal from "@components/modal";
+import SignInForm from "@components/sign-in-form";
+import RegisterForm from "@components/register-form";
+import useLoginStatus from "@lib/hooks/use-login-status";
+import { signOut } from "@lib/user-api";
 
 export default function Hero() {
   const router = useRouter();
@@ -47,7 +47,7 @@ export default function Hero() {
   };
 
   const handleTicket = () => {
-    router.push('/ticket');
+    router.push("/ticket");
   };
 
   const handleLogout = async () => {
@@ -57,7 +57,9 @@ export default function Hero() {
 
   const slide = (x) => {
     overlayImageRef.current.style.width = `${x}px`;
-    sliderRef.current.style.left = `${overlayImageRef.current.offsetWidth - (sliderRef.current.offsetWidth / 2)}px`;
+    sliderRef.current.style.left = `${
+      overlayImageRef.current.offsetWidth - sliderRef.current.offsetWidth / 2
+    }px`;
   };
 
   const handleSlideMove = (event) => {
@@ -70,13 +72,13 @@ export default function Hero() {
     if (position < 0) return slide(0);
     if (position > imageWidth.current) return slide(imageWidth.current);
     return slide(position);
-  }
+  };
 
   const handleSlideStart = (event) => {
     event.preventDefault();
     clicked.current = true;
-    window.addEventListener('mousemove', handleSlideMove);
-    window.addEventListener('touchmove', handleSlideMove);
+    window.addEventListener("mousemove", handleSlideMove);
+    window.addEventListener("touchmove", handleSlideMove);
   };
 
   const handleSlideEnd = () => {
@@ -89,57 +91,76 @@ export default function Hero() {
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
 
+      const timeline = gsap.timeline();
+
+      timeline.to(`.${styles.img}`, { opacity: 1, delay: 0 }, 0);
+
+      timeline.to(`.${styles.heading}`, { opacity: 1 }, 0.4);
+
+      timeline.to(`[data-left]`, { opacity: 1 }, 0.8);
+      timeline.to(`[data-right]`, { opacity: 1 }, 0.8);
+
       // Set width of overlay img to 50%
-      gsap.fromTo(overlayImageRef.current,
+      timeline.fromTo(
+        overlayImageRef.current,
         {
           width: 0,
-          delay: 1,
         },
         {
-          width: `${(imageWidth.current * 0.3)}px`,
-          ease: 'power3.inOut',
+          width: `${imageWidth.current * 0.55}px`,
+          ease: "power3.inOut",
           duration: 1.3,
-        }
+        },
+        0.8
       );
+      timeline.from(sliderRef.current, { opacity: 0, duration: 0.5 }, "<");
 
       // Position the slider in the center
-      gsap.fromTo(sliderRef.current,
+      timeline.fromTo(
+        sliderRef.current,
         {
-          left: '-20px',
-          delay: 1,
+          left: "-20px",
         },
         {
-          left: `${(imageWidth.current * 0.3) - (sliderRef.current.offsetWidth / 2)}px`,
-          ease: 'power3.inOut',
+          left: `${
+            imageWidth.current * 0.55 - sliderRef.current.offsetWidth / 2
+          }px`,
+          ease: "power3.inOut",
           duration: 1.3,
-        }
-      )
+        },
+        0.8
+      );
 
       // Add slider events
-      window.addEventListener('mouseup', handleSlideEnd);
-      sliderRef.current.addEventListener('mousedown', handleSlideStart);
-      sliderRef.current.addEventListener('touchstart', handleSlideStart);
-      window.addEventListener('touchend', handleSlideEnd);
+      window.addEventListener("mouseup", handleSlideEnd);
+      sliderRef.current.addEventListener("mousedown", handleSlideStart);
+      sliderRef.current.addEventListener("touchstart", handleSlideStart);
+      window.addEventListener("touchend", handleSlideEnd);
 
       // Clean up events
       return () => {
-        window.removeEventListener('mouseup', handleSlideEnd);
-        window.removeEventListener('touchend', handleSlideEnd);
-        window.removeEventListener('mousemove', handleSlideMove);
-        window.removeEventListener('touchmove', handleSlideMove);
-      }
+        window.removeEventListener("mouseup", handleSlideEnd);
+        window.removeEventListener("touchend", handleSlideEnd);
+        window.removeEventListener("mousemove", handleSlideMove);
+        window.removeEventListener("touchmove", handleSlideMove);
+      };
     }
-  }, [isMobileOnly])
+  }, [isMobileOnly]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imageIndex.current}-branch.jpg`} width="2976" height="1674" />
+            <img
+              className={styles.img}
+              src={`/visuals/${imageIndex.current}-branch.jpg`}
+              width="2976"
+              height="1674"
+            />
             <h1 className={cn(styles.heading, styles.stroke)}>
               TEDxCMU 2021: CATALYST
-              {loginStatus === 'loggedIn' ? (
+              {loginStatus === "loggedIn" ? (
                 <div>
                   <button className={styles.btn} onClick={handleTicket}>
                     View Ticket
@@ -159,25 +180,34 @@ export default function Hero() {
                 </div>
               )}
             </h1>
-            <p className={cn(styles.body, styles.stroke)}>
+            <p data-left className={cn(styles.body, styles.strokeLight)}>
               April 4, 2021 10:00AM
             </p>
-            <p className={cn(styles.body, styles.stroke)}>
+            <p data-right className={cn(styles.body, styles.strokeLight)}>
               Online Experience
             </p>
           </div>
         </div>
         <div ref={sliderRef} className={styles.slider}>
           <div className={styles.knob}>
-            <img className={styles.arrows} src="/slider-arrows.svg" alt="Slider Arrow" />
+            <img
+              className={styles.arrows}
+              src="/slider-arrows.svg"
+              alt="Slider Arrow"
+            />
           </div>
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imageIndex.current}-flower.jpg`} width="2976" height="1674" />
+            <img
+              className={styles.img}
+              src={`/visuals/${imageIndex.current}-flower.jpg`}
+              width="2976"
+              height="1674"
+            />
             <h1 className={styles.heading}>
               TEDxCMU 2021: CATALYST
-              {loginStatus === 'loggedIn' ? (
+              {loginStatus === "loggedIn" ? (
                 <div>
                   <button className={styles.btn} onClick={handleTicket}>
                     View Ticket
@@ -197,21 +227,21 @@ export default function Hero() {
                 </div>
               )}
             </h1>
-            <p className={styles.body}>
+            <p data-left className={styles.body}>
               April 4, 2021 10:00AM
             </p>
-            <p className={styles.body}>
+            <p data-right className={styles.body}>
               Online Experience
             </p>
           </div>
         </div>
       </div>
-      {loginStatus !== 'loggedIn' && (
+      {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
           <SignInForm />
         </Modal>
       )}
-      {loginStatus !== 'loggedIn' && (
+      {loginStatus !== "loggedIn" && (
         <Modal active={activeRegisterModal} setActive={setActiveRegisterModal}>
           <RegisterForm />
         </Modal>
