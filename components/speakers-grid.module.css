@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
- .grid {
+.grid {
   margin: 40px auto;
   padding: 0 24px;
   width: 100%;
   min-width: 300px;
   display: grid;
-  grid-template-columns: repeat(5, 18.8%);
+  grid-template-columns: repeat(4, 23.5%);
   gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -70,13 +70,12 @@
   border-radius: var(--space-2x);
   border: 1px solid #333333;
   padding: 1px;
+  transition: border 0.3s;
 }
 
 .card:hover,
 .card:focus {
-  outline: none;
-  background-image: linear-gradient(#111111, #111111),
-    linear-gradient(to right, #ffffff, #ffffff);
+  border: 0.7px solid white;
 }
 
 .cardBody {
@@ -101,7 +100,6 @@
   border-top-right-radius: 6px;
   opacity: 0.8;
 }
-
 
 @media (max-width: 471px) {
   .imageWrapper > div {
@@ -131,6 +129,7 @@
 
 .tagline {
   font-family: "jaf-lapture";
-  font-size: 16px;
+  font-size: 17px;
   margin: 0;
+  line-height: 1.6rem;
 }

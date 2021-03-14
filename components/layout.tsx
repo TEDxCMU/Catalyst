@@ -61,10 +61,10 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
     <>
       <div className={styles.background}>
         {!hideNav && (
-          <header id="header" className={cn(styles.header)}>
+          <header id="header" className={cn(styles.header, { [styles.headerHome]: router.pathname === '/' })}>
             <MobileMenu key={router.asPath} />
             <Link href="/">
-              <a className={styles.logo}>
+              <a className={cn(styles.logo, { [styles.logoDisable]: loginStatus === 'loggedIn' })}>
                 <img className={styles.image} src="/logo.svg" alt="TEDxCMU Logo" />
               </a>
             </Link>
@@ -92,10 +92,10 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
         <div className={cn(styles.page, {[styles.transition]: checkPath()})}>
           <main className={styles.main} style={layoutStyles}>
             <div className={cn(styles.full, className)}>{children}</div>
-            <About showAbout={aboutActive} setShowAbout={setAboutActive} />
           </main>
           {!activeRoute.startsWith('/stage') && activeRoute !== '/' && <Footer />}
         </div>
+        <About showAbout={aboutActive} setShowAbout={setAboutActive} />
       </div>
     </>
   );

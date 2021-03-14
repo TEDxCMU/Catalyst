@@ -169,16 +169,43 @@
 
 @media screen and (max-width: 768px) {
   .heading {
-    font-size: 60px;
+    font-size: 70px;
     line-height: 62px;
   }
 
   .body {
     font-size: 16px;
+    opacity: 1;
+  }
+
+  .body {
+    position: absolute;
+    display: inline-block;
+    bottom: 2%;
+    margin: 0;
+    text-transform: uppercase;
+    opacity: 1;
+    user-select: none;
+    font-size: 24px;
+  }
+
+  .body:first-of-type {
+    bottom: 45px;
+    left: 5%;
+  }
+
+  .body:last-of-type {
+    left: 5%;
   }
 
   .btn {
-    font-size: 12px;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn:not(:last-child) {
+    margin-right: 0px;
   }
 
   .img {
@@ -187,10 +214,8 @@
 
   .heading {
     opacity: 1;
-  }
-
-  .body {
-    opacity: 1;
+    width: 80%;
+    max-width: 270px;
   }
 
   .slider {

@@ -27,6 +27,7 @@
   padding-top: 30px;
   font-family: "ivypresto-display";
   font-size: 36px;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: #e5e5e6;
@@ -35,8 +36,8 @@
 .tagline {
   font-family: "jaf-lapture";
   font-size: 18px;
-  font-weight: normal;
   line-height: 124.5%;
+  font-weight: normal;
   letter-spacing: 0.01em;
   padding-bottom: 16px;
   color: #e5e5e6;
@@ -44,12 +45,12 @@
 
 .body {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   color: #828282;
   line-height: 124.5%;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.3rem;
   letter-spacing: 0.01em;
 }
@@ -64,6 +65,11 @@
   text-align: center;
   color: #828282;
   border-radius: 50px;
+  transition: color 0.2s, border 0.2s;
+}
+.button:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 @media screen and (max-width: 768px) {
@@ -72,6 +78,7 @@
   }
 
   .overlay {
+    display: none;
     position: static;
     width: 100%;
   }
@@ -83,11 +90,22 @@
 
   .title {
     padding-top: 0;
-    font-size: 24px;
+
+    padding-bottom: 16px;
+    font-family: "ivypresto-display";
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+    color: #e5e5e6;
+    line-height: 103.5%;
   }
 
+  .content {
+    width: auto;
+  }
   .body {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .image {

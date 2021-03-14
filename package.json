@@ -34,7 +34,7 @@
     "simple-input-events": "^2.0.0",
     "smoothscroll-polyfill": "0.4.4",
     "swr": "0.3.9",
-    "three": "^0.119.1",
+    "three": "^0.126.1",
     "validator": "13.5.2",
     "vanilla-tilt": "^1.7.0"
   },

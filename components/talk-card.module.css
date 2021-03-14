@@ -21,6 +21,7 @@
 .time {
   color: var(--secondary-color);
   margin: 0 0 var(--space-2x);
+  text-transform: uppercase;
 }
 
 .card {
@@ -31,15 +32,13 @@
   width: var(--talk-card-width, 307px);
   /* background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
   background-clip: content-box, border-box; */
-  border: 1px solid #333333;
+  border: 0.7px solid #333333;
   padding: 1px;
-  transition: border 0.1s;
+  transition: border 0.3s;
   height: 504px;
 }
 .card:hover {
-  /* background-image: linear-gradient(#111111, #111111),
-    linear-gradient(to right, rgb(88, 88, 88), rgb(88, 88, 88)); */
-  border: 1px solid white;
+  border: 0.7px solid white;
 }
 
 .card:hover + .time {
@@ -92,7 +91,7 @@
 
 .tagline {
   font-family: "jaf-lapture";
-  font-size: 16px;
+  font-size: 17px;
   font-weight: normal;
   color: #e5e5e5;
   opacity: 0.5;
@@ -104,7 +103,7 @@
   color: #e5e5e5;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.3rem;
   letter-spacing: 0.01em;
 }
@@ -113,6 +112,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: var(--space-2x) var(--space-2x) 0 0;
 }
 
 .avatar-wrapper {
