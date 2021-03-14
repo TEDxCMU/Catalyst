@@ -31,7 +31,7 @@ import { FocusScope } from "@react-aria/focus";
 import { useButton } from "@react-aria/button";
 import styles from "./mobile-menu.module.css";
 import gsap from "gsap";
-
+import About from "./about";
 
 function ModalDialog(
   props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]
