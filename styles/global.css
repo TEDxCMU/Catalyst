@@ -149,3 +149,19 @@ svg path, svg circle {
   height: auto;
   clip: auto;
 }
+
+/* CSS Page Transition */
+body { 
+  animation: fadeIn ease 2s; 
+  animation-iteration-count: 1; 
+  animation-fill-mode: forwards; 
+}
+
+@keyframes fadeIn { 
+  0% { 
+      opacity: 0; 
+  } 
+  100% { 
+      opacity: 1; 
+  } 
+} 
