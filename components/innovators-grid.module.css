@@ -18,11 +18,13 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  width: var(--talk-card-width, 307px);
   border: 1px solid #333333;
   padding: 1px;
-  margin-right: 24px;
+  /* margin-right: 24px; */
   margin-bottom: 24px;
+  /* min-width: 325px;
+  max-width: 25%; */
+  /* width: 25%; */
 }
 
 .card:hover,
@@ -36,12 +38,41 @@
   margin: 40px auto;
   padding: 0 24px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: repeat(5, 18.8%);
+  gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media (max-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(4, 23.875%);
+  }
+}
+
+@media (max-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(3, 32.33%);
+    gap: 1.5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 49.25%);
+    gap: 1.5%;
+  }
+}
+
+@media (max-width: 471px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .silver {

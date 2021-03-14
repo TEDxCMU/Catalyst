@@ -38,6 +38,18 @@
   width: 100%;
 }
 
+.passWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eye:hover {
+  color: white;
+  cursor: pointer;
+}
+
 .submit {
   width: 100%;
   height: 59px;
@@ -50,6 +62,7 @@
   outline: none;
   font-weight: 500;
   color: #E5E5E6;
+  text-transform: uppercase;
 }
 
 .submit.default:disabled,
@@ -57,6 +70,31 @@
 .submit.default:disabled:focus {
   cursor: not-allowed;
   background-color: rgba(#B82D2D, 0.1);
+}
+
+.blurb, .pwContainer {
+  text-align: center;
+  color: #828282;
+  margin: 9px auto;
+}
+
+.pwContainer {
+  margin-top: 17px;
+}
+
+.forgotPW {
+  color: #a2a2a2;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.blurb {
+  font-size: 12px;
+  width: 60%;
+}
+
+.forgotPW:hover {
+  cursor: pointer;
 }
 
 @media (min-width: 1200px) {

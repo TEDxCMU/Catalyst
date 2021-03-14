@@ -32,6 +32,7 @@ import { useButton } from "@react-aria/button";
 import styles from "./mobile-menu.module.css";
 import gsap from "gsap";
 
+
 function ModalDialog(
   props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]
 ) {
@@ -42,6 +43,10 @@ function ModalDialog(
   const { modalProps } = useModal();
   const { overlayProps } = useOverlay(props, ref);
   const { dialogProps } = useDialog(props, ref);
+
+  const [aboutActive, setAboutActive] = useState(false);
+
+  const toggleAbout = () => { setAboutActive(true) }
 
   usePreventScroll();
 
@@ -79,7 +84,11 @@ function ModalDialog(
               </a>
             </Link>
           ))}
+          <a className={cn(styles['nav-item'], { [styles['nav-active']]: aboutActive })} onClick={toggleAbout} >
+            ABOUT
+          </a>
         </nav>
+        <About showAbout={aboutActive} setShowAbout={setAboutActive} />
       </FocusScope>
     </div>
   );

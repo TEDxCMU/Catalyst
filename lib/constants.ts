@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-export const SITE_URL = 'https://catalyst.tedxcmu.edu';
+// export const SITE_URL = 'http://localhost:3000';
+export const SITE_URL = 'https://deploy-preview-21--tedxcmu2021.netlify.app';
+// export const SITE_URL = 'https://catalyst.tedxcmu.org';
 export const SITE_ORIGIN = new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
@@ -22,13 +24,14 @@ export const CONF_TITLE = 'Catalyst';
 export const SITE_NAME_MULTILINE = ['TEDxCMU', 'Catalyst'];
 export const SITE_NAME = 'TEDxCMU Virtual Conference';
 export const META_DESCRIPTION = 'TEDxCMU\'s first ever virtual conference. Introducing, CATALYST.';
-export const SCHEDULE_DESCRIPTION = 'This is the tagline for the schedule page.';
-export const SPEAKERS_DESCRIPTION = 'This is the tagline for the speakers page.';
-export const EXPO_DESCRIPTION = 'This is the tagline for the expo page.';
-export const SITE_DESCRIPTION = 'An interactive online experience by the community, free for everyone.';
-export const DATE = 'April 3, 2021';
-export const SHORT_DATE = 'Apr 3rd - 9:00am PST';
-export const FULL_DATE = 'Apr 3rd 9am Pacific Time (GMT-7)';
+export const SCHEDULE_DESCRIPTION = 'View the schedule for the conference';
+export const SPEAKERS_DESCRIPTION = 'Check out our lineup of speakers this year.';
+export const EXPO_DESCRIPTION = 'See the lineup of innovators at the conference.';
+export const SITE_DESCRIPTION = 'A free, virtual conference .';
+export const DATE = 'April 10, 2021';
+export const TIME = '2:00pm EST';
+export const SHORT_DATE = 'Apr 10th - ' + TIME;
+
 export const TWEET_TEXT = META_DESCRIPTION;
 export const COOKIE = 'user-id';
 
@@ -53,7 +56,7 @@ export const NAVIGATION = [
   {
     name: 'Innovation Expo',
     route: '/expo'
-  },
+  }
 ];
 
 export type TicketGenerationState = 'default' | 'loading';

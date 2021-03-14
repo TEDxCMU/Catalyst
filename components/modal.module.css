@@ -12,6 +12,7 @@
 }
 
 .content {
+  display: flex;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -38,19 +39,36 @@
   padding: 0;
 }
 
+
+@media screen and (max-width: 471px) {
+    .aboutModal {
+        position: fixed;
+        top: 2%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: 500px;
+        padding: 42px 52px;
+        background-color: #000;
+        border: 1px solid #4F4F4F;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+  }
+
 @media screen and (max-width: 768px) {
   .content {
     padding: 26px;
     width: 90%;
   }
-
+  
   .large {
     padding: 0;
   }
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 820px) {
   .large {
-    width: 60%;
+    width: 800px;
+    min-height: 500px;
   }
 }
