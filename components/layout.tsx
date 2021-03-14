@@ -15,7 +15,6 @@
  */
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
