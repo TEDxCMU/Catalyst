@@ -184,7 +184,7 @@
     bottom: 2%;
     margin: 0;
     text-transform: uppercase;
-    opacity: 0;
+    opacity: 1;
     user-select: none;
     font-size: 24px;
   }

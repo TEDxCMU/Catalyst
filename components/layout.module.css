@@ -69,6 +69,10 @@
   align-items: center;
 }
 
+.logoDisable {
+  display: none;
+}
+
 .image {
   width: 91px;
 }
@@ -98,16 +102,22 @@
 
 .btn {
   display: inline-block;
-  border: 1px solid #ffffff;
+  border: 1px solid #828282;
   padding: 8px 20px;
   background-color: transparent;
-  color: #fff;
+  color: #828282;
   border-radius: 100px;
   backdrop-filter: blur(10px);
   text-transform: uppercase;
   outline: none;
   opacity: 0.9;
   cursor: pointer;
+  transition: color 0.2s, border 0.2s;
+}
+
+.btn:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 .active {
@@ -133,6 +143,13 @@
 
   .hidden {
     display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    position: fixed;
+    width: 100%;
   }
 }
 

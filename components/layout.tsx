@@ -64,7 +64,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
           <header id="header" className={cn(styles.header)}>
             <MobileMenu key={router.asPath} />
             <Link href="/">
-              <a className={styles.logo}>
+              <a className={cn(styles.logo, { [styles.logoDisable]: loginStatus === 'loggedIn' })}>
                 <img className={styles.image} src="/logo.svg" alt="TEDxCMU Logo" />
               </a>
             </Link>

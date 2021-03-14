@@ -35,15 +35,15 @@
 }
 
 .description {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.4;
   color: var(--secondary-color);
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .description {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 
@@ -75,7 +75,7 @@
 
 .ticket-visual:before,
 .ticket-visual:after {
-  content: '';
+  content: "";
   display: block;
   width: 72px;
   height: 58px;
@@ -100,18 +100,24 @@
 .button {
   display: inline-block;
   text-align: center;
-  border: 1px solid white;
+  border: 1px solid #4f4f4f;
   padding: 21px 60px;
-  color: white;
+  color: #828282;
   border-radius: 100px;
   font-family: "neue-haas-grotesk-text";
   font-size: 16px;
   outline: none;
   opacity: 0.9;
   cursor: pointer;
-  margin-bottom: 20px;
   -webkit-text-stroke-width: 0;
   -webkit-text-stroke-color: transparent;
+  transition: color 0.2s, border 0.2s;
+  margin-bottom: 20px;
+}
+
+.button:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 .buttonsContainer {
