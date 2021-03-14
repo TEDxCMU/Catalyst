@@ -36,7 +36,7 @@ export default function Hero() {
   const imageWidth = useRef(null);
   const imageHeight = useRef(null);
   const clicked = useRef(false);
-  const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const [imageIndex] = useState(Math.floor(Math.random() * 6) + 1);
   const [mounted, setMounted] = useState(false);
   const [activeLoginModal, setActiveLoginModal] = useState(false);
   const [activeRegisterModal, setActiveRegisterModal] = useState(false);
@@ -174,12 +174,12 @@ export default function Hero() {
           <div className={styles.content}>
             {/* {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
-                <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
+                <ThreeCanvas image={`/visuals/${imageIndex}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
             )} */}
             <img
               className={styles.img}
-              src={`/visuals/${imageIndex.current}-branch.jpg`}
+              src={`/visuals/${imageIndex}-branch.jpg`}
               width="2976"
               height="1674"
             />
@@ -227,12 +227,12 @@ export default function Hero() {
           <div className={styles.content}>
             {/* {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
-                <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
+                <ThreeCanvas image={`/visuals/${imageIndex}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
             )} */}
             <img
               className={styles.img}
-              src={`/visuals/${imageIndex.current}-flower.jpg`}
+              src={`/visuals/${imageIndex}-flower.jpg`}
               width="2976"
               height="1674"
             />
