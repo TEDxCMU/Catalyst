@@ -27,7 +27,7 @@
 .hero {
   font-family: "ivypresto-display";
   text-transform: uppercase;
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1.15;
   letter-spacing: 0.03em;
   font-weight: 400;
@@ -48,7 +48,7 @@
 
 .description {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.4;
   text-align: center;
   color: var(--secondary-color);
@@ -62,7 +62,7 @@
   }
 
   .description {
-    font-size: 20px;
+    font-size: 16px;
     max-width: 531px;
   }
 }

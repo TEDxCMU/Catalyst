@@ -18,20 +18,15 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  border: 1px solid #333333;
+  border: 0.7px solid #333333;
   padding: 1px;
-  /* margin-right: 24px; */
   margin-bottom: 24px;
-  /* min-width: 325px;
-  max-width: 25%; */
-  /* width: 25%; */
+  transition: border 0.3s;
 }
 
 .card:hover,
 .card:focus {
-  outline: none;
-  background-image: linear-gradient(#111111, #111111),
-    linear-gradient(to right, #ffffff, #ffffff);
+  border: 0.7px solid white;
 }
 
 .grid {
@@ -126,4 +121,5 @@
   margin-top: var(--space);
   margin-bottom: 0;
   line-height: 1.4;
+  font-size: 15px;
 }

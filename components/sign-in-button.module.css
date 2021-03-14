@@ -1,15 +1,14 @@
 .button {
   padding: 21px 60px;
   border-radius: var(--space-8x);
-  border: 1px solid #ffffff;
+  border: 1px solid #4f4f4f;
   background: none;
   cursor: pointer;
   font-size: var(--text-md);
   letter-spacing: -0.02em;
-  outline: none;
   font-weight: 500;
-  color: white;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #4f4f4f;
+  transition: background-color 0.2s ease, color 0.2s, border 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;

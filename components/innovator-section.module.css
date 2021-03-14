@@ -19,22 +19,23 @@
 .content {
   padding: 25px;
   width: 100%;
+  align-self: center;
 }
 
 .title {
-  padding-top: 66px;
   padding-bottom: 16px;
   font-family: "ivypresto-display";
   font-size: 36px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   font-weight: 400;
-  color: #E5E5E6;
+  color: #e5e5e6;
+  line-height: 103.5%;
 }
 
 .people {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  /* grid-template-columns: repeat(12, 1fr); */
   grid-row-gap: 16px;
   margin-bottom: 28px;
 }
@@ -42,38 +43,61 @@
 .person {
   display: flex;
   align-items: center;
-  grid-column: span 6;
+  /* grid-column: span 6; */
 }
 
 .avatar {
-  height: 35px;
-  width: 35px;
-  margin-right: 8px;
+  height: 50px;
+  width: 50px;
+  opacity: 0.7;
+  margin-right: 15px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  margin: 0;
+  font-size: 16px;
+  color: #828282;
+  line-height: 1.4rem;
+  text-transform: uppercase;
 }
 
 .tag {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.4rem;
   color: #828282;
+  font-family: "jaf-lapture";
 }
 
 .body {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   color: #828282;
   line-height: 124.5%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.3rem;
+  letter-spacing: 0.01em;
 }
 
 .button {
   display: block;
   margin-top: 30px;
   padding: 20px 60px;
-  border: 1px solid #4F4F4F;
-  border-radius: 10px;
+  border: 1px solid #4f4f4f;
+  border-radius: 50px;
   text-transform: uppercase;
   text-align: center;
   color: #828282;
+  transition: color 0.2s, border 0.2s;
+}
+
+.button:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 @media screen and (max-width: 768px) {
@@ -93,11 +117,11 @@
 
   .title {
     padding-top: 0;
-    font-size: 24px;
+    /* font-size: 28px; */
   }
 
   .body {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .logo {

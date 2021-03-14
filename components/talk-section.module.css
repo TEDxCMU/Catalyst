@@ -21,13 +21,12 @@
 .content {
   padding: 25px;
   width: 507px;
-  /* height: 500px; */
-  min-height: 100%;
   align-self: center;
 }
 
 .time {
   margin: 0;
+  margin-bottom: 10px;
   font-size: 16px;
   color: #828282;
 }
@@ -53,12 +52,11 @@
 .person {
   display: flex;
   align-items: center;
-  /* grid-column: span 7; */
 }
 
 .avatar {
-  height: 55px;
-  width: 55px;
+  height: 50px;
+  width: 50px;
   opacity: 0.7;
   margin-right: 15px;
   border-radius: 50%;
@@ -67,25 +65,28 @@
 
 .name {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   color: #828282;
+  line-height: 1.4rem;
 }
 
 .tag {
   margin: 0;
   font-size: 16px;
+  line-height: 1.4rem;
   color: #828282;
   font-family: "jaf-lapture";
 }
 
 .body {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   color: #828282;
   line-height: 124.5%;
   font-style: normal;
   font-weight: normal;
-  line-height: 124.5%;
+  font-size: 15px;
+  line-height: 1.3rem;
   letter-spacing: 0.01em;
 }
 

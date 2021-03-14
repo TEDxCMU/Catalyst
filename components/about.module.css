@@ -5,7 +5,7 @@
 .overlay {
   position: relative;
   width: 80%;
-  background-color: #B82D2D !important;
+  background-color: #b82d2d !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,15 @@
 }
 
 .content p {
+  margin: 30px 0 40px;
+  font-size: 15px;
   color: #828282;
+  line-height: 124.5%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.3rem;
+  letter-spacing: 0.01em;
 }
 
 .title {
@@ -33,7 +41,7 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   font-weight: 400;
-  color: #E5E5E6;
+  color: #e5e5e6;
 }
 
 .body {
@@ -43,9 +51,10 @@
   line-height: 124.5%;
 }
 
-.buttonsContainer, .socials {
+.buttonsContainer,
+.socials {
   display: grid;
-  gap: 3%;
+  gap: 5%;
   grid-template-columns: auto auto;
   justify-items: start;
   justify-content: start;
@@ -53,13 +62,13 @@
 
 .socials {
   align-items: center;
-  gap: 15%;
+  gap: 30%;
 }
 
 .button {
   display: inline-block;
   text-align: center;
-  border: 1px solid #4F4F4F;
+  border: 1px solid #4f4f4f;
   padding: 21px 60px;
   color: #828282;
   border-radius: 100px;
@@ -70,6 +79,12 @@
   cursor: pointer;
   -webkit-text-stroke-width: 0;
   -webkit-text-stroke-color: transparent;
+  transition: color 0.2s, border 0.2s;
+}
+
+.button:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 @media screen and (max-width: 768px) {
@@ -91,6 +106,7 @@
   .socials {
     width: 15%;
     margin-top: 5%;
+    margin-top: 30px;
   }
 
   .overlay {
@@ -107,7 +123,6 @@
 
   .title {
     padding-top: 0;
-    font-size: 24px;
   }
 
   .body {
@@ -122,7 +137,6 @@
     grid-column: 1 / -1;
   }
 }
-
 
 @media screen and (max-width: 471px) {
   .button {

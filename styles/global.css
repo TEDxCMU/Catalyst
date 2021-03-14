@@ -41,7 +41,7 @@
   --accents-8: #111111;
 
   --gray: #252729;
-  --secondary-color: #8a8f98;
+  --secondary-color: rgba(255, 255, 255, 0.5);
   --sidebar: #0e0e10;
   --header-height: 72px;
   --brand: #ff6464;
@@ -59,7 +59,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -81,7 +83,8 @@ body {
   scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   color: #fff;
   background-color: #111;
 }
@@ -95,7 +98,9 @@ svg {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -123,7 +128,8 @@ svg {
   shape-rendering: crispEdges;
 }
 
-svg path, svg circle {
+svg path,
+svg circle {
   shape-rendering: geometricprecision;
 }
 

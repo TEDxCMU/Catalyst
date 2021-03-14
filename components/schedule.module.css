@@ -61,6 +61,10 @@
   margin-right: 24px;
 }
 
+.talkContainer:last-child {
+  padding-right: 60px;
+}
+
 @media (min-width: 500px) {
   .row {
     margin: 0 var(--space-2x) 0 0;
@@ -88,5 +92,12 @@
   }
   .talks {
     flex-direction: column;
+  }
+
+  .talkContainer {
+    margin-right: 0;
+  }
+  .talkContainer:last-child {
+    padding-right: 0px;
   }
 }
