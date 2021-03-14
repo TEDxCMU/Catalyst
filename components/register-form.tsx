@@ -121,7 +121,7 @@ export default function Form({ sharePage }: Props) {
   }
 
   return (
-    <>
+    <div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <h2 className={styles.title}>Registration</h2>
@@ -170,6 +170,6 @@ export default function Form({ sharePage }: Props) {
         </div>
       </form>
       <p className={styles.blurb}>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
-    </>
+    </div>
   )
 }

@@ -45,7 +45,7 @@
 
 .buttonsContainer, .socials {
   display: grid;
-  gap: 1.5%;
+  gap: 3%;
   grid-template-columns: auto auto;
   justify-items: start;
   justify-content: start;
@@ -53,6 +53,7 @@
 
 .socials {
   align-items: center;
+  gap: 15%;
 }
 
 .button {
@@ -93,9 +94,10 @@
   }
 
   .overlay {
-    position: static;
+    /* position: static;
     width: 100%;
-    height: 30vh;
+    height: 30vh; */
+    display: none;
   }
 
   .image {

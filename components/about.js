@@ -17,7 +17,7 @@
  import { useEffect, useState } from 'react';
  import { useRouter } from 'next/router';
  import styles from './about.module.css';
- import Modal from './about-modal';
+ import Modal from './modal';
  import IconTwitter from './icons/icon-twitter';
  import IconLinkedin from './icons/icon-linkedin';
 
