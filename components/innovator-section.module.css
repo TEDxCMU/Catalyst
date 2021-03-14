@@ -106,6 +106,7 @@
   }
 
   .overlay {
+    display: none;
     position: static;
     width: 100%;
   }
