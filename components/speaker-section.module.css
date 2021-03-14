@@ -1,10 +1,11 @@
 .container {
   display: flex;
+  height: 100%;
 }
 
 .overlay {
   position: relative;
-  width: 100%;
+  width: 400px;
 }
 
 .image {
@@ -18,7 +19,8 @@
 
 .content {
   padding: 25px;
-  width: 100%;
+  width: 447px;
+  min-height: 100%;
 }
 
 .title {
@@ -27,7 +29,7 @@
   font-size: 36px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #E5E5E6;
+  color: #e5e5e6;
 }
 
 .tagline {
@@ -37,7 +39,7 @@
   line-height: 124.5%;
   letter-spacing: 0.01em;
   padding-bottom: 16px;
-  color: #E5E5E6;
+  color: #e5e5e6;
 }
 
 .body {
@@ -51,7 +53,7 @@
   display: block;
   margin-top: 30px;
   padding: 20px 60px;
-  border: 1px solid #4F4F4F;
+  border: 1px solid #4f4f4f;
   border-radius: 10px;
   text-transform: uppercase;
   text-align: center;

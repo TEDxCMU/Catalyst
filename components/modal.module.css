@@ -1,55 +1,57 @@
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(10, 10, 11, 0.5);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-    overflow-y: auto;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(10, 10, 11, 0.5);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  overflow-y: auto;
 }
 
 .content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    padding: 42px 52px;
-    background-color: #000;
-    border: 1px solid #4F4F4F;
-    border-radius: 10px;
-    overflow: hidden;
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  padding: 42px 52px;
+  background-color: #000;
+  border: 1px solid #4f4f4f;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .active {
-    display: block;
+  display: block;
 }
 
 .body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .large {
-    width: 90%;
-    padding: 0;
+  width: 90%;
+  padding: 0;
 }
 
 @media screen and (max-width: 768px) {
-    .content {
-        padding: 26px;
-        width: 90%;
-    }
+  .content {
+    padding: 26px;
+    width: 90%;
+  }
 
-    .large {
-        padding: 0;
-    }
+  .large {
+    padding: 0;
+  }
 }
 
-@media screen and (min-width: 1400px) {
-    .large {
-        width: 60%;
-    }
+@media screen and (min-width: 820px) {
+  .large {
+    width: 800px;
+    min-height: 500px;
+  }
 }

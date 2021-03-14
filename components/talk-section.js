@@ -21,7 +21,7 @@ export default function TalkSection({ talk }) {
 
   return (
     <Modal active={active} setActive={setActive} large>
-      <div className={styles.container}>
+      
         <div className={styles.overlay}>
           <img className={styles.logo} src={talk.image.url} alt={talk.image.alt} />
         </div>
@@ -43,8 +43,9 @@ export default function TalkSection({ talk }) {
             )}
           </div>
           <p className={styles.body}>Stay tuned, talk description coming soon.</p>
+
         </div>
-      </div>
+      
     </Modal>
   );
 }
