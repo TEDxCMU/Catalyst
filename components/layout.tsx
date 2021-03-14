@@ -16,11 +16,12 @@
 
 import Link from 'next/link';
 import cn from 'classnames';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { SkipNavContent } from '@reach/skip-nav';
 import { NAVIGATION, CONF_TITLE } from '@lib/constants';
 import styles from './layout.module.css';
 import MobileMenu from './mobile-menu';
+import About from './about';
 import Footer from './footer';
 import useLoginStatus from '@lib/hooks/use-login-status';
 import { signOut } from '@lib/user-api';
@@ -37,16 +38,20 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
   const activeRoute = router.asPath;
   const { loginStatus } = useLoginStatus();
 
+  const [aboutActive, setAboutActive] = useState(false);
+
   const handleLogout = async () => {
     await signOut();
     router.reload();
   };
 
+  const toggleAbout = () => { setAboutActive(true) }
+
   return (
     <>
       <div className={styles.background}>
         {!hideNav && (
-          <header className={cn(styles.header)}>
+          <header id="header" className={cn(styles.header)}>
             <MobileMenu key={router.asPath} />
             <Link href="/">
               <a className={styles.logo}>
@@ -56,11 +61,14 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             <div className={styles.tabs}>
               {NAVIGATION.map(({ name, route }) => (
                 <Link key={name} href={route}>
-                  <a className={cn(styles.tab, { [styles.active]: activeRoute === route})}>
+                  <a className={cn(styles.tab, { [styles.active]: activeRoute === route })}>
                     {name}
                   </a>
                 </Link>
               ))}
+              <a className={cn(styles.tab, { [styles.active]: aboutActive })} onClick={toggleAbout} >
+                ABOUT
+              </a>
             </div>
             {loginStatus === 'loggedIn' ? (
               <button className={styles.btn} onClick={handleLogout}>
@@ -73,8 +81,8 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
         )}
         <div className={styles.page}>
           <main className={styles.main} style={layoutStyles}>
-            <SkipNavContent />
             <div className={cn(styles.full, className)}>{children}</div>
+            <About showAbout={aboutActive} setShowAbout={setAboutActive} />
           </main>
           {!activeRoute.startsWith('/stage') && activeRoute !== '/' && <Footer />}
         </div>

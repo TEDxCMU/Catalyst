@@ -28,6 +28,18 @@
   outline: none;
 }
 
+.passWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eye:hover {
+  color: white;
+  cursor: pointer;
+}
+
 .input::placeholder {
   color: var(--secondary-color);
 }
@@ -57,6 +69,15 @@
 .submit.default:disabled:focus {
   cursor: not-allowed;
   background-color: rgba(#B82D2D, 0.1);
+}
+
+.blurb {
+  text-align: center;
+  color: #828282;
+  margin: auto;
+  margin-top: 17px;
+  font-size: 12px;
+  width: 60%;
 }
 
 @media (min-width: 1200px) {

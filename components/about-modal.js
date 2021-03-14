@@ -61,7 +61,7 @@ export default function RegisterModal({ active, setActive, large, children }) {
     >
       <div
         ref={contentRef}
-        className={cn(styles.content, { [styles.large]: large })}
+        className={cn(styles.aboutModal, { [styles.large]: large })}
       >
         {children}
       </div>
