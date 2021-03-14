@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { isMobileOnly } from 'react-device-detect';
@@ -26,6 +26,8 @@ import RegisterForm from '@components/register-form';
 import useLoginStatus from '@lib/hooks/use-login-status';
 import { signOut } from '@lib/user-api';
 
+const ThreeCanvas = lazy(() => import('./canvas'));
+
 export default function Hero() {
   const router = useRouter();
   const overlayImageRef = useRef(null);
@@ -34,6 +36,7 @@ export default function Hero() {
   const imageHeight = useRef(null);
   const clicked = useRef(false);
   const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const [mounted, setMounted] = useState(false);
   const [activeLoginModal, setActiveLoginModal] = useState(false);
   const [activeRegisterModal, setActiveRegisterModal] = useState(false);
   const { loginStatus } = useLoginStatus();
@@ -82,6 +85,10 @@ export default function Hero() {
   const handleSlideEnd = () => {
     clicked.current = false;
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
@@ -145,7 +152,11 @@ export default function Hero() {
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imageIndex.current}-branch.jpg`} width="2976" height="1674" />
+            {mounted && (
+              <Suspense fallback={null}>
+                <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
+              </Suspense>
+            )}
             <h1 className={cn(styles.heading, styles.stroke)}>
               TEDxCMU 2021: CATALYST
               {loginStatus === 'loggedIn' ? (
@@ -183,7 +194,11 @@ export default function Hero() {
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
-            <img className={styles.img} src={`/visuals/${imageIndex.current}-flower.jpg`} width="2976" height="1674" />
+            {mounted && (
+              <Suspense fallback={null}>
+                <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
+              </Suspense>
+            )}
             <h1 className={styles.heading}>
               TEDxCMU 2021: CATALYST
               {loginStatus === 'loggedIn' ? (
