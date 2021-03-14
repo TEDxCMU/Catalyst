@@ -92,10 +92,10 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
         <div className={cn(styles.page, {[styles.transition]: checkPath()})}>
           <main className={styles.main} style={layoutStyles}>
             <div className={cn(styles.full, className)}>{children}</div>
-            <About showAbout={aboutActive} setShowAbout={setAboutActive} />
           </main>
           {!activeRoute.startsWith('/stage') && activeRoute !== '/' && <Footer />}
         </div>
+        <About showAbout={aboutActive} setShowAbout={setAboutActive} />
       </div>
     </>
   );
