@@ -88,19 +88,24 @@ export default function Hero() {
     clicked.current = false;
   };
 
+  const handleResize = () => {
+    imageWidth.current = window.innerWidth;
+    imageHeight.current = window.innerHeight;
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
+    if (mounted && overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
       // Get overlay img dimensions
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
 
       const timeline = gsap.timeline();
 
-      timeline.to(`.${styles.img}`, { opacity: 1, delay: 0 }, 0);
+      timeline.to(`#stage`, { opacity: 1, delay: 0 }, 0);
 
       timeline.to(`.${styles.heading}`, { opacity: 1 }, 0.4);
 
@@ -143,6 +148,7 @@ export default function Hero() {
       sliderRef.current.addEventListener("mousedown", handleSlideStart);
       sliderRef.current.addEventListener("touchstart", handleSlideStart);
       window.addEventListener("touchend", handleSlideEnd);
+      window.addEventListener("resize", handleResize);
 
       // Clean up events
       return () => {
@@ -150,20 +156,27 @@ export default function Hero() {
         window.removeEventListener("touchend", handleSlideEnd);
         window.removeEventListener("mousemove", handleSlideMove);
         window.removeEventListener("touchmove", handleSlideMove);
+        window.removeEventListener("resize", handleResize);
       };
     }
-  }, [isMobileOnly]);
+  }, [mounted, isMobileOnly]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
-            {mounted && (
+            {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
                 <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
             )}
+            <img
+              className={styles.img}
+              src={`/visuals/${imageIndex.current}-flower.jpg`}
+              width="2976"
+              height="1674"
+            />
             <h1 className={cn(styles.heading, styles.stroke)}>
               TEDxCMU 2021: CATALYST
               {loginStatus === "loggedIn" ? (
@@ -205,11 +218,17 @@ export default function Hero() {
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
-            {mounted && (
+            {mounted && !isMobileOnly && (
               <Suspense fallback={null}>
                 <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
               </Suspense>
             )}
+            <img
+              className={styles.img}
+              src={`/visuals/${imageIndex.current}-flower.jpg`}
+              width="2976"
+              height="1674"
+            />
             <h1 className={styles.heading}>
               TEDxCMU 2021: CATALYST
               {loginStatus === "loggedIn" ? (

@@ -23,6 +23,15 @@ function Effects() {
             mouse.current.x = (position[0] / size.width);
             mouse.current.y = 1 - (position[1] / size.height);
         });
+
+        const handleResize = () => {
+            customPass.current.uniforms.resolution.value.y = size.height / size.width;
+        };
+
+        window.addEventListener("resize", handleResize);
+        () => {
+            window.removeEventListener("resize", handleResize);
+        }
     }, []);
 
     useEffect(() => {
