@@ -238,7 +238,7 @@ export default function Hero() {
       </div>
       {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
-          <SignInForm />
+          <SignInForm activeRegisterModal={activeLoginModal}/>
         </Modal>
       )}
       {loginStatus !== "loggedIn" && (

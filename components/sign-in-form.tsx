@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import LoadingDots from './loading-dots';
@@ -13,7 +13,11 @@ const eye = <FontAwesomeIcon icon={faEye} color={'#828282'} />;
 
 type FormState = 'default' | 'sign-in-loading' | 'reset-pass' | 'reset-pass-loading' | 'reset-pass-complete' | 'error-sign-in' | 'error-reset-pass';
 
-export default function SignInForm() {
+type Props = {
+  activeRegisterModal?: boolean;
+};
+
+export default function SignInForm({ activeRegisterModal }: Props) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +28,14 @@ export default function SignInForm() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+
+  useEffect(() => {
+    if (!activeRegisterModal) {
+      setFormState('default');
+    }
+  })
+
+  // console.log(formState);
 
   useEmailQueryParam('email', setEmail);
 
