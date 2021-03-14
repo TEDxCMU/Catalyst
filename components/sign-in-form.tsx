@@ -7,7 +7,11 @@ import FormError from '@lib/form-error';
 import { signIn, resetPassword } from '@lib/user-api';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 
-type FormState = 'default' | 'sign-in-loading' | 'reset-pass' | 'reset-pass-loading' | 'reset-pass-complete' |'error-sign-in' | 'error-reset-pass';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} color={'#828282'} />;
+
+type FormState = 'default' | 'sign-in-loading' | 'reset-pass' | 'reset-pass-loading' | 'reset-pass-complete' | 'error-sign-in' | 'error-reset-pass';
 
 export default function SignInForm() {
   const router = useRouter();
@@ -15,6 +19,12 @@ export default function SignInForm() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [formState, setFormState] = useState<FormState>('default');
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   useEmailQueryParam('email', setEmail);
 
   const handleSubmit = async (e: any) => {
@@ -168,7 +178,7 @@ export default function SignInForm() {
           </form>
         </>
       ) : (
-        <>
+        <div>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.row}>
               <h2 className={styles.title}>SIGN IN</h2>
@@ -180,14 +190,17 @@ export default function SignInForm() {
                 placeholder="Email"
                 required
               />
-              <input
-                className={styles.input}
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-              />
+              <div className={styles.passWrapper}>
+                <input
+                  className={styles.input}
+                  type={passwordShown ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="Password"
+                  required
+                />
+                <i onClick={togglePasswordVisiblity} className="eye">{eye}</i>
+              </div>
               <button
                 type="submit"
                 className={cn(styles.submit, styles[formState])}
@@ -197,12 +210,12 @@ export default function SignInForm() {
               </button>
             </div>
           </form>
-          <a onClick={() => setFormState('reset-pass')}>
+          <p className={styles.pwContainer}><a className={styles.forgotPW} onClick={() => setFormState('reset-pass')}>
             Forgot Password?
-          </a>
-          <p>Having trouble logging in? Email us at tedxcmuinnovation@gmail.com.</p>
-        </>
-      )} 
+          </a></p>
+          <p className={styles.blurb}>Having trouble logging in? Email us at tedxcmuinnovation@gmail.com.</p>
+        </div>
+      )}
     </>
   );
 }

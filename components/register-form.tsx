@@ -24,6 +24,10 @@ import styles from './register-form.module.css';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import { register } from '@lib/user-api';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} color={'#828282'} />;
+
 type FormState = 'default' | 'loading' | 'error';
 
 type Props = {
@@ -38,6 +42,11 @@ export default function Form({ sharePage }: Props) {
   const [errorMsg, setErrorMsg] = useState('');
   const [focused, setFocused] = useState(false);
   const [formState, setFormState] = useState<FormState>('default');
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
   const { setPageState, setUserData } = useConfData();
   const router = useRouter();
   useEmailQueryParam('email', setEmail);
@@ -51,7 +60,7 @@ export default function Form({ sharePage }: Props) {
         if (!response.ok) {
           throw new FormError(response);
         }
-        
+
         const data = await response.json();
         const params = {
           id: data.id,
@@ -97,14 +106,14 @@ export default function Form({ sharePage }: Props) {
     return (
       <div className={styles.form}>
         <div className={styles.row}>
-            <h2 className={styles.title}>Registration</h2>
-            <p>{errorMsg}</p>
-            <button
-              className={styles.submit}
-              type="button"
-              onClick={() => setFormState('default')}
-            >
-              Try Again
+          <h2 className={styles.title}>Registration</h2>
+          <p>{errorMsg}</p>
+          <button
+            className={styles.submit}
+            type="button"
+            onClick={() => setFormState('default')}
+          >
+            Try Again
             </button>
         </div>
       </div>
@@ -140,14 +149,17 @@ export default function Form({ sharePage }: Props) {
             placeholder="Email"
             required
           />
-          <input
-            className={styles.input}
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password (must be at least 6 chars.)"
-            required
-          />
+          <div className={styles.passWrapper}>
+            <input
+              className={styles.input}
+              type={passwordShown ? "text" : "password"}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Password (must be at least 6 chars.)"
+              required
+            />
+            <i onClick={togglePasswordVisiblity} className="eye">{eye}</i>
+          </div>
           <button
             type="submit"
             className={cn(styles.submit, styles[formState])}
@@ -157,7 +169,7 @@ export default function Form({ sharePage }: Props) {
           </button>
         </div>
       </form>
-      <p>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
+      <p className={styles.blurb}>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
     </>
   )
 }

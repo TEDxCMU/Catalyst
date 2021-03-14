@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import cn from 'classnames';
-import { TicketGenerationState, DATE, TIME} from '@lib/constants';
+import { TicketGenerationState, DATE, TIME } from '@lib/constants';
 import styles from './ticket-profile.module.css';
 
 type Props = {
@@ -27,15 +27,22 @@ type Props = {
 };
 
 export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
-  const imageIndex = useRef(ticketNumber ? ticketNumber % 6 + 1: 1);
+  const imageIndex = useRef(ticketNumber ? ticketNumber % 6 + 1 : 1);
+  const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#FFE3E3', '#E3AD21'];
+
+  useEffect(() => {
+    if (imageIndex) {
+      document.getElementById('conferenceHead')!.style.color = headerColors[imageIndex.current - 1];
+    }
+  }, [imageIndex]);
 
   return (
-    <section className={styles.profile}>
+    <div className={styles.profile}>
       <img className={styles.image} src={`/tickets/ticket-${imageIndex.current}.jpg`} width="2976" height="1674" />
       <img className={styles.logo} src="/logo.svg" alt="TEDxCMU Logo" width="2976" height="1674" />
       <div className={styles.content}>
         <div>
-          <h3 className={styles.heading}>CATALYST CONFERENCE</h3>
+          <h3 className={styles.heading} id="conferenceHead">CATALYST CONFERENCE</h3>
           <p className={styles.subheading}>ONLINE EXPERIENCE</p>
         </div>
         <p className={styles.name}>
@@ -47,11 +54,11 @@ export default function TicketProfile({ name, ticketNumber, ticketGenerationStat
             <p className={styles.body}>{DATE.toUpperCase()}</p>
           </div>
           <div className={styles.item}>
-            <p className={styles.title}>Time:</p>
-            <p className={styles.body}>{TIME.toUpperCase()}</p>
+            <p className={styles.title}>Ticket Number</p>
+            <p className={styles.body}>#{"00000000".substring(0, 8 - (ticketNumber!.toString().length)) + ticketNumber!.toString()}</p>
           </div>
         </div>
       </div>
-    </section>
+    </div >
   );
 }

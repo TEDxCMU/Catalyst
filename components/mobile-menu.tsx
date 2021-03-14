@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -25,6 +25,7 @@ import { useDialog } from '@react-aria/dialog';
 import { FocusScope } from '@react-aria/focus';
 import { useButton } from '@react-aria/button';
 import styles from './mobile-menu.module.css';
+import About from './about';
 
 function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]) {
   const router = useRouter();
@@ -34,6 +35,10 @@ function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof
   const { modalProps } = useModal();
   const { overlayProps } = useOverlay(props, ref);
   const { dialogProps } = useDialog(props, ref);
+
+  const [aboutActive, setAboutActive] = useState(false);
+
+  const toggleAbout = () => { setAboutActive(true) }
 
   usePreventScroll();
 
@@ -48,7 +53,11 @@ function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof
               </a>
             </Link>
           ))}
+          <a className={cn(styles['nav-item'], { [styles['nav-active']]: aboutActive })} onClick={toggleAbout} >
+            ABOUT
+          </a>
         </nav>
+        <About showAbout={aboutActive} setShowAbout={setAboutActive} />
       </FocusScope>
     </div>
   );

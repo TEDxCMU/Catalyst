@@ -28,7 +28,8 @@
   font-size: 36px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #e5e5e6;
+  font-weight: 400;
+  color: #E5E5E6;
 }
 
 .people {
