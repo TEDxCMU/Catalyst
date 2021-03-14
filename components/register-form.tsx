@@ -112,49 +112,52 @@ export default function Form({ sharePage }: Props) {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.row}>
-        <h2 className={styles.title}>Registration</h2>
-        <input
-          className={styles.input}
-          type="text"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          placeholder="First Name"
-          required
-        />
-        <input
-          className={styles.input}
-          type="text"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          placeholder="Last Name"
-          required
-        />
-        <input
-          className={styles.input}
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          className={styles.input}
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Password (must be at least 6 chars.)"
-          required
-        />
-        <button
-          type="submit"
-          className={cn(styles.submit, styles[formState])}
-          disabled={formState === 'loading'}
-        >
-          {formState === 'loading' ? <LoadingDots size={4} /> : <>Register</>}
-        </button>
-      </div>
-    </form>
+    <>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.row}>
+          <h2 className={styles.title}>Registration</h2>
+          <input
+            className={styles.input}
+            type="text"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            placeholder="First Name"
+            required
+          />
+          <input
+            className={styles.input}
+            type="text"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            placeholder="Last Name"
+            required
+          />
+          <input
+            className={styles.input}
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            className={styles.input}
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password (must be at least 6 chars.)"
+            required
+          />
+          <button
+            type="submit"
+            className={cn(styles.submit, styles[formState])}
+            disabled={formState === 'loading'}
+          >
+            {formState === 'loading' ? <LoadingDots size={4} /> : <>Register</>}
+          </button>
+        </div>
+      </form>
+      <p>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
+    </>
   )
 }
