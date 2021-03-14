@@ -48,10 +48,20 @@
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(40px);
-  border-bottom: 1px solid #E5E5E6;
+  border-bottom: 1px solid #e5e5e6;
   height: var(--header-height);
   z-index: 2;
   padding: 0 15px;
+}
+
+.header a {
+  opacity: 1;
+  transition: 0.1s;
+  color: white;
+}
+
+.header a:hover {
+  opacity: 0.5;
 }
 
 .logo {
@@ -78,15 +88,18 @@
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  user-select: none;
 }
 
-.tab:hover, .tab:focus, .tab:active {
+.tab:hover,
+.tab:focus,
+.tab:active {
   color: #fff;
 }
 
 .btn {
   display: inline-block;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   padding: 8px 20px;
   background-color: transparent;
   color: #fff;
@@ -98,11 +111,12 @@
   cursor: pointer;
 }
 
-.active {
+/* .active {
   color: #fff;
-  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom transparent no-repeat;
+  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom
+    transparent no-repeat;
   background-size: 100% 1px;
-}
+} */
 
 @media screen and (min-width: 1032px) {
   .tabs {
@@ -116,7 +130,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .header {
     flex-direction: row-reverse;
   }
