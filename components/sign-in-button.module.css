@@ -8,7 +8,7 @@
   letter-spacing: -0.02em;
   font-weight: 500;
   color: #4f4f4f;
-  transition: background-color 0.2s ease, color 0.2s, border 0.2s;
+  transition: color 0.2s, border 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -23,8 +23,8 @@
 
 .button:hover,
 .button:focus {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: #828282;
+  color: white;
+  border: 1px solid white;
 }
 
 @media (max-width: 599px) {
