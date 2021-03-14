@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import cn from "classnames";
-import { isMobileOnly } from "react-device-detect";
-import gsap from "gsap";
-import styles from "./hero.module.css";
-import Modal from "@components/modal";
-import SignInForm from "@components/sign-in-form";
-import RegisterForm from "@components/register-form";
-import useLoginStatus from "@lib/hooks/use-login-status";
-import { signOut } from "@lib/user-api";
+import { useEffect, useRef, useState, Suspense, lazy } from 'react';
+import { useRouter } from 'next/router';
+import cn from 'classnames';
+import { isMobileOnly } from 'react-device-detect';
+import gsap from 'gsap';
+import styles from './hero.module.css';
+import Modal from '@components/modal';
+import SignInForm from '@components/sign-in-form';
+import RegisterForm from '@components/register-form';
+import useLoginStatus from '@lib/hooks/use-login-status';
+import { signOut } from '@lib/user-api';
+
+const ThreeCanvas = lazy(() => import('./canvas'));
 
 export default function Hero() {
   const router = useRouter();
@@ -34,6 +36,7 @@ export default function Hero() {
   const imageHeight = useRef(null);
   const clicked = useRef(false);
   const imageIndex = useRef(Math.floor(Math.random() * 6) + 1);
+  const [mounted, setMounted] = useState(false);
   const [activeLoginModal, setActiveLoginModal] = useState(false);
   const [activeRegisterModal, setActiveRegisterModal] = useState(false);
   const { loginStatus } = useLoginStatus();
@@ -85,8 +88,17 @@ export default function Hero() {
     clicked.current = false;
   };
 
+  const handleResize = () => {
+    imageWidth.current = window.innerWidth;
+    imageHeight.current = window.innerHeight;
+  };
+
   useEffect(() => {
-    if (overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
       // Get overlay img dimensions
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
@@ -136,6 +148,7 @@ export default function Hero() {
       sliderRef.current.addEventListener("mousedown", handleSlideStart);
       sliderRef.current.addEventListener("touchstart", handleSlideStart);
       window.addEventListener("touchend", handleSlideEnd);
+      window.addEventListener("resize", handleResize);
 
       // Clean up events
       return () => {
@@ -143,15 +156,21 @@ export default function Hero() {
         window.removeEventListener("touchend", handleSlideEnd);
         window.removeEventListener("mousemove", handleSlideMove);
         window.removeEventListener("touchmove", handleSlideMove);
+        window.removeEventListener("resize", handleResize);
       };
     }
-  }, [isMobileOnly]);
+  }, [mounted, isMobileOnly]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.slide}>
           <div className={styles.content}>
+            {/* {mounted && !isMobileOnly && (
+              <Suspense fallback={null}>
+                <ThreeCanvas image={`/visuals/${imageIndex.current}-branch.jpg`} height={imageHeight.current} width={imageWidth.current} />
+              </Suspense>
+            )} */}
             <img
               className={styles.img}
               src={`/visuals/${imageIndex.current}-branch.jpg`}
@@ -199,6 +218,11 @@ export default function Hero() {
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
           <div className={styles.content}>
+            {/* {mounted && !isMobileOnly && (
+              <Suspense fallback={null}>
+                <ThreeCanvas image={`/visuals/${imageIndex.current}-flower.jpg`} height={imageHeight.current} width={imageWidth.current} />
+              </Suspense>
+            )} */}
             <img
               className={styles.img}
               src={`/visuals/${imageIndex.current}-flower.jpg`}
@@ -238,7 +262,7 @@ export default function Hero() {
       </div>
       {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
-          <SignInForm />
+          <SignInForm activeRegisterModal={activeLoginModal}/>
         </Modal>
       )}
       {loginStatus !== "loggedIn" && (

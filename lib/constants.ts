@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-export const SITE_URL = 'https://catalyst.tedxcmu.edu';
+// export const SITE_URL = 'http://localhost:3000';
+export const SITE_URL = 'https://deploy-preview-21--tedxcmu2021.netlify.app';
+// export const SITE_URL = 'https://catalyst.tedxcmu.org';
 export const SITE_ORIGIN = new URL(SITE_URL).origin;
 export const TWITTER_USER_NAME = 'TEDxCMU';
 export const BRAND_NAME = 'TEDxCMU';
@@ -28,7 +30,7 @@ export const EXPO_DESCRIPTION = 'See the lineup of innovators at the conference.
 export const SITE_DESCRIPTION = 'A free, virtual conference .';
 export const DATE = 'April 10, 2021';
 export const TIME = '2:00pm EST';
-export const SHORT_DATE = 'Apr 10th - '+TIME;
+export const SHORT_DATE = 'Apr 10th - ' + TIME;
 
 export const TWEET_TEXT = META_DESCRIPTION;
 export const COOKIE = 'user-id';
@@ -54,7 +56,7 @@ export const NAVIGATION = [
   {
     name: 'Innovation Expo',
     route: '/expo'
-  },
+  }
 ];
 
 export type TicketGenerationState = 'default' | 'loading';

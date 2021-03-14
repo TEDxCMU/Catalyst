@@ -1,10 +1,12 @@
 .container {
   display: flex;
+  height: 100%;
 }
 
 .overlay {
   position: relative;
-  width: 150%;
+  width: 332px;
+  /* height: 100%; */
 }
 
 .logo {
@@ -18,7 +20,10 @@
 
 .content {
   padding: 25px;
-  width: 100%;
+  width: 507px;
+  /* height: 500px; */
+  min-height: 100%;
+  align-self: center;
 }
 
 .time {
@@ -31,15 +36,16 @@
   padding-top: 0px;
   padding-bottom: 16px;
   font-family: "ivypresto-display";
-  font-size: 36px;
+  font-size: 32px;
   text-transform: uppercase;
-  /* letter-spacing: 0.03em; */
   color: #e5e5e6;
+  font-weight: 400;
+  line-height: 103.5%;
 }
 
 .people {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  /* grid-template-columns: repeat(12, 1fr); */
   grid-row-gap: 16px;
   margin-bottom: 28px;
 }
@@ -47,27 +53,29 @@
 .person {
   display: flex;
   align-items: center;
-  grid-column: span 6;
+  /* grid-column: span 7; */
 }
 
 .avatar {
-  height: 50px;
-  width: 50px;
-  margin-right: 8px;
+  height: 55px;
+  width: 55px;
+  opacity: 0.7;
+  margin-right: 15px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .name {
   margin: 0;
-  font-size: 14px;
+  font-size: 18px;
   color: #828282;
 }
 
 .tag {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #828282;
-  font-family: "rf-lapture";
+  font-family: "jaf-lapture";
 }
 
 .body {
@@ -75,6 +83,10 @@
   font-size: 16px;
   color: #828282;
   line-height: 124.5%;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 124.5%;
+  letter-spacing: 0.01em;
 }
 
 .button {

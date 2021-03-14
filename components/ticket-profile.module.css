@@ -1,27 +1,30 @@
 .profile {
   display: flex;
-  height: 100%;
+  height: 100% !important;
 }
 
 .image {
   width: 30%;
   height: 100%;
   object-fit: cover;
+  padding: 1px;
+  border-radius: calc(var(--space-4x) * var(--size)) 0 0 calc(var(--space-4x) * var(--size));
 }
+
 
 .logo {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: calc(14px * var(--size));
+  left: calc(14px * var(--size));
   height: auto;
-  width: 80px;
+  width: calc(80px * var(--size));
 }
 
 .content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 32px 30px 26px;
+  margin: calc(32px * var(--size)) calc(30px * var(--size)) calc(26px * var(--size));
   width: 100%;
 }
 
@@ -30,23 +33,23 @@
 }
 
 .heading {
-  margin-bottom: 5px;
+  padding-bottom: calc(5px * var(--size));
   font-family: "ivypresto-display";
-  font-size: 28px;
+  font-size: calc(28px * var(--size));
   font-weight: normal;
   line-height: 103.5%;
   text-transform: uppercase;
 }
 
 .subheading {
-  font-size: 16px;
+  font-size: calc(16px * var(--size));
   text-transform: uppercase;
   color: #828282;
 }
 
 .name {
-  font-size: 20px;
-  line-height: 24px;
+  font-size: calc(20px * var(--size));
+  line-height: calc(24px * var(--size));
   text-transform: uppercase;
   color: #E5E5E6;
 }
@@ -57,23 +60,23 @@
 }
 
 .item:last-child {
-  margin-right: 30px;
+  margin-right: calc(30px * var(--size));
 }
 
 .title {
-  font-size: 16px;
-  line-height: 19px;
+  font-size: calc(16px * var(--size));
+  line-height: calc(19px * var(--size));
   color: #828282;
 }
 
 .body {
-  font-size: 16px;
+  font-size: calc(16px * var(--size));
   text-transform: uppercase;
-  line-height: 19px;
+  line-height: calc(19px * var(--size));
   color: #E5E5E6;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .logo {
     width: 40px;
   }
@@ -102,4 +105,4 @@
   .body {
     font-size: 9px;
   }
-}
+} */

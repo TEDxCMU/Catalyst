@@ -18,10 +18,13 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import TicketVisual from './ticket-visual';
 import styles from './ticket-image.module.css';
+import cn from 'classnames';
+import { useEffect } from 'react';
 
 export default function TicketImage() {
 
   const { query } = useRouter();
+
   if (query.ticketNumber) {
     return (
       <div className={styles.background}>
@@ -33,6 +36,10 @@ export default function TicketImage() {
               rel="stylesheet"
             />
           </Head>
+          {/* <div className={styles['ticket-visual-wrapper']}>
+            <div
+              className={cn(styles['ticket-visual'])}
+            > */}
           <TicketVisual
             size={1700 / 650}
             username={query.username ? query.username.toString() : undefined}
@@ -41,10 +48,12 @@ export default function TicketImage() {
               query.name
                 ? query.name?.toString()
                 : query.username
-                ? query.username.toString()
-                : undefined
+                  ? query.username.toString()
+                  : undefined
             }
           />
+          {/* </div>
+          </div> */}
         </div>
       </div>
     );
