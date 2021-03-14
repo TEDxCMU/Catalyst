@@ -50,7 +50,7 @@ export default function Hero() {
   };
 
   const handleTicket = () => {
-    router.push('/ticket');
+    router.push("/ticket");
   };
 
   const handleLogout = async () => {
@@ -60,7 +60,9 @@ export default function Hero() {
 
   const slide = (x) => {
     overlayImageRef.current.style.width = `${x}px`;
-    sliderRef.current.style.left = `${overlayImageRef.current.offsetWidth - (sliderRef.current.offsetWidth / 2)}px`;
+    sliderRef.current.style.left = `${
+      overlayImageRef.current.offsetWidth - sliderRef.current.offsetWidth / 2
+    }px`;
   };
 
   const handleSlideMove = (event) => {
@@ -73,13 +75,13 @@ export default function Hero() {
     if (position < 0) return slide(0);
     if (position > imageWidth.current) return slide(imageWidth.current);
     return slide(position);
-  }
+  };
 
   const handleSlideStart = (event) => {
     event.preventDefault();
     clicked.current = true;
-    window.addEventListener('mousemove', handleSlideMove);
-    window.addEventListener('touchmove', handleSlideMove);
+    window.addEventListener("mousemove", handleSlideMove);
+    window.addEventListener("touchmove", handleSlideMove);
   };
 
   const handleSlideEnd = () => {
@@ -100,52 +102,57 @@ export default function Hero() {
 
       timeline.to(`.${styles.img}`, { opacity: 1, delay: 0 }, 0);
 
-      timeline.to(`.${styles.heading}`, { opacity: 1 }, .4);
+      timeline.to(`.${styles.heading}`, { opacity: 1 }, 0.4);
 
-      timeline.to(`[data-left]`, { opacity: 1 }, .8);
-      timeline.to(`[data-right]`, { opacity: 1 }, .8);
+      timeline.to(`[data-left]`, { opacity: 1 }, 0.8);
+      timeline.to(`[data-right]`, { opacity: 1 }, 0.8);
 
       // Set width of overlay img to 50%
-      timeline.fromTo(overlayImageRef.current,
+      timeline.fromTo(
+        overlayImageRef.current,
         {
           width: 0,
         },
         {
-          width: `${(imageWidth.current * 0.55)}px`,
-          ease: 'power3.inOut',
+          width: `${imageWidth.current * 0.55}px`,
+          ease: "power3.inOut",
           duration: 1.3,
         },
-        .8
+        0.8
       );
+      timeline.from(sliderRef.current, { opacity: 0, duration: 0.5 }, "<");
 
       // Position the slider in the center
-      timeline.fromTo(sliderRef.current,
+      timeline.fromTo(
+        sliderRef.current,
         {
-          left: '-20px',
+          left: "-20px",
         },
         {
-          left: `${(imageWidth.current * 0.55) - (sliderRef.current.offsetWidth / 2)}px`,
-          ease: 'power3.inOut',
+          left: `${
+            imageWidth.current * 0.55 - sliderRef.current.offsetWidth / 2
+          }px`,
+          ease: "power3.inOut",
           duration: 1.3,
         },
-        .8
+        0.8
       );
 
       // Add slider events
-      window.addEventListener('mouseup', handleSlideEnd);
-      sliderRef.current.addEventListener('mousedown', handleSlideStart);
-      sliderRef.current.addEventListener('touchstart', handleSlideStart);
-      window.addEventListener('touchend', handleSlideEnd);
+      window.addEventListener("mouseup", handleSlideEnd);
+      sliderRef.current.addEventListener("mousedown", handleSlideStart);
+      sliderRef.current.addEventListener("touchstart", handleSlideStart);
+      window.addEventListener("touchend", handleSlideEnd);
 
       // Clean up events
       return () => {
-        window.removeEventListener('mouseup', handleSlideEnd);
-        window.removeEventListener('touchend', handleSlideEnd);
-        window.removeEventListener('mousemove', handleSlideMove);
-        window.removeEventListener('touchmove', handleSlideMove);
-      }
+        window.removeEventListener("mouseup", handleSlideEnd);
+        window.removeEventListener("touchend", handleSlideEnd);
+        window.removeEventListener("mousemove", handleSlideMove);
+        window.removeEventListener("touchmove", handleSlideMove);
+      };
     }
-  }, [isMobileOnly])
+  }, [isMobileOnly]);
 
   return (
     <>
@@ -159,7 +166,7 @@ export default function Hero() {
             )}
             <h1 className={cn(styles.heading, styles.stroke)}>
               TEDxCMU 2021: CATALYST
-              {loginStatus === 'loggedIn' ? (
+              {loginStatus === "loggedIn" ? (
                 <div>
                   <button className={styles.btn} onClick={handleTicket}>
                     View Ticket
@@ -179,17 +186,21 @@ export default function Hero() {
                 </div>
               )}
             </h1>
-            <p data-left className={cn(styles.body, styles.stroke)}>
+            <p data-left className={cn(styles.body, styles.strokeLight)}>
               April 4, 2021 10:00AM
             </p>
-            <p data-right className={cn(styles.body, styles.stroke)}>
+            <p data-right className={cn(styles.body, styles.strokeLight)}>
               Online Experience
             </p>
           </div>
         </div>
         <div ref={sliderRef} className={styles.slider}>
           <div className={styles.knob}>
-            <img className={styles.arrows} src="/slider-arrows.svg" alt="Slider Arrow" />
+            <img
+              className={styles.arrows}
+              src="/slider-arrows.svg"
+              alt="Slider Arrow"
+            />
           </div>
         </div>
         <div ref={overlayImageRef} className={cn(styles.slide, styles.overlay)}>
@@ -201,7 +212,7 @@ export default function Hero() {
             )}
             <h1 className={styles.heading}>
               TEDxCMU 2021: CATALYST
-              {loginStatus === 'loggedIn' ? (
+              {loginStatus === "loggedIn" ? (
                 <div>
                   <button className={styles.btn} onClick={handleTicket}>
                     View Ticket
@@ -230,12 +241,12 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      {loginStatus !== 'loggedIn' && (
+      {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
           <SignInForm />
         </Modal>
       )}
-      {loginStatus !== 'loggedIn' && (
+      {loginStatus !== "loggedIn" && (
         <Modal active={activeRegisterModal} setActive={setActiveRegisterModal}>
           <RegisterForm />
         </Modal>
