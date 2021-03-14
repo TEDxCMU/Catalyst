@@ -32,39 +32,55 @@ export default function TalkCard({ talk }) {
 
   useEffect(() => {
     const now = Date.now();
-    setIsTalkLive(isAfter(now, parseISO(talk.startTime)) && isBefore(now, parseISO(talk.endTime)));
-    setStartAndEndTime(`${formatDate(talk.startTime)} – ${formatDate(talk.endTime)}`);
+    setIsTalkLive(
+      isAfter(now, parseISO(talk.startTime)) &&
+        isBefore(now, parseISO(talk.endTime))
+    );
+    setStartAndEndTime(
+      `${formatDate(talk.startTime)} – ${formatDate(talk.endTime)}`
+    );
   }, []);
 
   return (
     <div key={talk.title} className={styles.talk}>
       {<p className={styles.time}>{startAndEndTime || <>&nbsp;</>}</p>}
-      <Link href={talk.speaker ? `/speakers/${talk.speaker.slug}` : "/schedule"}>
+      <Link
+        className={styles["card-container"]}
+        href={
+          talk.speaker
+            ? `/talks/${talk.slug}`
+            : talk.slug === "innovation-expo"
+            ? `/expo`
+            : "/schedule"
+        }
+      >
         <a className={cn(styles.card, { [styles["is-live"]]: isTalkLive })}>
+          {talk.image != null && (
+            <div key={talk.slug} className={styles["avatar-wrapper"]}>
+              <img
+                className={styles.avatar}
+                src={talk.image.url}
+                alt={talk.title}
+                loading="lazy"
+              />
+            </div>
+          )}
           <div className={styles["card-body"]}>
             <h4 title={talk.title} className={styles.title}>
               {talk.title}
             </h4>
             {talk.speaker != null && (
-              <div className={styles.speaker}>
-                <div className={styles["avatar-group"]}>
-                  <div key={talk.speaker.name} className={styles["avatar-wrapper"]}>
-                    <img
-                      className={styles.avatar}
-                      src={talk.speaker.image.url}
-                      alt={talk.speaker.name}
-                      loading="lazy"
-                      width={24}
-                      height={24}
-                    />
-                  </div>
+              <>
+                <div className={styles.speaker}>
+                  <h5 className={styles.name}>
+                    {/* {talk.speaker.length === 1 ? talk.speaker[0].name : `${talk.speaker.length} speakers`} */}
+                    {talk.speaker.name}
+                  </h5>
                 </div>
-                <h5 className={styles.name}>
-                  {/* {talk.speaker.length === 1 ? talk.speaker[0].name : `${talk.speaker.length} speakers`} */}
-                  {talk.speaker.name}
-                </h5>
-              </div>
+                <p className={styles.tagline}>{talk.speaker.tagline}</p>
+              </>
             )}
+            {talk.blurb ? talk.blurb.split(' ').length > 15 ? (<p className="styles.blurb">{talk.blurb.split(' ').slice(0, 15).join(" ")}...</p>) : (<p className="styles.blurb">{talk.blurb}</p>) : <></>}
           </div>
         </a>
       </Link>

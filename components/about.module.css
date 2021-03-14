@@ -1,0 +1,153 @@
+.container {
+  display: flex;
+}
+
+.overlay {
+  position: relative;
+  width: 80%;
+  background-color: #b82d2d !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  width: 50%;
+  object-fit: cover;
+}
+
+.content {
+  padding: 50px 25px;
+  width: 100%;
+  line-height: 1.25;
+}
+
+.content p {
+  margin: 30px 0 40px;
+  font-size: 15px;
+  color: #828282;
+  line-height: 124.5%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.3rem;
+  letter-spacing: 0.01em;
+}
+
+.title {
+  font-family: "ivypresto-display";
+  font-size: 36px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  color: #e5e5e6;
+}
+
+.body {
+  margin: 0;
+  font-size: 16px;
+  color: #828282;
+  line-height: 124.5%;
+}
+
+.buttonsContainer,
+.socials {
+  display: grid;
+  gap: 5%;
+  grid-template-columns: auto auto;
+  justify-items: start;
+  justify-content: start;
+}
+
+.socials {
+  align-items: center;
+  gap: 30%;
+}
+
+.button {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #4f4f4f;
+  padding: 21px 60px;
+  color: #828282;
+  border-radius: 100px;
+  font-family: "neue-haas-grotesk-text";
+  font-size: 16px;
+  outline: none;
+  opacity: 0.9;
+  cursor: pointer;
+  -webkit-text-stroke-width: 0;
+  -webkit-text-stroke-color: transparent;
+  transition: color 0.2s, border 0.2s;
+}
+
+.button:hover {
+  color: white;
+  border: 1px solid white;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 40px 25px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .socials {
+    width: 15%;
+    margin-top: 5%;
+    margin-top: 30px;
+  }
+
+  .overlay {
+    /* position: static;
+    width: 100%;
+    height: 30vh; */
+    display: none;
+  }
+
+  .image {
+    position: static;
+    width: 100%;
+  }
+
+  .title {
+    padding-top: 0;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+
+  .logo {
+    position: static;
+  }
+
+  .person {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 471px) {
+  .button {
+    width: 100%;
+  }
+
+  .socials {
+    width: 25%;
+  }
+
+  .hiddenHeader {
+    display: none;
+  }
+}

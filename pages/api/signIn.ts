@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
+import { encrypt } from '@lib/hash';
 import { checkUser, getCurrentUser, signInUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -11,7 +12,11 @@ type ErrorResponse = {
   };
 };
 
-export default async function signIn( req: NextApiRequest, res: NextApiResponse) 
+interface Request extends NextApiRequest {
+  netlifyFunctionParams: any;
+}
+
+export default async function signIn( req: Request, res: NextApiResponse) 
 {
   if (req.method !== 'POST') {
     return res.status(501).json({
@@ -22,7 +27,19 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
     });
   }
 
-  const email: string = ((req.body.email as string) || '');
+  // Get event and context from Netlify Function
+  const { context } = req.netlifyFunctionParams || {};
+
+  // If we are currently in a Netlify function (deployed on netlify.app or
+  // locally with netlify dev), do not wait for empty event loop.
+  // See: https://stackoverflow.com/a/39215697/6451879
+  // Skip during next dev.
+  if (context) {
+    console.log("Setting callbackWaitsForEmptyEventLoop: false");
+    context.callbackWaitsForEmptyEventLoop = false;
+  }
+
+  const email: string = ((req.body.email as string) || '').trim().toLowerCase();
   const password: string = ((req.body.password as string) || '');
   let user;
   let id;
@@ -75,13 +92,22 @@ export default async function signIn( req: NextApiRequest, res: NextApiResponse)
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(COOKIE, id, {
-      httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/api',
-      expires: new Date(Date.now() + ms('1 day'))
-    })
+    [
+      cookie.serialize("user_id", encrypt(email), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      }),
+      cookie.serialize("session_id", encrypt(password), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      })
+    ]
   );
 
   return res.status(200).json({ signInSuccess: true });

@@ -21,45 +21,43 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: black;
+  background-color: rgba(10, 10, 11, 0);
+  backdrop-filter: blur(10px) opacity(0);
   display: flex;
   align-items: center;
   justify-content: center;
+  /* transition: all 1s; */
 }
 
 .nav {
-  margin: auto;
+  position: fixed;
+  top: calc(72px + 25px);
+  right: 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .nav-item {
-  font-size: var(--space-8x);
-  letter-spacing: -0.05em;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: var(--space-4x);
-  line-height: 1.5;
-  width: fit-content;
-}
-
-.nav-item:focus {
-  outline: 1px dotted #fff;
+  margin-bottom: 5px;
+  font-size: 32px;
+  line-height: 37px;
+  text-transform: uppercase;
+  color: #e5e5e6;
+  opacity: 0;
+  outline: none;
 }
 
 .nav-active {
-  color: #fff;
-  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom transparent no-repeat;
-  background-size: 100% 2px;
+  opacity: 0;
 }
 
 .button {
   margin: 0;
-  margin-right: var(--space-4x);
   background: none;
   border: none;
   cursor: pointer;
+  outline: none;
 }
 
 .icon {

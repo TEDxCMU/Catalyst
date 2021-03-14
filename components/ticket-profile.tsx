@@ -14,62 +14,51 @@
  * limitations under the License.
  */
 
-import { TicketGenerationState } from '@lib/constants';
-import GithubIcon from '@components/icons/icon-github';
+import { useRef, useEffect } from 'react';
 import cn from 'classnames';
-import IconAvatar from './icons/icon-avatar';
+import { TicketGenerationState, DATE, TIME } from '@lib/constants';
 import styles from './ticket-profile.module.css';
 
 type Props = {
   name?: string;
-  username?: string;
+  ticketNumber?: number;
   size?: number;
   ticketGenerationState: TicketGenerationState;
 };
 
-export default function TicketProfile({ name, username, size = 1, ticketGenerationState }: Props) {
+export default function TicketProfile({ name, ticketNumber, ticketGenerationState }: Props) {
+  const imageIndex = useRef(ticketNumber ? ticketNumber % 6 + 1 : 1);
+  const headerColors = ['#328DCD', '#659F56', '#CA6FD9', '#F44141', '#FFE3E3', '#E3AD21'];
+
+  useEffect(() => {
+    if (imageIndex) {
+      document.getElementById('conferenceHead')!.style.color = headerColors[imageIndex.current - 1];
+    }
+  }, [imageIndex]);
+
   return (
     <div className={styles.profile}>
-      {/* <span
-        className={cn(styles.skeleton, styles.wrapper, styles.inline, styles.rounded, {
-          [styles.show]: ticketGenerationState === 'loading'
-        })}
-      >
-        {username ? (
-          <img src={`https://github.com/${username}.png`} alt={username} className={styles.image} />
-        ) : (
-          <span className={cn(styles.image, styles['empty-icon'])}>
-            <IconAvatar />
-          </span>
-        )}
-      </span> */}
-      <div className={styles.text}>
-        <p
-          className={cn(styles.name, {
-            [styles['name-blank']]: !username
-          })}
-        >
-          <span
-            className={cn(styles.skeleton, styles.wrapper, {
-              [styles.show]: ticketGenerationState === 'loading'
-            })}
-          >
-            {name || username || 'Your Name'}
-          </span>
+      <img className={styles.image} src={`/tickets/ticket-${imageIndex.current}.jpg`} width="2976" height="1674" />
+      <img className={styles.logo} src="/logo.svg" alt="TEDxCMU Logo" width="2976" height="1674" />
+      <div className={styles.content}>
+        <div>
+          <h3 className={styles.heading} id="conferenceHead">CATALYST CONFERENCE</h3>
+          <p className={styles.subheading}>ONLINE EXPERIENCE</p>
+        </div>
+        <p className={styles.name}>
+          {name || 'Your Name'}
         </p>
-        <p className={styles.username}>
-          <span
-            className={cn(styles.skeleton, styles.wrapper, {
-              [styles.show]: ticketGenerationState === 'loading'
-            })}
-          >
-            {/* <span className={styles.githubIcon}>
-              <GithubIcon color="var(--secondary-color)" size={20 * size} />
-            </span> */}
-            {username || <>username</>}
-          </span>
-        </p>
+        <div className={styles.details}>
+          <div className={styles.item}>
+            <p className={styles.title}>Date:</p>
+            <p className={styles.body}>{DATE.toUpperCase()}</p>
+          </div>
+          <div className={styles.item}>
+            <p className={styles.title}>Ticket Number</p>
+            <p className={styles.body}>#{"00000000".substring(0, 8 - (ticketNumber!.toString().length)) + ticketNumber!.toString()}</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </div >
   );
 }

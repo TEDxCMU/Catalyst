@@ -2,14 +2,14 @@ import Link from 'next/link';
 import cn from 'classnames';
 import styles from './sign-in-button.module.css';
 
-export default function SignInButton(){
+export default function SignInButton() {
     return (
-        <Link href="/sign-in">
-            <button
-                className={cn(styles.signin)}
-            >
-                Sign In
-            </button>
-        </Link>
+        <div className={styles.buttonContainer}>
+            <Link href="/">
+                <button className={cn(styles.signin, styles.button)}>
+                    Register Now
+                </button>
+            </Link>
+        </div>
     );
 }

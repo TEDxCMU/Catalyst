@@ -20,6 +20,7 @@ import validator from 'validator';
 import { COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
+import { encrypt } from '@lib/hash';
 import { incrementTicketCounter, registerUser } from '@lib/firestore-api';
 
 type ErrorResponse = {
@@ -29,8 +30,12 @@ type ErrorResponse = {
   };
 };
 
+interface Request extends NextApiRequest {
+  netlifyFunctionParams: any;
+}
+
 export default async function register(
-  req: NextApiRequest,
+  req: Request,
   res: NextApiResponse<ConfUser | ErrorResponse>
 ) {
   if (req.method !== 'POST') {
@@ -40,6 +45,18 @@ export default async function register(
         message: 'This endpoint only responds to POST'
       }
     });
+  }
+
+  // Get event and context from Netlify Function
+  const { context } = req.netlifyFunctionParams || {};
+
+  // If we are currently in a Netlify function (deployed on netlify.app or
+  // locally with netlify dev), do not wait for empty event loop.
+  // See: https://stackoverflow.com/a/39215697/6451879
+  // Skip during next dev.
+  if (context) {
+    console.log("Setting callbackWaitsForEmptyEventLoop: false");
+    context.callbackWaitsForEmptyEventLoop = false;
   }
 
   const email: string = ((req.body.email as string) || '').trim().toLowerCase();
@@ -110,14 +127,24 @@ export default async function register(
   // Save `key` in a httpOnly cookie
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(COOKIE, id, {
-      httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/api',
-      expires: new Date(Date.now() + ms('1 day'))
-    })
+    [
+      cookie.serialize("user_id", encrypt(email), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      }),
+      cookie.serialize("session_id", encrypt(password), {
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/api',
+        expires: new Date(Date.now() + ms('1 day'))
+      })
+    ]
   );
+
 
   return res.status(statusCode).json({
     id,

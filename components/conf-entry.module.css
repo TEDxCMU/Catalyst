@@ -20,24 +20,35 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  background: url('/bg.png') no-repeat center;
   background-size: cover;
   padding: 0 var(--space-4x);
 }
 
 .hero {
-  font-size: 24px;
+  font-family: "ivypresto-display";
+  text-transform: uppercase;
+  font-size: 32px;
   line-height: 1.15;
-  letter-spacing: -0.05em;
-  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-weight: 400;
   text-align: center;
   margin-bottom: var(--space-4x);
   max-width: 700px;
 }
 
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--space-2x);
+  border: 1px solid #333333;
+  padding: var(--space-16x) var(--space-12x);
+}
+
 .description {
   font-weight: 400;
-  font-size: var(--text-md);
+  font-size: 16px;
   line-height: 1.4;
   text-align: center;
   color: var(--secondary-color);
@@ -48,11 +59,10 @@
   .hero {
     font-size: 48px;
     line-height: 1;
-    font-weight: 800;
   }
 
   .description {
-    font-size: 20px;
+    font-size: 16px;
     max-width: 531px;
   }
 }
@@ -74,7 +84,6 @@
   padding-right: 15px;
   font-size: var(--text-md);
   color: #fff;
-  font-family: inherit;
 }
 
 @media (min-width: 768px) {
@@ -134,7 +143,6 @@
   border: 1px solid #fff;
   background: #fff;
   cursor: pointer;
-  font-family: inherit;
   font-size: var(--text-md);
   letter-spacing: -0.02em;
   outline: none;

@@ -15,23 +15,18 @@
  */
 
 import cn from 'classnames';
-import { useCallback, useState } from 'react';
 import styleUtils from './utils.module.css';
 import styles from './conf-entry.module.css';
-import LoadingDots from './loading-dots';
-import { register } from '@lib/user-api';
-import { SITE_DESCRIPTION } from '@lib/constants';
-import useEmailQueryParam from '@lib/hooks/use-email-query-param';
 import SignInButton from './sign-in-button';
 
-
 export default function ConfEntry() {
-  
   return (
     <div className={cn(styles.container, styleUtils.appear, styleUtils['appear-first'])}>
-      <h1 className={cn(styles.hero)}>Join the conference.</h1>
-      <h2 className={cn(styles.description)}>{SITE_DESCRIPTION}</h2>
-      <SignInButton />
+      <div className={styles.heroContainer}>
+        <h1 className={cn(styles.hero)}>Join the conference.</h1>
+        <h2 className={cn(styles.description)}>To stream the conference talks live, register at the link below. We look forward to seeing you here!</h2>
+        <SignInButton />
+      </div>
     </div>
   );
 }

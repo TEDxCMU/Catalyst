@@ -15,38 +15,58 @@
  */
 
 .card {
+  color: inherit;
+  display: block;
   border-radius: var(--space-2x);
-  background: #111111;
-  display: flex;
-  flex-direction: column;
-  background-clip: content-box, border-box;
-  background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
+  border: 0.7px solid #333333;
   padding: 1px;
-  margin-bottom: 30px;
-  cursor: pointer;
+  margin-bottom: 24px;
+  transition: border 0.3s;
 }
 
 .card:hover,
 .card:focus {
-  outline: none;
-  background-image: linear-gradient(#111111, #111111),
-    linear-gradient(to right, var(--brand), var(--brand));
+  border: 0.7px solid white;
 }
 
 .grid {
-  width: 100%;
-  margin: 50px auto;
+  margin: 40px auto;
   padding: 0 24px;
+  width: 100%;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: repeat(5, 18.8%);
+  gap: 1.5%;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@media (min-width: 768px) {
-  .card {
-    margin-bottom: 0;
-  }
+@media (max-width: 1440px) {
   .grid {
-    display: grid;
-    grid-gap: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 23.875%);
+  }
+}
+
+@media (max-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(3, 32.33%);
+    gap: 1.5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 49.25%);
+    gap: 1.5%;
+  }
+}
+
+@media (max-width: 471px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -60,28 +80,39 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 .imageWrapper {
-  width: 100%;
-  height: 100%;
+  height: 207px;
   position: relative;
-  display: flex;
 }
 
 .image {
-  width: 100%;
   height: 100%;
+  width: 100%;
+  opacity: 0.8;
   object-fit: cover;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 
+@media (max-width: 471px) {
+  .imageWrapper > div {
+    width: 100% !important;
+  }
+  .card {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
 .name {
-  font-weight: bold;
+  font-family: "ivypresto-display";
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   color: #f1f1f1;
   font-size: 24px;
+  font-weight: 400;
   margin: 0;
   line-height: 1.4;
 }
@@ -90,4 +121,5 @@
   margin-top: var(--space);
   margin-bottom: 0;
   line-height: 1.4;
+  font-size: 15px;
 }

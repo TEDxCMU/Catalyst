@@ -1,52 +1,36 @@
 .form {
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
+  width: 100%;
+}
+
+.row {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 32px;
+  font-family: "ivypresto-display";
+  font-size: 32px;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .input {
-  border: none;
-  width: 100%;
-  background: transparent;
-  outline: none;
   height: 56px;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-size: var(--text-md);
+  width: 100%;
+  font-size: 16px;
+  background-color: transparent;
   color: #fff;
-  font-family: inherit;
-}
-
-@media (min-width: 768px) {
-  .input {
-    width: calc(100% - var(--space-32x));
-    padding-right: 0;
-  }
+  border: none;
+  border-bottom: 1px solid #4f4f4f;
+  outline: none;
 }
 
 .input::placeholder {
   color: var(--secondary-color);
-}
-
-.input-label {
-  background-color: var(--gray);
-  border-radius: var(--space-2x);
-  margin-top: var(--space-4x);
-  border: 1px solid transparent;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-  display: block;
-}
-
-.input-label.focused {
-  background-color: #33373c;
-}
-
-.input-label.error {
-  background: red;
-}
-
-.input-label.success {
-  background: #0070f3;
 }
 
 .input-text {
@@ -55,108 +39,79 @@
   width: 100%;
 }
 
-.form-row {
+.passWrapper {
   position: relative;
-  max-width: 400px;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (min-width: 768px) {
-  .form-row {
-    max-width: 480px;
-  }
+.eye:hover {
+  color: white;
+  cursor: pointer;
 }
 
 .submit {
   width: 100%;
-  height: 56px;
-  margin-top: var(--space-4x);
-  border-radius: var(--space-2x);
-  border: 1px solid var(--brand);
-  background: var(--brand);
+  height: 59px;
+  margin-top: 45px;
+  border-radius: 100px;
+  color: #828282;
+  border: 1px solid #4f4f4f;
+  background: none;
+  transition: color 0.2s, border 0.2s;
   cursor: pointer;
-  font-family: inherit;
-  font-size: var(--text-md);
-  letter-spacing: -0.02em;
-  outline: none;
+  font-size: 16px;
   font-weight: 500;
+  text-transform: uppercase;
+}
+
+.submit:hover {
   color: white;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.submit.generate-with-github {
-  display: flex;
-  margin-bottom: 12px;
-  position: relative;
-}
-
-.submit.loading {
-  cursor: default;
-}
-
-.submit.default:hover,
-.submit.default:focus {
-  background: black;
-  color: var(--brand);
-}
-
-.submit.default.generate-with-github:hover path,
-.submit.default.generate-with-github:focus path {
-  fill: var(--brand);
-}
-
-.submit.error:hover,
-.submit.error:focus {
-  background: #000;
-  color: #fff;
+  border: 1px solid white;
 }
 
 .submit.default:disabled,
 .submit.default:disabled:hover,
 .submit.default:disabled:focus {
-  cursor: default;
-  background: var(--gray);
-  border-color: var(--gray);
-  color: #fff;
-  justify-content: flex-start;
-  overflow: hidden;
-}
-
-.submit.default.generate-with-github:disabled path,
-.submit.default.generate-with-github:disabled:hover path,
-.submit.default.generate-with-github:disabled:focus path {
-  fill: #fff;
-}
-
-.submit.default.generate-with-github.not-allowed:disabled {
   cursor: not-allowed;
+  background-color: rgba(#b82d2d, 0.1);
+}
+
+.blurb,
+.pwContainer {
+  text-align: center;
+  color: #4f4f4f;
+  margin: 9px auto;
+}
+
+.pwContainer {
+  margin-top: 17px;
+}
+
+.forgotPW {
+  color: #4f4f4f;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.blurb {
+  font-size: 13px;
+  width: 60%;
+}
+
+.forgotPW:hover {
+  cursor: pointer;
 }
 
 @media (min-width: 1200px) {
-  .form-row {
+  .row {
     margin: 0;
   }
+}
 
-  .submit.generate-with-github {
-    width: 240px;
+@media (min-width: 768px) {
+  .row {
+    max-width: 480px;
   }
-}
-
-.regText {
-  width: 235px; /* Can be in percentage also. */
-  height: auto;
-  margin: 0 auto;
-  padding: 20px 0;
-  position: relative;
-}
-
-.regLink {
-  color: var(--brand);
-}
-
-.regLink:hover {
-  color: var(--secondary-color);
 }

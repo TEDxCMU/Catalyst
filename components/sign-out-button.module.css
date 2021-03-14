@@ -12,7 +12,6 @@
   border: 1px solid var(--brand);
   background: var(--brand);
   cursor: pointer;
-  font-family: inherit;
   font-size: var(--text-md);
   letter-spacing: -0.02em;
   outline: none;
@@ -40,11 +39,6 @@
   color: var(--brand);
 }
 
-.submit.default.generate-with-github:hover path,
-.submit.default.generate-with-github:focus path {
-  fill: var(--brand);
-}
-
 .submit.error:hover,
 .submit.error:focus {
   background: #000;
@@ -60,14 +54,4 @@
   color: #fff;
   justify-content: flex-start;
   overflow: hidden;
-}
-
-.submit.default.generate-with-github:disabled path,
-.submit.default.generate-with-github:disabled:hover path,
-.submit.default.generate-with-github:disabled:focus path {
-  fill: #fff;
-}
-
-.submit.default.generate-with-github.not-allowed:disabled {
-  cursor: not-allowed;
 }

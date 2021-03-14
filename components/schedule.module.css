@@ -30,10 +30,9 @@
 
 .row {
   display: flex;
+  margin: 0;
   flex-direction: column;
-  margin: 0 24px;
-  padding: var(--space-8x) 0 0;
-  border-bottom: 1px solid var(--accents-7);
+  padding: 0 var(--space-8x) 24px 24px;
   width: 100%;
 }
 
@@ -57,20 +56,20 @@
   margin-top: 40px;
 }
 
-.talks > div {
+.talkContainer {
+  width: 100%;
   margin-right: 24px;
 }
 
-@media (min-width: 500px) {
-  .container {
-    border-top: 1px solid var(--accents-7);
-    margin-top: var(--space-4x);
-  }
+.talkContainer:last-child {
+  padding-right: 60px;
+}
 
+@media (min-width: 500px) {
   .row {
-    margin: 0 var(--space-8x) 0 0;
+    margin: 0 var(--space-2x) 0 0;
     flex-direction: row;
-    padding: var(--space-8x);
+    padding: 0 var(--space-8x);
   }
 
   .talks {
@@ -84,5 +83,21 @@
     left: 0;
     padding-left: var(--space-8x);
     z-index: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .talk-card {
+    margin: none;
+  }
+  .talks {
+    flex-direction: column;
+  }
+
+  .talkContainer {
+    margin-right: 0;
+  }
+  .talkContainer:last-child {
+    padding-right: 0px;
   }
 }

@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-import { useRef } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import cn from 'classnames';
-import { NAVIGATION } from '@lib/constants';
-import { useOverlayTriggerState } from '@react-stately/overlays';
-import { useOverlay, usePreventScroll, useModal, OverlayContainer } from '@react-aria/overlays';
-import { useDialog } from '@react-aria/dialog';
-import { FocusScope } from '@react-aria/focus';
-import { useButton } from '@react-aria/button';
-import styles from './mobile-menu.module.css';
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import cn from "classnames";
+import { NAVIGATION } from "@lib/constants";
+import { useOverlayTriggerState } from "@react-stately/overlays";
+import {
+  useOverlay,
+  usePreventScroll,
+  useModal,
+  OverlayContainer,
+} from "@react-aria/overlays";
+import { useDialog } from "@react-aria/dialog";
+import { FocusScope } from "@react-aria/focus";
+import { useButton } from "@react-aria/button";
+import styles from "./mobile-menu.module.css";
+import gsap from "gsap";
+import About from "./about";
 
-function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]) {
+function ModalDialog(
+  props: Parameters<typeof useOverlay>[0] & Parameters<typeof useDialog>[0]
+) {
   const router = useRouter();
   const activeRoute = router.asPath;
 
@@ -35,24 +44,51 @@ function ModalDialog(props: Parameters<typeof useOverlay>[0] & Parameters<typeof
   const { overlayProps } = useOverlay(props, ref);
   const { dialogProps } = useDialog(props, ref);
 
+  const [aboutActive, setAboutActive] = useState(false);
+
+  const toggleAbout = () => { setAboutActive(true) }
+
   usePreventScroll();
 
+  useEffect(() => {
+    if (props.isOpen) {
+      const timeline = gsap.timeline();
+      timeline.to(`.${styles["nav-overlay"]}`, {
+        backdropFilter: "blur(10px) opacity(1)",
+        backgroundColor: "rgba(10, 10, 11, 0.5)",
+        duration: 0.1,
+      });
+      timeline.to(`.${styles["nav-item"]}`, { opacity: 0.5, stagger: 0.06 }, 0);
+      timeline.to(`.${styles["nav-active"]}`, { opacity: 1 }, "+=0");
+    }
+  }, [props.isOpen]);
+
   return (
-    <div className={styles['nav-overlay']}>
+    <div className={styles["nav-overlay"]}>
       <FocusScope contain restoreFocus autoFocus>
-        <nav className={styles.nav} {...overlayProps} {...dialogProps} {...modalProps} ref={ref}>
+        <nav
+          className={styles.nav}
+          {...overlayProps}
+          {...dialogProps}
+          {...modalProps}
+          ref={ref}
+        >
           {NAVIGATION.map(({ name, route }) => (
             <Link key={name} href={route}>
               <a
-                className={cn(styles['nav-item'], {
-                  [styles['nav-active']]: activeRoute.startsWith(route)
+                className={cn(styles["nav-item"], {
+                  [styles["nav-active"]]: activeRoute === route,
                 })}
               >
                 {name}
               </a>
             </Link>
           ))}
+          <a className={cn(styles['nav-item'], { [styles['nav-active']]: aboutActive })} onClick={toggleAbout} >
+            ABOUT
+          </a>
         </nav>
+        <About showAbout={aboutActive} setShowAbout={setAboutActive} />
       </FocusScope>
     </div>
   );
@@ -63,7 +99,7 @@ export default function Overlay() {
   const ref = useRef<HTMLButtonElement | null>(null);
   const { buttonProps } = useButton(
     {
-      onPress: () => (state.isOpen ? state.close() : state.open())
+      onPress: () => (state.isOpen ? state.close() : state.open()),
     },
     ref
   );

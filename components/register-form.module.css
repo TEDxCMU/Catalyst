@@ -1,0 +1,99 @@
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 32px;
+  font-family: "ivypresto-display";
+  font-size: 32px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.input {
+  height: 56px;
+  width: 100%;
+  font-size: 16px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #4f4f4f;
+  outline: none;
+}
+
+.passWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eye:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.input::placeholder {
+  color: var(--secondary-color);
+}
+
+.input-text {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.submit {
+  width: 100%;
+  height: 59px;
+  margin-top: 45px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 16px;
+  border: 1px solid #4f4f4f;
+  font-weight: 500;
+  background: none;
+  color: #828282;
+  transition: color 0.2s, border 0.2s;
+  text-transform: uppercase;
+}
+
+.submit:hover {
+  color: white;
+  border: 1px solid white;
+}
+
+.submit.default:disabled,
+.submit.default:disabled:hover,
+.submit.default:disabled:focus {
+  cursor: not-allowed;
+  background-color: rgba(#b82d2d, 0.1);
+}
+
+.blurb {
+  text-align: center;
+  color: #4f4f4f;
+  margin: auto;
+  margin-top: 17px;
+  font-size: 13px;
+  width: 60%;
+}
+
+@media (min-width: 1200px) {
+  .row {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .row {
+    max-width: 480px;
+  }
+}
