@@ -37,6 +37,8 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
   const router = useRouter();
   const activeRoute = router.asPath;
   const { loginStatus } = useLoginStatus();
+  const [lastPath, setLastPath] = useState('/');
+  
 
   const [aboutActive, setAboutActive] = useState(false);
 
@@ -45,6 +47,14 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
     router.reload();
   };
 
+  useEffect(() => {
+    setLastPath(window.localStorage.getItem('lastPath') || '/')
+  }, [])
+
+  // Check router path + last path for transitions to apply only on desired routes
+  const checkPath = () => {
+    return router.pathname !== "/" && (router.pathname.match(/\//g) || []).length < 2 && (lastPath.match(/\//g) || []).length < 2;
+  }
   const toggleAbout = () => { setAboutActive(true) }
 
   return (
@@ -79,7 +89,7 @@ export default function Layout({ children, className, hideNav, layoutStyles }: P
             )}
           </header>
         )}
-        <div className={styles.page}>
+        <div className={cn(styles.page, {[styles.transition]: checkPath()})}>
           <main className={styles.main} style={layoutStyles}>
             <div className={cn(styles.full, className)}>{children}</div>
             <About showAbout={aboutActive} setShowAbout={setAboutActive} />
