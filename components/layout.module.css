@@ -69,10 +69,6 @@
   align-items: center;
 }
 
-.logoDisable {
-  display: none;
-}
-
 .image {
   width: 91px;
 }
@@ -150,6 +146,10 @@
   .header {
     position: fixed;
     width: 100%;
+  }
+
+  .logoDisable {
+    display: none;
   }
 }
 
