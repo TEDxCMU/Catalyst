@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef, useState, Suspense, lazy } from 'react';
-import { useRouter } from 'next/router';
-import cn from 'classnames';
-import { isMobileOnly } from 'react-device-detect';
-import gsap from 'gsap';
-import styles from './hero.module.css';
-import Modal from '@components/modal';
-import SignInForm from '@components/sign-in-form';
-import RegisterForm from '@components/register-form';
-import useLoginStatus from '@lib/hooks/use-login-status';
-import { signOut } from '@lib/user-api';
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
+import { useRouter } from "next/router";
+import cn from "classnames";
+import { isMobileOnly } from "react-device-detect";
+import gsap from "gsap";
+import styles from "./hero.module.css";
+import Modal from "@components/modal";
+import SignInForm from "@components/sign-in-form";
+import RegisterForm from "@components/register-form";
+import useLoginStatus from "@lib/hooks/use-login-status";
+import { signOut } from "@lib/user-api";
+import { DATE, TIME } from "@lib/constants";
 
-const ThreeCanvas = lazy(() => import('./canvas'));
+const ThreeCanvas = lazy(() => import("./canvas"));
 
 export default function Hero() {
   const router = useRouter();
@@ -98,7 +99,12 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (mounted && overlayImageRef?.current && sliderRef?.current && !isMobileOnly) {
+    if (
+      mounted &&
+      overlayImageRef?.current &&
+      sliderRef?.current &&
+      !isMobileOnly
+    ) {
       // Get overlay img dimensions
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
@@ -200,7 +206,8 @@ export default function Hero() {
               )}
             </h1>
             <p data-left className={cn(styles.body, styles.strokeLight)}>
-              April 4, 2021 10:00AM
+              {DATE.slice(0, 9)} {TIME}
+              {/* April 10, 2021 10:00AM */}
             </p>
             <p data-right className={cn(styles.body, styles.strokeLight)}>
               Online Experience
@@ -252,7 +259,8 @@ export default function Hero() {
               )}
             </h1>
             <p data-left className={styles.body}>
-              April 4, 2021 10:00AM
+              {DATE.slice(0, 9)} {TIME}
+              {/* April 10, 2021 10:00AM */}
             </p>
             <p data-right className={styles.body}>
               Online Experience

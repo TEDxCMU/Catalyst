@@ -57,11 +57,11 @@
 .header a {
   opacity: 1;
   transition: 0.1s;
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .header a:hover {
-  opacity: 0.5;
+  opacity: white;
 }
 
 .logo {
@@ -82,7 +82,6 @@
   text-transform: uppercase;
   padding: var(--space-4x);
   font-size: 14px;
-  color: #fff;
   font-weight: 400;
   height: 100%;
   display: inline-flex;
@@ -111,12 +110,9 @@
   cursor: pointer;
 }
 
-/* .active {
-  color: #fff;
-  background: linear-gradient(90deg, var(--brand), var(--brand)) left bottom
-    transparent no-repeat;
-  background-size: 100% 1px;
-} */
+.active {
+  color: #fff !important;
+}
 
 @media screen and (min-width: 1032px) {
   .tabs {
@@ -139,4 +135,3 @@
     display: none;
   }
 }
-

@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
-import cn from 'classnames';
-import useConfData from '@lib/hooks/use-conf-data';
-import { useRouter } from 'next/router';
-import FormError from '@lib/form-error';
-import LoadingDots from './loading-dots';
-import styles from './register-form.module.css';
-import useEmailQueryParam from '@lib/hooks/use-email-query-param';
-import { register } from '@lib/user-api';
+import { useState } from "react";
+import cn from "classnames";
+import useConfData from "@lib/hooks/use-conf-data";
+import { useRouter } from "next/router";
+import FormError from "@lib/form-error";
+import LoadingDots from "./loading-dots";
+import styles from "./register-form.module.css";
+import useEmailQueryParam from "@lib/hooks/use-email-query-param";
+import { register } from "@lib/user-api";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-const eye = <FontAwesomeIcon icon={faEye} color={'#828282'} />;
+const eye = <FontAwesomeIcon icon={faEye} color={"#828282"} />;
 
-type FormState = 'default' | 'loading' | 'error';
+type FormState = "default" | "loading" | "error";
 
 type Props = {
   sharePage?: boolean;
 };
 
 export default function Form({ sharePage }: Props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [focused, setFocused] = useState(false);
-  const [formState, setFormState] = useState<FormState>('default');
+  const [formState, setFormState] = useState<FormState>("default");
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
@@ -49,12 +49,12 @@ export default function Form({ sharePage }: Props) {
   };
   const { setPageState, setUserData } = useConfData();
   const router = useRouter();
-  useEmailQueryParam('email', setEmail);
+  useEmailQueryParam("email", setEmail);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (formState === 'default') {
-      setFormState('loading');
+    if (formState === "default") {
+      setFormState("loading");
       try {
         const response = await register(email, password, firstName, lastName);
         if (!response.ok) {
@@ -67,42 +67,53 @@ export default function Form({ sharePage }: Props) {
           email: data.email,
           username: data.username,
           ticketNumber: data.ticketNumber,
-          name: data.name
+          name: data.name,
         };
 
         if (sharePage) {
-          const queryString = Object.keys(params).map((key) => {
-            return `${encodeURIComponent(key)}=${encodeURIComponent(params[key as keyof typeof params] || '')}`
-          }).join('&');
-          router.replace(`/?${queryString}`, '/');
+          const queryString = Object.keys(params)
+            .map((key) => {
+              return `${encodeURIComponent(key)}=${encodeURIComponent(
+                params[key as keyof typeof params] || ""
+              )}`;
+            })
+            .join("&");
+          router.replace(`/?${queryString}`, "/");
         } else {
           setUserData(params);
-          setPageState('ticket');
+          setPageState("ticket");
         }
       } catch (error) {
-        let message = 'Error! Please try again.';
+        let message = "Error! Please try again.";
         if (error instanceof FormError) {
           const { res } = error;
-          const data = res.headers.get('Content-Type')?.includes('application/json') ? await res.json() : null;
+          const data = res.headers
+            .get("Content-Type")
+            ?.includes("application/json")
+            ? await res.json()
+            : null;
 
-          if (data?.error?.code === 'bad_email') {
-            message = 'Please enter a valid email';
-          } else if (data?.error?.code === 'auth_err') {
-            message = data.error.message
-          } else if (data?.error?.code === 'ticket_err' || data?.error?.code === 'user_err') {
-            message = 'Our services are down. Please try again later.';
+          if (data?.error?.code === "bad_email") {
+            message = "Please enter a valid email";
+          } else if (data?.error?.code === "auth_err") {
+            message = data.error.message;
+          } else if (
+            data?.error?.code === "ticket_err" ||
+            data?.error?.code === "user_err"
+          ) {
+            message = "Our services are down. Please try again later.";
           }
         }
 
         setErrorMsg(message);
-        setFormState('error');
+        setFormState("error");
       }
     } else {
-      setFormState('default');
+      setFormState("default");
     }
-  }
+  };
 
-  if (formState === 'error') {
+  if (formState === "error") {
     return (
       <div className={styles.form}>
         <div className={styles.row}>
@@ -111,13 +122,13 @@ export default function Form({ sharePage }: Props) {
           <button
             className={styles.submit}
             type="button"
-            onClick={() => setFormState('default')}
+            onClick={() => setFormState("default")}
           >
             Try Again
-            </button>
+          </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -129,7 +140,7 @@ export default function Form({ sharePage }: Props) {
             className={styles.input}
             type="text"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             placeholder="First Name"
             required
           />
@@ -137,7 +148,7 @@ export default function Form({ sharePage }: Props) {
             className={styles.input}
             type="text"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             placeholder="Last Name"
             required
           />
@@ -145,7 +156,7 @@ export default function Form({ sharePage }: Props) {
             className={styles.input}
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
           />
@@ -154,22 +165,26 @@ export default function Form({ sharePage }: Props) {
               className={styles.input}
               type={passwordShown ? "text" : "password"}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password (must be at least 6 chars.)"
               required
             />
-            <i onClick={togglePasswordVisiblity} className="eye">{eye}</i>
+            <i onClick={togglePasswordVisiblity} className="eye">
+              {eye}
+            </i>
           </div>
           <button
             type="submit"
             className={cn(styles.submit, styles[formState])}
-            disabled={formState === 'loading'}
+            disabled={formState === "loading"}
           >
-            {formState === 'loading' ? <LoadingDots size={4} /> : <>Register</>}
+            {formState === "loading" ? <LoadingDots size={4} /> : <>Register</>}
           </button>
         </div>
       </form>
-      <p className={styles.blurb}>Having trouble registering? Email us at tedxcmuinnovation@gmail.com.</p>
+      <p className={styles.blurb}>
+        Having trouble registering? Email us tedxcmuinnovation@gmail.com.
+      </p>
     </div>
-  )
+  );
 }

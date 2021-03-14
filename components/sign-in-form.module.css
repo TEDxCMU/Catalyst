@@ -24,7 +24,7 @@
   background-color: transparent;
   color: #fff;
   border: none;
-  border-bottom: 1px solid #4F4F4F;
+  border-bottom: 1px solid #4f4f4f;
   outline: none;
 }
 
@@ -55,26 +55,32 @@
   height: 59px;
   margin-top: 45px;
   border-radius: 100px;
-  background-color: #B82D2D;
+  color: #828282;
+  border: 1px solid #4f4f4f;
+  background: none;
+  transition: color 0.2s, border 0.2s;
   cursor: pointer;
   font-size: 16px;
-  border: none;
-  outline: none;
   font-weight: 500;
-  color: #E5E5E6;
   text-transform: uppercase;
+}
+
+.submit:hover {
+  color: white;
+  border: 1px solid white;
 }
 
 .submit.default:disabled,
 .submit.default:disabled:hover,
 .submit.default:disabled:focus {
   cursor: not-allowed;
-  background-color: rgba(#B82D2D, 0.1);
+  background-color: rgba(#b82d2d, 0.1);
 }
 
-.blurb, .pwContainer {
+.blurb,
+.pwContainer {
   text-align: center;
-  color: #828282;
+  color: #4f4f4f;
   margin: 9px auto;
 }
 
@@ -83,13 +89,13 @@
 }
 
 .forgotPW {
-  color: #a2a2a2;
+  color: #4f4f4f;
   font-size: 13px;
   text-decoration: underline;
 }
 
 .blurb {
-  font-size: 12px;
+  font-size: 13px;
   width: 60%;
 }
 
