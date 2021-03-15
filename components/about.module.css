@@ -145,6 +145,7 @@
   }
 
   .socials {
+    display: none;
     width: 25%;
   }
 
