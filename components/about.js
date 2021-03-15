@@ -38,7 +38,7 @@
           <img className={styles.logo} src="/logo.svg" alt="TEDxCMU Logo" />
         </div>
         <div className={styles.content}>
-            <h2 className={styles.title}>TEDxCMU 2021: CATALYST</h2>
+            <h2 className={styles.title}>TEDxCMU: CATALYST</h2>
             <p>It takes a catalyst to create meaningful change. The people who are catalysts are the ones who shake up the status quo. they add new ideas, new dreams, and new perspectives that can shift the societal dogma. They can change the perspectives of those that disagree, and can elevate the minds of those who are receptive. A catalyst can transform an existing narrative, even if only a little, by proposing new ideas, and telling stories that matter deeply to them.<br /><br />It is imperative that we listen to each other to solve the problems of today and tomorrow. TEDx Catalyst hopes to inspire you to make change when you can, and make the world what you want it to look like.</p>
             <div className={styles.buttonsContainer}>
               <a className={styles.button} href="https://tedxcmu.org" rel="noopener noreferrer" target="_blank">
