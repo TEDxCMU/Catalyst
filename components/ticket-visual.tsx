@@ -27,7 +27,7 @@ type Props = {
   ticketGenerationState?: TicketGenerationState;
 };
 
-export default function TicketVisual({ size = 1, name, username, ticketNumber, ticketGenerationState = 'default' }: Props) {
+export default function TicketVisual({ size = 1, name, ticketNumber, ticketGenerationState = 'default' }: Props) {
   return (
     <>
       <div className={styles.visual} style={{ ['--size' as string]: size }}>
