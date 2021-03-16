@@ -29,6 +29,7 @@
   margin-bottom: 10px;
   font-size: 16px;
   color: #828282;
+  letter-spacing: 0.01em;
 }
 
 .title {
@@ -82,10 +83,8 @@
   margin: 0;
   font-size: 15px;
   color: #828282;
-  line-height: 124.5%;
   font-style: normal;
   font-weight: normal;
-  font-size: 15px;
   line-height: 1.3rem;
   letter-spacing: 0.01em;
 }
