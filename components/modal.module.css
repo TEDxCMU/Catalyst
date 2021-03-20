@@ -25,13 +25,13 @@
   border: 1px solid #4f4f4f;
   border-radius: 10px;
   overflow: hidden;
-  animation: contentTransition 1s forwards cubic-bezier(0.02, 0.8, 0.2, 1);
+  animation: contentTransition 0.7s forwards cubic-bezier(0.02, 0.8, 0.2, 1);
 }
 
 @keyframes contentTransition {
   0% {
     opacity: 0;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -45%);
   }
   100% {
     opacity: 1;

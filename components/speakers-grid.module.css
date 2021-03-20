@@ -130,6 +130,6 @@
 .tagline {
   font-family: "jaf-lapture";
   font-size: 17px;
-  margin: 0;
-  line-height: 1.6rem;
+  margin: 4px 0 0 0;
+  line-height: 1.3rem;
 }
