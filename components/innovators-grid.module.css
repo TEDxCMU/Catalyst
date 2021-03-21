@@ -35,18 +35,12 @@
   width: 100%;
   min-width: 300px;
   display: grid;
-  grid-template-columns: repeat(5, 18.8%);
+  grid-template-columns: repeat(4, 23.875%);
   gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-@media (max-width: 1440px) {
-  .grid {
-    grid-template-columns: repeat(4, 23.875%);
-  }
 }
 
 @media (max-width: 1280px) {
@@ -62,7 +56,11 @@
     gap: 1.5%;
   }
 }
-
+@media (min-width: 768px) {
+  .grid {
+    padding: 0 var(--space-8x);
+  }
+}
 @media (max-width: 471px) {
   .grid {
     display: flex;
