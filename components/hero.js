@@ -106,6 +106,7 @@ export default function Hero() {
       sliderRef?.current &&
       !isMobileOnly
     ) {
+      console.log("not done");
       // Get overlay img dimensions
       imageWidth.current = overlayImageRef.current.offsetWidth;
       imageHeight.current = overlayImageRef.current.offsetHeight;
@@ -273,7 +274,7 @@ export default function Hero() {
       )}
       {loginStatus !== "loggedIn" && (
         <Modal active={activeLoginModal} setActive={setActiveLoginModal}>
-          <SignInForm activeRegisterModal={activeLoginModal}/>
+          <SignInForm activeRegisterModal={activeLoginModal} />
         </Modal>
       )}
       {loginStatus !== "loggedIn" && (

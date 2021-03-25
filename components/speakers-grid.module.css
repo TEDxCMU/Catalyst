@@ -20,37 +20,12 @@
   width: 100%;
   min-width: 300px;
   display: grid;
-  grid-template-columns: repeat(4, 23.875%);
+  grid-template-columns: repeat(3, 32.33%);
   gap: 1.5%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-@media (min-width: 768px) {
-  .grid {
-    padding: 0 var(--space-8x);
-  }
-}
-@media (max-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(3, 32.33%);
-    gap: 1.5%;
-  }
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 49.25%);
-    gap: 1.5%;
-  }
-}
-
-@media (max-width: 471px) {
-  .grid {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .grid::-webkit-scrollbar {
@@ -61,7 +36,7 @@
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
-  border: 1px solid #333333;
+  border: 0.7px solid #333333;
   padding: 1px;
   transition: border 0.3s;
 }
@@ -81,7 +56,7 @@
 }
 
 .imageWrapper {
-  height: 207px;
+  height: 23vw;
   position: relative;
 }
 
@@ -92,6 +67,41 @@
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   opacity: 0.8;
+}
+
+@media (max-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(3, 32.33%);
+  }
+}
+
+@media (max-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(3, 32.33%);
+    gap: 1.5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 49.25%);
+    gap: 1.5%;
+  }
+  .imageWrapper {
+    height: 40vw;
+  }
+}
+
+@media (max-width: 471px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (min-width: 768px) {
+  .grid {
+    padding: 0 var(--space-8x);
+  }
 }
 
 @media (max-width: 471px) {
@@ -123,6 +133,6 @@
 .tagline {
   font-family: "jaf-lapture";
   font-size: 17px;
-  margin: 0;
-  line-height: 1.6rem;
+  margin: 4px 0 0 0;
+  line-height: 1.3rem;
 }

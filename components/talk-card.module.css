@@ -22,12 +22,15 @@
   color: var(--secondary-color);
   margin: 0 0 var(--space-2x);
   text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .card {
   color: inherit;
   display: block;
   border-radius: var(--space-2x);
+  font-size: 15px;
+  line-height: 1.3rem;
   /* min-width: var(--talk-card-width, 270px); */
   width: var(--talk-card-width, 307px);
   /* background-image: linear-gradient(#111111, #111111), linear-gradient(to right, #333333, #333333);
@@ -104,7 +107,6 @@
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
-  line-height: 1.3rem;
   letter-spacing: 0.01em;
 }
 
