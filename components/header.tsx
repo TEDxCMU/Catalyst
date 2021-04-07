@@ -43,7 +43,6 @@ export default function Header({ hero, expo_link } : Props) {
         ) : null )
       : null
       }
-      
     </div>
   );
 }
