@@ -183,7 +183,7 @@ export default function Form({ sharePage }: Props) {
         </div>
       </form>
       <p className={styles.blurb}>
-        Having trouble registering? Email us tedxcmuinnovation@gmail.com.
+        Having trouble registering? Email us at tedxcmuinnovation@gmail.com.
       </p>
     </div>
   );
