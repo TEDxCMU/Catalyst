@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .hero {
   font-family: "ivypresto-display";
   text-transform: uppercase;
@@ -32,6 +38,10 @@
   margin-left: 24px;
 }
 
+.btn {
+  padding: 8px 30px;
+}
+
 @media (min-width: 768px) {
   .hero {
     font-size: 40px;
@@ -40,5 +50,11 @@
 
   .description {
     margin-left: var(--space-8x);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    display: block;
   }
 }

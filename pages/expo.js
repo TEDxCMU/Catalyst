@@ -20,18 +20,20 @@ import Layout from '@components/layout';
 import InnovatorsGrid from 'components/innovators-grid';
 
 import { EXPO_DESCRIPTION } from '@lib/constants';
-import { getInnovators } from 'lib/cms-api';
+import { getStage, getInnovators } from 'lib/cms-api';
 
-export default function ExpoPage({ innovators }) {
+export default function ExpoPage({ stage, innovators }) {
   const meta = {
     title: 'Expo - TEDxCMU Catalyst',
     description: EXPO_DESCRIPTION
   };
 
+  const expo_link = stage.expo_link;
+
   return (
     <Page meta={meta}>
       <Layout>
-        <Header hero="Innovation Expo" description={meta.description} />
+        <Header hero="Innovation Expo" description={meta.description} expo_link={expo_link}/>
         <InnovatorsGrid innovators={innovators} />
       </Layout>
     </Page>
@@ -39,10 +41,13 @@ export default function ExpoPage({ innovators }) {
 }
 
 export async function getStaticProps() {
+  const stages = await getStage();
   const innovators = await getInnovators();
+  const stage = stages[0];
 
   return {
     props: {
+      stage,
       innovators
     },
     revalidate: 1
