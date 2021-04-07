@@ -15,15 +15,35 @@
  */
 
 import styles from './header.module.css';
+import ExpoButton from './expo-button';
+import useLoginStatus from '@lib/hooks/use-login-status';
 
 type Props = {
-  hero: React.ReactNode;
-};
+  hero: any,
+  expo_link: any;
+}
 
-export default function Header({ hero }: Props) {
+export default function Header({ hero, expo_link } : Props) {
+  const { loginStatus } = useLoginStatus();
+
   return (
-    <>
+    <div className={styles.container}>
       <h1 className={styles.hero}>{hero}</h1>
-    </>
+      { hero == 'Innovation Expo' ?
+        (expo_link != '' ? (
+          ( loginStatus == 'loggedIn' ?
+            <div className={styles.btn}>
+              <ExpoButton expoLink={expo_link}/>
+            </div>
+            :
+            <div className={styles.btn}>
+              <ExpoButton expoLink="/"/>
+            </div>
+            )
+        ) : null )
+      : null
+      }
+      
+    </div>
   );
 }
