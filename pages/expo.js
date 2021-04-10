@@ -18,7 +18,6 @@ import Page from '@components/page';
 import Header from '@components/header';
 import Layout from '@components/layout';
 import InnovatorsGrid from 'components/innovators-grid';
-
 import { EXPO_DESCRIPTION } from '@lib/constants';
 import { getStage, getInnovators } from 'lib/cms-api';
 

@@ -27,22 +27,27 @@ export default function Header({ hero, expo_link } : Props) {
   const { loginStatus } = useLoginStatus();
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.hero}>{hero}</h1>
+    <>
+      <div className={styles.container}>
+        <h1 className={styles.hero}>{hero}</h1>
+        { hero == 'Innovation Expo' ?
+          (expo_link != '' ? (
+            ( loginStatus == 'loggedIn' ?
+              <div className={styles.btn}>
+                <ExpoButton expoLink={expo_link}/>
+              </div>
+              :
+              <div className={styles.btn}>
+                <ExpoButton expoLink="/"/>
+              </div>
+              )
+          ) : null )
+        : null
+        }
+      </div>
       { hero == 'Innovation Expo' ?
-        (expo_link != '' ? (
-          ( loginStatus == 'loggedIn' ?
-            <div className={styles.btn}>
-              <ExpoButton expoLink={expo_link}/>
-            </div>
-            :
-            <div className={styles.btn}>
-              <ExpoButton expoLink="/"/>
-            </div>
-            )
-        ) : null )
-      : null
-      }
-    </div>
+        <p className={styles.description}>The Expo will begin around 2:30pm EST on Saturday, April 10th. If you do not see a link to the Zoom then, please refresh the page.</p>
+      : null}
+    </>
   );
 }
