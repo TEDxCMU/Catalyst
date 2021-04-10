@@ -32,15 +32,9 @@ export default function Header({ hero, expo_link } : Props) {
         <h1 className={styles.hero}>{hero}</h1>
         { hero == 'Innovation Expo' ?
           (expo_link != '' ? (
-            ( loginStatus == 'loggedIn' ?
-              <div className={styles.btn}>
-                <ExpoButton expoLink={expo_link}/>
-              </div>
-              :
-              <div className={styles.btn}>
-                <ExpoButton expoLink="/"/>
-              </div>
-              )
+            <div className={styles.btn}>
+              <ExpoButton expoLink={expo_link}/>
+            </div>
           ) : null )
         : null
         }

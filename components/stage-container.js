@@ -28,8 +28,7 @@ export default function StageContainer({ stage, events }) {
   return (
     <div className={styles.container}>
       <div className={styles.streamContainer}>
-        {loginStatus === "loggedIn" ? (
-          stage.stream != '' ? (
+        {stage.stream != '' ? (
             <div className={cn(styles.stream, styleUtils.appear, styleUtils["appear-first"])}>
               <iframe
                 allow='autoplay; picture-in-picture'
@@ -98,10 +97,7 @@ export default function StageContainer({ stage, events }) {
             </div>
           ) : (
             <StreamLoading />
-          )
-        ) : loginStatus === "loading" ? null : (
-          <ConfEntry onRegister={() => mutate()} />
-        )}
+          )}
       </div>
       {/* {loginStatus === "loggedIn" && <ScheduleSidebar events={events} />} */}
       <ScheduleSidebar events={events} />
