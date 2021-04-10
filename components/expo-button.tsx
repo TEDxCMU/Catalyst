@@ -9,18 +9,21 @@ type Props = {
 export default function ExpoButton({ expoLink }: Props) {
     return (
         <div className={styles.buttonContainer}>
-            <Link href={`${expoLink}`}>
-                {expoLink != "/" ? 
-                    <button className={styles.button}>
+            {expoLink != "/" ? 
+            (
+                <a href={`${expoLink}`} target="_blank">
+                   <button className={styles.button}>
                         Join Live Zoom Call
-                    </button>
-                : 
+                    </button> 
+                </a>
+            ) : (
+                <Link href={`${expoLink}`}>
                     <button className={styles.reg_button}>
                         Sign In to Join Zoom
                     </button>
-                }
-                
-            </Link>
+                </Link>
+            )
+            }
         </div>
     );
 }
