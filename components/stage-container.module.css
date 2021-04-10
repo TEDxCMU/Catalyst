@@ -50,10 +50,13 @@
 
 .stageName {
   display: flex;
+  font-family: "ivypresto-display";
+  text-transform: uppercase;
+  font-weight: 400;
   font-size: 24px;
   color: #fff;
   line-height: 1.15;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.03em;
   font-weight: 800;
   margin-bottom: var(--space-2x);
 }
