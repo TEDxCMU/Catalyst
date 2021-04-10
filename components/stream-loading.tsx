@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import styleUtils from './utils.module.css';
 import styles from './conf-entry.module.css';
-import SignInButton from './sign-in-button';
 import {DATE, TIME} from '@lib/constants';
 
 export default function StreamLoading() {

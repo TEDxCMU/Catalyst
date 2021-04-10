@@ -22,8 +22,6 @@ import styleUtils from "./utils.module.css";
 import ScheduleSidebar from "./schedule-sidebar";
 import ConfEntry from "./conf-entry";
 import StreamLoading from "./stream-loading";
-import BeforeConfEntry from "./before-conf-entry";
-import { getSchedule } from "lib/cms-api";
 
 export default function StageContainer({ stage, events }) {
   const { loginStatus, mutate } = useLoginStatus();

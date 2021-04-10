@@ -7,7 +7,7 @@ export default function SignInButton() {
         <div className={styles.buttonContainer}>
             <Link href="/">
                 <button className={cn(styles.signin, styles.button)}>
-                    Register Now
+                    Sign In Now
                 </button>
             </Link>
         </div>
